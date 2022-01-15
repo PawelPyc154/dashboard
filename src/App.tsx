@@ -1,5 +1,5 @@
-import tw from 'twin.macro'
-
-const App = () => <div>test</div>
+function App() {
+  return <div>test</div>
+}
 
 export default App
