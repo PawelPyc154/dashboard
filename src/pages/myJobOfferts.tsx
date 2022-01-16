@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
+import tw from 'twin.macro'
 import { Columns, TablePage } from '../components/common/table/tablePage'
 import { IconButton } from '../components/form/iconButton'
 
@@ -38,8 +39,9 @@ const MyJobOfferts = () => {
         justify: 'start',
         Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
       },
-      { Header: 'Views', accessor: 'views' },
-      { Header: 'Applications', accessor: 'applications' },
+      { Header: 'Views', accessor: 'views', tw: tw`hidden lg:flex` },
+      { Header: 'Applications', accessor: 'applications', tw: tw`hidden lg:flex` },
+
       {
         accessor: 'id',
         justify: 'end',

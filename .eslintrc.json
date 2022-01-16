@@ -30,6 +30,7 @@
     "implicit-arrow-linebreak": "off",
     "import/extensions": "off",
     "object-curly-newline": "off",
+    "no-nested-ternary": "off",
     "react/jsx-props-no-spreading": "off",
     "consistent-return": "off",
     "react/require-default-props": "off",

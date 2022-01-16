@@ -40,7 +40,7 @@ const Navigation = () => {
       </Containter>
 
       <IconButton
-        tw="fixed z-40 bottom-4 right-4 xl:hidden"
+        tw="fixed z-40 bottom-4 right-4 lg:!hidden"
         color="green"
         onClick={() => setIsOpenMenu((prev) => !prev)}
       >
@@ -55,8 +55,8 @@ interface ContainterProps {
   isOpenMenu: boolean
 }
 const Containter = styled.nav<ContainterProps>(({ isOpenMenu }) => [
-  tw`fixed xl:static bg-white h-screen w-64 grid grid-rows-[max-content 1fr max-content] py-6 gap-6 shadow-lg z-50`,
-  isOpenMenu ? tw`grid` : tw`hidden xl:grid`,
+  tw`fixed lg:static bg-white h-screen w-64 grid grid-rows-[max-content 1fr max-content] py-6 gap-6 shadow-lg z-50`,
+  isOpenMenu ? tw`grid` : tw`hidden lg:grid`,
 ])
 const LogoWrapper = tw.div`text-4xl h-12 rounded-md px-6`
 const LinksWrapper = tw.div`grid content-start gap-6 px-2`

@@ -1,7 +1,8 @@
-import tw, { styled } from 'twin.macro'
+import tw, { styled, TwStyle } from 'twin.macro'
 import { MdSearch } from 'react-icons/md'
 import { FaSlidersH } from 'react-icons/fa'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
+import { GoPlus } from 'react-icons/go'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType } from 'react-table'
 import { Input } from '../../form/input'
 import { Heading } from '../heading'
@@ -9,6 +10,7 @@ import { Pagination } from '../pagination'
 import { IconButton } from '../../form/iconButton'
 import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
+import { Button } from '../../form/button'
 
 const justifyVariants = {
   start: tw`justify-start`,
@@ -17,8 +19,12 @@ const justifyVariants = {
 }
 type JustifyVariants = keyof typeof justifyVariants
 
-export type Columns<TData extends object & { test?: string } = {}> = Array<
-  Column<TData> & { justify?: JustifyVariants; isFixedWidth?: boolean }
+export type Columns<TData extends object = {}> = Array<
+  Column<TData> & {
+    justify?: JustifyVariants
+    isFixedWidth?: boolean
+    tw?: TwStyle
+  }
 >
 
 interface TableProps<TData extends object = {}> {
@@ -26,45 +32,38 @@ interface TableProps<TData extends object = {}> {
   data: TData[]
 }
 const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TData>) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } =
+    useTable(
+      {
+        columns,
+        data,
+        autoResetSelectedRows: false,
+      },
 
-    // state: { selectedRowIds },
-  } = useTable(
-    {
-      columns,
-      data,
-      autoResetSelectedRows: false,
-    },
-
-    useFlexLayout,
-    useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((cols) => [
-        {
-          id: 'selection',
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          width: 40,
-          justify: 'start',
-          isFixedWidth: true,
-          Cell: ({ row }: { row: RowType<{}> }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...cols,
-      ])
-    },
-  )
+      useFlexLayout,
+      useRowSelect,
+      (hooks) => {
+        hooks.visibleColumns.push((cols) => [
+          {
+            id: 'selection',
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <div>
+                <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+              </div>
+            ),
+            width: 40,
+            justify: 'start',
+            isFixedWidth: true,
+            Cell: ({ row }: { row: RowType<{}> }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
+          },
+          ...cols,
+        ])
+      },
+    )
 
   const { ref, hasScroll } = useElementSize<HTMLDivElement>()
 
@@ -73,20 +72,18 @@ const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TDat
       <Header>
         <Heading tag="h1" size="3xl">
           My job offerts
-          <span tw="text-sm ml-2 xl:ml-4">(323)</span>
+          <span tw="text-sm ml-2">(323)</span>
         </Heading>
         <InputsWrapper>
-          {/* <Button>Add</Button> */}
-
-          <div tw="hidden xl:block">
+          <Button tw="hidden lg:block">Add</Button>
+          <div tw="hidden lg:block">
             <Input icon={<MdSearch />} placeholder="Search..." />
           </div>
-
-          <IconButton>
-            <FaSlidersH />
+          <IconButton tw="lg:hidden" color="green">
+            <GoPlus size="20" />
           </IconButton>
           <IconButton>
-            <BiDotsVerticalRounded size="25" />
+            <FaSlidersH />
           </IconButton>
         </InputsWrapper>
       </Header>
@@ -100,6 +97,7 @@ const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TDat
                   {...column.getHeaderProps()}
                   isFixedWidth={!!column.isFixedWidth}
                   justify={column.justify}
+                  css={[column.tw]}
                 >
                   {column.render('Header')}
                 </Cell>
@@ -119,6 +117,7 @@ const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TDat
                     {...cell.getCellProps()}
                     isFixedWidth={!!cell.column.isFixedWidth}
                     justify={cell.column.justify}
+                    css={[cell.column.tw]}
                   >
                     {cell.render('Cell')}
                   </Cell>
@@ -128,17 +127,18 @@ const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TDat
           })}
         </ListWrapper>
       </TableWrapper>
-      {/* <div tw="grid gap-2 xl:hidden">
-        {data.map(({ id }) => (
-          <div tw="bg-white p-4 rounded-md" key={id}>
-            test
-          </div>
-        ))}
-      </div> */}
+
       <BottomBar>
-        {/* <div tw="flex gap-4">
-          <Button disabled={!selectedRows.length}>Delete</Button>
-        </div> */}
+        <div tw="hidden lg:flex gap-4">
+          <Button disabled={!selectedFlatRows.length}>Promote</Button>
+          <Button disabled={!selectedFlatRows.length}>Duplicate</Button>
+          <Button disabled={!selectedFlatRows.length}>Delete</Button>
+        </div>
+        {!!selectedFlatRows.length && (
+          <IconButton tw="lg:hidden">
+            <BiDotsVerticalRounded size="25" />
+          </IconButton>
+        )}
         <Pagination />
       </BottomBar>
     </Container>
@@ -147,12 +147,12 @@ const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TDat
 
 export { TablePage }
 
-const Container = tw.main`grid gap-4   grid-rows-[max-content 1fr max-content]`
+const Container = tw.main`grid gap-2 lg:gap-4 grid-rows-[max-content 1fr max-content]`
 const Header = tw.div`flex justify-between relative items-center`
 const InputsWrapper = tw.div`flex gap-4`
-const BottomBar = tw.div`flex justify-between`
+const BottomBar = tw.div`h-11 flex justify-between relative`
 
-const TableWrapper = tw.div`grid gap-1 grid-rows-[max-content 1fr] h-[calc(100vh - 172px)]`
+const TableWrapper = tw.div`grid gap-1 grid-rows-[max-content 1fr] h-[calc(100vh - 144px)] lg:h-[calc(100vh - 172px)]`
 const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
   tw`flex h-8 text-sm`,
   hasScroll && tw`pr-1.5`,

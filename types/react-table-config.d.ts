@@ -49,6 +49,7 @@ import {
   UseSortByOptions,
   UseSortByState,
 } from 'react-table'
+import { TwStyle } from 'twin.macro'
 
 declare module 'react-table' {
   // take this file as-is, or comment out the sections that don't apply to your plugin configuration
@@ -111,6 +112,7 @@ declare module 'react-table' {
       UseSortByColumnProps<D> {
     isFixedWidth?: boolean
     justify?: 'start' | 'center' | 'end'
+    tw?: TwStyle
   }
 
   export interface Cell<D extends Record<string, unknown> = Record<string, unknown>, V = any>

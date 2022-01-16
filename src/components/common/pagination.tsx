@@ -1,66 +1,57 @@
-import 'twin.macro'
-// import { Select } from '../form/select'
+import tw, { styled, css, theme } from 'twin.macro'
+import ReactPaginate from 'react-paginate'
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+import { useState } from 'react'
+import { Select } from '../form/select'
 
-const Pagination = () => (
-  <div tw="flex gap-4">
-    <div tw="flex items-center ">
-      <button
-        type="button"
-        tw="w-full p-4 border text-base rounded-l-md text-gray-600 bg-white hover:bg-gray-100 font-semibold"
-      >
-        <svg
-          width="9"
-          fill="currentColor"
-          height="9"
-          tw=""
-          viewBox="0 0 1792 1792"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        tw="w-full px-4 py-2 border-t border-b  text-base text-indigo-500 bg-white hover:bg-gray-100  font-semibold"
-      >
-        1
-      </button>
-      <button
-        type="button"
-        tw="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100 font-semibold"
-      >
-        2
-      </button>
-      <button
-        type="button"
-        tw="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100 font-semibold"
-      >
-        3
-      </button>
-      <button
-        type="button"
-        tw="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100 font-semibold"
-      >
-        4
-      </button>
-      <button
-        type="button"
-        tw="w-full p-4 border-t border-b border-r text-base  rounded-r-md text-gray-600 bg-white hover:bg-gray-100 font-semibold"
-      >
-        <svg
-          width="9"
-          fill="currentColor"
-          height="9"
-          tw=""
-          viewBox="0 0 1792 1792"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z" />
-        </svg>
-      </button>
+const Pagination = () => {
+  const [pageNumber, setPageNumber] = useState(1)
+  const pageCount = 5
+
+  return (
+    // const handlePageClick = (value: number) => {
+    //   console.log(value)
+    // }
+    <div tw="flex gap-4">
+      {pageCount > 1 && (
+        <ReactPaginateStyled
+          breakClassName="hidden"
+          // breakLabel="..."
+          previousLabel={<MdKeyboardArrowLeft />}
+          onPageChange={({ selected }) => setPageNumber(selected)}
+          pageRangeDisplayed={pageNumber === 0 || pageCount - 1 === pageNumber ? 3 : 2}
+          marginPagesDisplayed={0}
+          forcePage={pageNumber}
+          previousClassName={pageNumber === 0 ? 'transparent' : ''}
+          nextClassName={pageCount - 1 === pageNumber ? 'transparent' : ''}
+          pageCount={pageCount}
+          nextLabel={<MdKeyboardArrowRight />}
+          activeClassName="activePage"
+        />
+      )}
+      <Select tw="hidden lg:flex" />
     </div>
-    {/* <Select tw="hidden" /> */}
-  </div>
-)
+  )
+}
 
 export { Pagination }
+
+const ReactPaginateStyled = styled(ReactPaginate)(() => [
+  tw`absolute left-1/2 transform -translate-x-1/2 lg:(translate-x-0 static) flex divide-x rounded-md select-none overflow-hidden divide-gray-200  all-child:(bg-white hover:bg-gray-100 all-child:(w-10 sm:w-11 h-11 flex items-center justify-center))`,
+  css`
+    && .activePage {
+      background: ${theme('colors.green.600')};
+      /* opacity: 0.3; */
+      color: white;
+      pointer-events: none;
+    }
+
+    && .hidden {
+      display: none;
+    }
+    && .transparent {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  `,
+])
