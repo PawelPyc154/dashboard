@@ -6,7 +6,7 @@ import { GlobalStyles } from './components/styles/globalStyles'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="https://dashboard-zeta-five.vercel.app/">
       <GlobalStyles />
       <App />
     </BrowserRouter>
