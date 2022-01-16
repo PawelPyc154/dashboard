@@ -27,6 +27,7 @@ declare global {
   namespace JSX {
     interface IntrinsicAttributes<T> extends DOMAttributes<T> {
       as?: string | Element
+      css?: CSSProp
     }
   }
 }

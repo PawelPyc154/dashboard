@@ -22,6 +22,16 @@
     "linebreak-style": 0,
     "react/jsx-filename-extension": "off",
     "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off",
+    "import/prefer-default-export": "off",
+    "no-use-before-define": "off",
+    "implicit-arrow-linebreak": "off",
+    "import/extensions": "off",
+    "object-curly-newline": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "import/no-unresolved": "off",
+    "operator-linebreak": "off",
     "import/no-extraneous-dependencies": "off"
   }
 }
