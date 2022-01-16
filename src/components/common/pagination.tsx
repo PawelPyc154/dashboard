@@ -1,17 +1,17 @@
 import 'twin.macro'
-import { Select } from '../form/select'
+// import { Select } from '../form/select'
 
 const Pagination = () => (
   <div tw="flex gap-4">
-    <div tw="flex items-center">
+    <div tw="flex items-center ">
       <button
         type="button"
-        tw="w-full p-4 border text-base rounded-l-md text-gray-600 bg-white hover:bg-gray-100"
+        tw="w-full p-4 border text-base rounded-l-md text-gray-600 bg-white hover:bg-gray-100 font-semibold"
       >
         <svg
           width="9"
           fill="currentColor"
-          height="8"
+          height="9"
           tw=""
           viewBox="0 0 1792 1792"
           xmlns="http://www.w3.org/2000/svg"
@@ -21,36 +21,36 @@ const Pagination = () => (
       </button>
       <button
         type="button"
-        tw="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 "
+        tw="w-full px-4 py-2 border-t border-b  text-base text-indigo-500 bg-white hover:bg-gray-100  font-semibold"
       >
         1
       </button>
       <button
         type="button"
-        tw="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100"
+        tw="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100 font-semibold"
       >
         2
       </button>
       <button
         type="button"
-        tw="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100"
+        tw="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100 font-semibold"
       >
         3
       </button>
       <button
         type="button"
-        tw="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100"
+        tw="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100 font-semibold"
       >
         4
       </button>
       <button
         type="button"
-        tw="w-full p-4 border-t border-b border-r text-base  rounded-r-md text-gray-600 bg-white hover:bg-gray-100"
+        tw="w-full p-4 border-t border-b border-r text-base  rounded-r-md text-gray-600 bg-white hover:bg-gray-100 font-semibold"
       >
         <svg
           width="9"
           fill="currentColor"
-          height="8"
+          height="9"
           tw=""
           viewBox="0 0 1792 1792"
           xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ const Pagination = () => (
         </svg>
       </button>
     </div>
-    <Select />
+    {/* <Select tw="hidden" /> */}
   </div>
 )
 

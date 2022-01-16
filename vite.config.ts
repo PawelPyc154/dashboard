@@ -11,4 +11,9 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    host: '192.168.0.100',
+    // https: true,
+    // port: 2000,
+  },
 })

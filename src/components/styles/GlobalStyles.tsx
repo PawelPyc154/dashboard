@@ -3,7 +3,7 @@ import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
 
 const CustomStyles = createGlobalStyle({
   body: {
-    WebkitTapHighlightColor: theme`colors.purple.500`,
+    WebkitTapHighlightColor: theme`colors.green.600`,
     ...tw`antialiased`,
     background: theme`colors.gray.200`,
   },
@@ -23,7 +23,7 @@ const CustomStyles = createGlobalStyle({
 
   /* Handle on hover */
   '::-webkit-scrollbar-thumb:hover': {
-    background: theme`colors.green.500`,
+    background: theme`colors.green.700`,
   },
 })
 
