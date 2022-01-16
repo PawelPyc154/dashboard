@@ -1,64 +1,59 @@
 import { Column, useFlexLayout, useTable } from 'react-table'
-import { css } from 'twin.macro'
+import tw, { styled } from 'twin.macro'
+import { useElementSize } from '../../../hook/useElementSize'
 
+export type Columns<TData extends object = {}> = Array<Column<TData> & { justify?: 'center' }>
 interface TableProps<TData extends object = {}> {
-  columns: Column<TData>[]
+  columns: Columns<TData>
   data: TData[]
 }
-const Table = <TData extends object = {}>({
-  columns,
-  data,
-}: TableProps<TData>) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
+const Table = <TData extends object = {}>({ columns, data }: TableProps<TData>) => {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+    },
+    useFlexLayout,
+  )
 
-        data,
-      },
-      useFlexLayout,
-    )
+  const { ref, hasScroll } = useElementSize<HTMLDivElement>()
 
   return (
-    <div
-      {...getTableProps()}
-      tw="grid grid-rows-[max-content 1fr] h-[calc(100vh - 184px)]"
-    >
-      <div tw="rounded-md px-4 flex h-8 text-sm">
+    <Container {...getTableProps()}>
+      <Header hasScroll={hasScroll}>
         {headerGroups.map((headerGroup) => (
-          <div {...headerGroup.getHeaderGroupProps()}>
+          <Row {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <div {...column.getHeaderProps()}>{column.render('Header')}</div>
+              <Cell {...column.getHeaderProps()}>{column.render('Header')}</Cell>
             ))}
-          </div>
+          </Row>
         ))}
-      </div>
+      </Header>
 
-      <div
-        {...getTableBodyProps()}
-        tw="bg-white rounded-md shadow-sm px-2 divide-y divide-gray-100 overflow-auto"
-      >
+      <ListWrapper {...getTableBodyProps()} ref={ref}>
         {rows.map((row) => {
           prepareRow(row)
           return (
-            <div
-              {...row.getRowProps()}
-              tw="px-2 flex items-center"
-              css={[
-                css`
-                  min-height: 50px;
-                `,
-              ]}
-            >
+            <ListItemRow {...row.getRowProps()}>
               {row.cells.map((cell) => (
-                <div {...cell.getCellProps()}>{cell.render('Cell')}</div>
+                <Cell {...cell.getCellProps()}>{cell.render('Cell')}</Cell>
               ))}
-            </div>
+            </ListItemRow>
           )
         })}
-      </div>
-    </div>
+      </ListWrapper>
+    </Container>
   )
 }
 
 export { Table }
+
+const Container = tw.div`grid grid-rows-[max-content 1fr] h-[calc(100vh - 184px)]`
+const Header = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
+  tw`flex h-8 text-sm`,
+  hasScroll && tw`pr-1.5`,
+])
+const ListWrapper = tw.div`bg-white rounded-md shadow-sm divide-y divide-gray-100 overflow-auto`
+const Row = tw.div`flex items-center px-2`
+const ListItemRow = tw(Row)`py-2`
+const Cell = tw.div`px-2`

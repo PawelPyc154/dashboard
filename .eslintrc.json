@@ -29,7 +29,9 @@
     "import/extensions": "off",
     "object-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
+    "consistent-return": "off",
     "react/require-default-props": "off",
+    "react/no-unstable-nested-components": "off",
     "import/no-unresolved": "off",
     "operator-linebreak": "off",
     "import/no-extraneous-dependencies": "off"

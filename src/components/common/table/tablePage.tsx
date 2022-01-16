@@ -2,29 +2,34 @@ import tw from 'twin.macro'
 import { MdSearch } from 'react-icons/md'
 import { FaSlidersH } from 'react-icons/fa'
 import { useMemo } from 'react'
-import { Column } from 'react-table'
 import { Input } from '../../form/input'
 import { Heading } from '../heading'
 import { Pagination } from '../pagination'
-import { Table } from './table'
+import { Columns, Table } from './table'
 import { IconButton } from '../../form/iconButton'
 import { Button } from '../../form/button'
 
 const TablePage = () => {
   const columns = useMemo(
-    (): Column<{
+    (): Columns<{
       id: number
       title: string
       views: number
       applications: number
-    }>[] => [
+    }> => [
       { Header: 'Title', accessor: 'title' },
       { Header: 'Views', accessor: 'views' },
       { Header: 'Applications', accessor: 'applications' },
-      { Header: 'Actions', accessor: 'id' },
+      {
+        Header: () => <div tw="bg-blue-500">Actions</div>,
+        accessor: 'id',
+        justify: 'center',
+        Cell: () => <div tw="bg-blue-800">test</div>,
+      },
     ],
     [],
   )
+
   return (
     <Container>
       <Header>
@@ -45,17 +50,17 @@ const TablePage = () => {
         data={[
           { id: 1, title: 'test', views: 123321, applications: 55 },
           { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
-          { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
+          // { id: 1, title: 'test', views: 123321, applications: 55 },
           { id: 1, title: 'test', views: 123321, applications: 55 },
           { id: 1, title: 'test', views: 123321, applications: 55 },
           { id: 1, title: 'test', views: 123321, applications: 55 },
