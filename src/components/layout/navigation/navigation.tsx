@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MdMenu } from 'react-icons/md'
-import { NavLink } from 'react-router-dom'
+import { Link, LinkProps, useMatch, useResolvedPath } from 'react-router-dom'
 import tw, { styled } from 'twin.macro'
 import { Avatar } from '../../common/avatar'
 import { IconButton } from '../../form/iconButton'
@@ -17,18 +17,18 @@ const Navigation = () => {
         <LinksWrapper>
           {userType === 'employer' && (
             <LinksGroup>
-              <Link to="/">Dashboard</Link>
-              <Link to="/">Employer profile</Link>
-              <Link to="/my-job-offerts">My job offerts</Link>
+              <NavLink to="/">Dashboard</NavLink>
+              <NavLink to="/">Employer profile</NavLink>
+              <NavLink to="/my-job-offerts">My job offerts</NavLink>
             </LinksGroup>
           )}
           <LinksGroup>
-            <Link to="/employers">Employers</Link>
-            <Link to="/">Job offerts</Link>
+            <NavLink to="/employers">Employers</NavLink>
+            <NavLink to="/">Job offerts</NavLink>
           </LinksGroup>
-          <Link tw="self-end" to="/">
+          <NavLink tw="self-end" to="/">
             Settings
-          </Link>
+          </NavLink>
         </LinksWrapper>
         {/* {userType === 'employer' && <div />} */}
         <UserWrapper>
@@ -61,6 +61,11 @@ const Containter = styled.nav<ContainterProps>(({ isOpenMenu }) => [
 const LogoWrapper = tw.div`text-4xl h-12 rounded-md px-6`
 const LinksWrapper = tw.div`grid content-start gap-6 px-2`
 const LinksGroup = tw.div`grid gap-1 `
-const Link = tw(NavLink)`rounded-md px-4 py-2 hover:(bg-gray-100) transition-colors`
+const LinkStyled = tw(Link)`rounded-md px-4 py-2 hover:(bg-gray-100) transition-colors`
 const UserWrapper = tw.div`grid gap-2 `
 const User = tw.div`grid grid-flow-col justify-start gap-4 items-center px-6`
+const NavLink = ({ to, ...props }: LinkProps) => {
+  const resolved = useResolvedPath(to)
+  const match = useMatch({ path: resolved.pathname, end: true })
+  return <LinkStyled css={[match && tw`bg-gray-100 pointer-events-none`]} to={to} {...props} />
+}
