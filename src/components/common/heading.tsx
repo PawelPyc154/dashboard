@@ -1,10 +1,14 @@
 import { ReactNode } from 'react'
 import tw from 'twin.macro'
+import 'styled-components/macro'
 import { Tag } from './tag'
 
 const sizes = {
   base: tw`text-base`,
-  '3xl': tw`text-2xl lg:text-3xl`,
+  lg: tw`text-lg`,
+  xl: tw`text-xl`,
+  '2xl': tw`text-2xl`,
+  '3xl': tw`text-3xl`,
 }
 interface HeadingProps {
   tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
@@ -12,8 +16,8 @@ interface HeadingProps {
   size: keyof typeof sizes
 }
 
-const Heading = ({ tag, children, size }: HeadingProps) => (
-  <Tag tag={tag} css={[sizes[size]]}>
+const Heading = ({ tag, children, size, ...props }: HeadingProps) => (
+  <Tag tag={tag} css={[tw`font-semibold`, sizes[size]]} {...props}>
     {children}
   </Tag>
 )
