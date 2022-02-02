@@ -14,14 +14,14 @@ interface DialogProps {
   id: string
 }
 const Dialog = ({ id, title, children }: DialogProps) => {
-  const { removeDialogById } = useDialog()
+  const { closeDialogById } = useDialog()
 
   return (
-    <DialogOverlay onClick={() => removeDialogById(id)}>
+    <DialogOverlay onClick={() => closeDialogById(id)}>
       <DialogContentStyled>
         <TitleWrapper size="lg" tag="h1">
           {title}
-          <CloseButton color="gray" type="button" onClick={() => removeDialogById(id)}>
+          <CloseButton color="gray" type="button" onClick={() => closeDialogById(id)}>
             <MdClose size="26" />
           </CloseButton>
         </TitleWrapper>
@@ -31,9 +31,9 @@ const Dialog = ({ id, title, children }: DialogProps) => {
   )
 }
 
-export { Dialog }
-
 const DialogContentStyled = tw(DialogContent)`rounded-md !p-0 relative bg-white`
-const TitleWrapper = tw(Heading)`border-b border-gray-300 py-4 pl-6 pr-4 relative`
+const TitleWrapper = tw(Heading)`border-b border-gray-200 py-4 pl-6 pr-4 relative`
 const ContentWrapper = tw.div`p-6`
 const CloseButton = tw.button`p-2 absolute right-2 top-1/2 -translate-y-1/2`
+
+export { Dialog }

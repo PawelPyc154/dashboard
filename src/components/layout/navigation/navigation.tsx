@@ -18,7 +18,7 @@ const Navigation = () => {
           {userType === 'employer' && (
             <LinksGroup>
               <NavLink to="/">Dashboard</NavLink>
-              <NavLink to="/">Employer profile</NavLink>
+              <NavLink to="/table-page">Employer profile</NavLink>
               <NavLink to="/my-job-offerts">My job offerts</NavLink>
             </LinksGroup>
           )}
@@ -50,7 +50,6 @@ const Navigation = () => {
   )
 }
 
-export { Navigation }
 interface ContainterProps {
   isOpenMenu: boolean
 }
@@ -69,3 +68,5 @@ const NavLink = ({ to, ...props }: LinkProps) => {
   const match = useMatch({ path: resolved.pathname, end: true })
   return <LinkStyled css={[match && tw`bg-gray-100 pointer-events-none`]} to={to} {...props} />
 }
+
+export { Navigation }

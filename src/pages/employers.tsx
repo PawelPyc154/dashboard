@@ -1,7 +1,7 @@
 import { useDialog } from '../components/common/dialog/dialogProvider'
 
 const Employers = () => {
-  const { removeDialogById, addDialog } = useDialog()
+  const { closeDialogById, addDialog } = useDialog()
   return (
     <div>
       <button
@@ -12,7 +12,7 @@ const Employers = () => {
             title: 'test',
             dialogComponentContent: (
               <>
-                <button type="button" onClick={() => removeDialogById('addPost')}>
+                <button type="button" onClick={() => closeDialogById('addPost')}>
                   test
                 </button>
                 <button

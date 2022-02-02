@@ -1,17 +1,18 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, ReactNode, useContext } from 'react'
+import { cloneElement, createContext, ReactNode, useContext } from 'react'
 import { useArray } from '../../../hook/useArray'
 import { Dialog } from './dialog'
 
 type DialogItem = {
   id: string
-  dialogComponentContent: ReactNode
+  dialogComponentContent: JSX.Element
   title: string
 }
 
 type DialogContextValue = {
-  removeDialogById: (id: string) => void
+  closeDialogById: (id: string) => void
   addDialog: (element: DialogItem) => void
 }
 
@@ -23,7 +24,7 @@ interface DialogProviderProps {
 }
 const DialogProvider = ({ children }: DialogProviderProps) => {
   const { push, array, filter } = useArray<DialogItem>([])
-  const removeDialogById = (id: string) => {
+  const closeDialogById = (id: string) => {
     filter((item) => item.id !== id)
   }
 
@@ -31,10 +32,10 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
     push(dialogItem)
   }
   return (
-    <DialogContext.Provider value={{ removeDialogById, addDialog: openDialog }}>
+    <DialogContext.Provider value={{ closeDialogById, addDialog: openDialog }}>
       {array.map(({ id, title, dialogComponentContent }) => (
         <Dialog key={id} id={id} title={title}>
-          {dialogComponentContent}
+          {cloneElement(dialogComponentContent, { dialogId: id })}
         </Dialog>
       ))}
       {children}

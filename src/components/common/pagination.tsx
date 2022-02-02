@@ -34,8 +34,6 @@ const Pagination = () => {
   )
 }
 
-export { Pagination }
-
 const ReactPaginateStyled = styled(ReactPaginate)(() => [
   tw`absolute left-1/2 transform -translate-x-1/2 lg:(translate-x-0 static) flex divide-x rounded-md select-none overflow-hidden divide-gray-200  all-child:(bg-white hover:bg-gray-100 all-child:(w-10 sm:w-11 h-11 flex items-center justify-center))`,
   css`
@@ -55,3 +53,5 @@ const ReactPaginateStyled = styled(ReactPaginate)(() => [
     }
   `,
 ])
+
+export { Pagination }

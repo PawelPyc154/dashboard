@@ -1,9 +1,9 @@
 import tw, { styled, TwStyle } from 'twin.macro'
 import { MdSearch } from 'react-icons/md'
 import { FaSlidersH } from 'react-icons/fa'
-import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { GoPlus } from 'react-icons/go'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType } from 'react-table'
+import { ReactNode } from 'react'
 import { Input } from '../../form/input'
 import { Heading } from '../heading'
 import { Pagination } from '../pagination'
@@ -19,7 +19,9 @@ const justifyVariants = {
 }
 type JustifyVariants = keyof typeof justifyVariants
 
-export type Columns<TData extends object = {}> = Array<
+type Data = { id: number }
+
+export type Columns<TData extends Data = Data> = Array<
   Column<TData> & {
     justify?: JustifyVariants
     isFixedWidth?: boolean
@@ -27,43 +29,37 @@ export type Columns<TData extends object = {}> = Array<
   }
 >
 
-interface TableProps<TData extends object = {}> {
+interface TableProps<TData extends Data = Data> {
   columns: Columns<TData>
   data: TData[]
+  // eslint-disable-next-line no-unused-vars
+  actionsOnSelectedElements?: (selectedFlatRows: RowType<TData>[]) => ReactNode
 }
-const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TData>) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } =
-    useTable(
-      {
-        columns,
-        data,
-        autoResetSelectedRows: false,
-      },
+const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelectedElements }: TableProps<TData>) => {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } = useTable(
+    {
+      columns,
+      data,
+      autoResetSelectedRows: false,
+      getRowId: (row) => String(row.id),
+    },
 
-      useFlexLayout,
-      useRowSelect,
-      (hooks) => {
-        hooks.visibleColumns.push((cols) => [
-          {
-            id: 'selection',
-            Header: ({ getToggleAllRowsSelectedProps }) => (
-              <div>
-                <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-              </div>
-            ),
-            width: 40,
-            justify: 'start',
-            isFixedWidth: true,
-            Cell: ({ row }: { row: RowType<{}> }) => (
-              <div>
-                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
-            ),
-          },
-          ...cols,
-        ])
-      },
-    )
+    useFlexLayout,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((cols) => [
+        {
+          id: 'selection',
+          Header: ({ getToggleAllRowsSelectedProps }) => <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />,
+          width: 40,
+          justify: 'start',
+          isFixedWidth: true,
+          Cell: ({ row }: { row: RowType<{}> }) => <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />,
+        },
+        ...cols,
+      ])
+    },
+  )
 
   const { ref, hasScroll } = useElementSize<HTMLDivElement>()
 
@@ -129,23 +125,13 @@ const TablePage = <TData extends object = {}>({ columns, data }: TableProps<TDat
       </TableWrapper>
 
       <BottomBar>
-        <div tw="hidden lg:flex gap-4">
-          <Button disabled={!selectedFlatRows.length}>Promote</Button>
-          <Button disabled={!selectedFlatRows.length}>Duplicate</Button>
-          <Button disabled={!selectedFlatRows.length}>Delete</Button>
-        </div>
-        {!!selectedFlatRows.length && (
-          <IconButton tw="lg:hidden">
-            <BiDotsVerticalRounded size="25" />
-          </IconButton>
-        )}
+        {actionsOnSelectedElements?.(selectedFlatRows)}
+
         <Pagination />
       </BottomBar>
     </Container>
   )
 }
-
-export { TablePage }
 
 const Container = tw.main`grid gap-2 lg:gap-4 grid-rows-[max-content 1fr max-content]`
 const Header = tw.div`flex justify-between relative items-center`
@@ -168,3 +154,5 @@ const Cell = styled.div(
     justifyVariants[justify],
   ],
 )
+
+export { TablePage }

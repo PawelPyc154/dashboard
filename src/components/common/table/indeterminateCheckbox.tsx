@@ -1,9 +1,5 @@
 import { forwardRef, useRef, useEffect } from 'react'
-import {
-  MdOutlineIndeterminateCheckBox,
-  MdOutlineCheckBoxOutlineBlank,
-  MdCheckBox,
-} from 'react-icons/md'
+import { MdOutlineIndeterminateCheckBox, MdOutlineCheckBoxOutlineBlank, MdCheckBox } from 'react-icons/md'
 import { TableToggleAllRowsSelectedProps } from 'react-table'
 import tw from 'twin.macro'
 
@@ -21,14 +17,14 @@ const IndeterminateCheckbox = forwardRef<HTMLInputElement, TableToggleAllRowsSel
       <Container>
         <Input tw="" type="checkbox" ref={resolvedRef} {...rest} checked={checked} />
 
-        {!checked &&
-          (indeterminate ? <MdOutlineIndeterminateCheckBox /> : <MdOutlineCheckBoxOutlineBlank />)}
+        {!checked && (indeterminate ? <MdOutlineIndeterminateCheckBox /> : <MdOutlineCheckBoxOutlineBlank />)}
         {checked && <MdCheckBox />}
       </Container>
     )
   },
 )
-export { IndeterminateCheckbox }
 
 const Container = tw.label`relative text-2xl text-green-600 hover:text-green-700 select-none cursor-pointer`
 const Input = tw.input`absolute inset-0 invisible`
+
+export { IndeterminateCheckbox }
