@@ -5,6 +5,7 @@ import tw from 'twin.macro'
 import { Button } from '../../../form/button'
 import { useDialog } from '../dialogProvider'
 import 'styled-components/macro'
+import { ButtonsWrapper } from '../../../form/buttonsWrapper'
 
 interface ConfirmDialogContentProps {
   dialogId?: string
@@ -16,7 +17,7 @@ const ConfirmDialogContent = ({ dialogId, onClick }: ConfirmDialogContentProps) 
 
   return (
     <Container>
-      <Button onClick={() => closeDialogById(dialogId || 'confirm')} color="">
+      <Button onClick={() => closeDialogById(dialogId || 'confirm')} color="gray">
         Cancel
       </Button>
       <Button onClick={onClick}>Confirm</Button>
@@ -24,7 +25,7 @@ const ConfirmDialogContent = ({ dialogId, onClick }: ConfirmDialogContentProps) 
   )
 }
 
-const Container = tw.div`flex justify-center items-center gap-4`
+const Container = tw(ButtonsWrapper)`justify-center`
 
 const useConfirmDialog = () => {
   const { addDialog, closeDialogById } = useDialog()
@@ -33,6 +34,7 @@ const useConfirmDialog = () => {
     addDialog({
       id: 'confirm',
       title: 'Confirm delete',
+      size: 'xl',
       dialogComponentContent: <ConfirmDialogContent onClick={onClickConfirm} />,
     })
   const closeConfirmDialog = () => closeDialogById('confirm')

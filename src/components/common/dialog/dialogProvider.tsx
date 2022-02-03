@@ -3,12 +3,13 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { cloneElement, createContext, ReactNode, useContext } from 'react'
 import { useArray } from '../../../hook/useArray'
-import { Dialog } from './dialog'
+import { Dialog, DialogSizes } from './dialog'
 
 type DialogItem = {
   id: string
   dialogComponentContent: JSX.Element
   title: string
+  size?: DialogSizes
 }
 
 type DialogContextValue = {
@@ -33,8 +34,8 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   }
   return (
     <DialogContext.Provider value={{ closeDialogById, addDialog: openDialog }}>
-      {array.map(({ id, title, dialogComponentContent }) => (
-        <Dialog key={id} id={id} title={title}>
+      {array.map(({ id, title, dialogComponentContent, size }) => (
+        <Dialog key={id} id={id} title={title} size={size}>
           {cloneElement(dialogComponentContent, { dialogId: id })}
         </Dialog>
       ))}

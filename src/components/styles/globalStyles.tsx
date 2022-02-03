@@ -1,10 +1,16 @@
 import { createGlobalStyle } from 'styled-components'
+
 import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
 
 const CustomStyles = createGlobalStyle({
   body: {
-    WebkitTapHighlightColor: theme`colors.green.600`,
+    // WebkitTapHighlightColor: theme`colors.green.600`,
     ...tw`antialiased`,
+    // ...css`
+    //   @media screen and (max-width: 600px){
+    //     font-size:16px,
+    //   }
+    // `,
     background: theme`colors.gray.200`,
   },
   '::-webkit-scrollbar': {
@@ -26,10 +32,18 @@ const CustomStyles = createGlobalStyle({
     background: theme`colors.green.700`,
   },
 })
+const CustomStylesCss = createGlobalStyle`
+body {
+  font-size: 13px;
+  @media screen and (min-width: 1024px) {
+    font-size:16px;
+  }
+}`
 
 const GlobalStyles = () => (
   <>
     <BaseStyles />
+    <CustomStylesCss />
     <CustomStyles />
   </>
 )

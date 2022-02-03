@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-no-undef */
 import { useMemo } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
-import { MdDelete } from 'react-icons/md'
 import tw from 'twin.macro'
 import { useConfirmDialog } from '../components/common/dialog/dialogs/confirmDialog'
 import { Columns, TablePage } from '../components/common/table/tablePage'
 import { Button } from '../components/form/button'
+import { ButtonsWrapper } from '../components/form/buttonsWrapper'
 import { IconButton } from '../components/form/iconButton'
 
 const data = [
@@ -52,15 +52,15 @@ const MyJobOfferts = () => {
         justify: 'end',
         width: 50,
         isFixedWidth: true,
-        Cell: ({ value }) => (
-          <>
+        Cell: () => (
+          <ButtonsWrapper>
             <IconButton color="gray">
               <BiDotsVerticalRounded size="25" />
             </IconButton>
-            <IconButton color="gray" onClick={() => openConfirmDialog(() => console.log(value))}>
+            {/* <IconButton color="gray" onClick={() => openConfirmDialog(() => console.log(value))}>
               <MdDelete size="25" />
-            </IconButton>
-          </>
+            </IconButton> */}
+          </ButtonsWrapper>
         ),
       },
     ],
@@ -73,7 +73,7 @@ const MyJobOfferts = () => {
       data={data}
       actionsOnSelectedElements={(selectedElements) => (
         <>
-          <div tw="hidden lg:flex gap-4">
+          <ButtonsWrapper tw="hidden lg:flex gap-2">
             <Button disabled={!selectedElements.length}>Promote</Button>
             <Button disabled={!selectedElements.length}>Duplicate</Button>
             <Button
@@ -82,7 +82,7 @@ const MyJobOfferts = () => {
             >
               Delete
             </Button>
-          </div>
+          </ButtonsWrapper>
           {!!selectedElements.length && (
             <IconButton tw="lg:hidden">
               <BiDotsVerticalRounded size="25" />

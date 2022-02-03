@@ -6,7 +6,7 @@ import { IconButton } from '../components/form/iconButton'
 
 const data = [
   { id: 1, title: 'Lorem ipsum', views: 123321, applications: 55 },
-  { id: 2, title: 'Lorem ipsum', views: 123321, applications: 55 },
+  { id: 1, title: 'Lorem ipsum', views: 123321, applications: 55 },
   { id: 1, title: 'Lorem ipsum', views: 123321, applications: 55 },
   { id: 1, title: 'Lorem ipsum', views: 123321, applications: 55 },
   { id: 1, title: 'Lorem ipsum', views: 123321, applications: 55 },

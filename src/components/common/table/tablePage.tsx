@@ -11,6 +11,7 @@ import { IconButton } from '../../form/iconButton'
 import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { Button } from '../../form/button'
+import { ButtonsWrapper } from '../../form/buttonsWrapper'
 
 const justifyVariants = {
   start: tw`justify-start`,
@@ -54,6 +55,7 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
           width: 40,
           justify: 'start',
           isFixedWidth: true,
+          tw: tw`hidden lg:block`,
           Cell: ({ row }: { row: RowType<{}> }) => <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />,
         },
         ...cols,
@@ -66,11 +68,11 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
   return (
     <Container>
       <Header>
-        <Heading tag="h1" size="3xl">
+        <Heading tag="h1" size="2xl">
           My job offerts
           <span tw="text-sm ml-2">(323)</span>
         </Heading>
-        <InputsWrapper>
+        <ButtonsWrapper>
           <Button tw="hidden lg:block">Add</Button>
           <div tw="hidden lg:block">
             <Input icon={<MdSearch />} placeholder="Search..." />
@@ -81,7 +83,7 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
           <IconButton>
             <FaSlidersH />
           </IconButton>
-        </InputsWrapper>
+        </ButtonsWrapper>
       </Header>
 
       <TableWrapper {...getTableProps()}>
@@ -124,28 +126,27 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
         </ListWrapper>
       </TableWrapper>
 
-      <BottomBar>
+      <TableFooter>
         {actionsOnSelectedElements?.(selectedFlatRows)}
 
         <Pagination />
-      </BottomBar>
+      </TableFooter>
     </Container>
   )
 }
 
-const Container = tw.main`grid gap-2 lg:gap-4 grid-rows-[max-content 1fr max-content]`
+const Container = tw.main`grid gap-4 grid-rows-[max-content 1fr max-content]`
 const Header = tw.div`flex justify-between relative items-center`
-const InputsWrapper = tw.div`flex gap-4`
-const BottomBar = tw.div`h-11 flex justify-between relative`
+const TableFooter = tw.div`h-11 flex justify-between relative`
 
-const TableWrapper = tw.div`grid gap-1 grid-rows-[max-content 1fr] h-[calc(100vh - 144px)] lg:h-[calc(100vh - 172px)]`
+const TableWrapper = tw.div`grid gap-1 grid-rows-[max-content 1fr] lg:h-[calc(100vh - 172px)]`
 const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
-  tw`flex h-8 text-sm`,
+  tw`hidden lg:flex h-8 text-sm`,
   hasScroll && tw`pr-1.5`,
 ])
-const ListWrapper = tw.div`bg-white rounded-md shadow-sm divide-y divide-gray-100 overflow-auto`
-const Row = tw.div`flex items-center px-2`
-const ListItemRow = tw(Row)`py-2`
+const ListWrapper = tw.div`rounded-md shadow-sm space-y-4 lg:(space-y-0 divide-y divide-gray-100 overflow-auto)`
+const Row = tw.div`flex items-center px-1`
+const ListItemRow = tw(Row)`py-2 bg-white rounded-md lg:rounded-none`
 
 const Cell = styled.div(
   ({ isFixedWidth, justify = 'center' }: { isFixedWidth: boolean; justify?: JustifyVariants }) => [

@@ -13,20 +13,20 @@ const Navigation = () => {
   return (
     <>
       <Containter isOpenMenu={isOpenMenu}>
-        <LogoWrapper>Logo</LogoWrapper>
+        <LogoWrapper tw="invisible lg:visible">Logo</LogoWrapper>
         <LinksWrapper>
           {userType === 'employer' && (
-            <LinksGroup>
+            <LinksGroup onClick={() => setIsOpenMenu(false)}>
               <NavLink to="/">Dashboard</NavLink>
               <NavLink to="/table-page">Employer profile</NavLink>
               <NavLink to="/my-job-offerts">My job offerts</NavLink>
             </LinksGroup>
           )}
-          <LinksGroup>
+          <LinksGroup onClick={() => setIsOpenMenu(false)}>
             <NavLink to="/employers">Employers</NavLink>
             <NavLink to="/">Job offerts</NavLink>
           </LinksGroup>
-          <NavLink tw="self-end" to="/">
+          <NavLink tw="self-end" to="/" onClick={() => setIsOpenMenu(false)}>
             Settings
           </NavLink>
         </LinksWrapper>
@@ -38,14 +38,12 @@ const Navigation = () => {
           </User>
         </UserWrapper>
       </Containter>
-
-      <IconButton
-        tw="fixed z-40 bottom-4 right-4 lg:!hidden"
-        color="green"
-        onClick={() => setIsOpenMenu((prev) => !prev)}
-      >
-        <MdMenu size={23} />
-      </IconButton>
+      <MobileTopBar>
+        <IconButton tw="" color="green" onClick={() => setIsOpenMenu((prev) => !prev)}>
+          <MdMenu size={23} />
+        </IconButton>
+        <LogoWrapper>Logo</LogoWrapper>
+      </MobileTopBar>
     </>
   )
 }
@@ -54,15 +52,25 @@ interface ContainterProps {
   isOpenMenu: boolean
 }
 const Containter = styled.nav<ContainterProps>(({ isOpenMenu }) => [
-  tw`fixed lg:static bg-white h-screen w-64 grid grid-rows-[max-content 1fr max-content] py-6 gap-6 shadow-lg z-50`,
+  tw`fixed lg:static bg-white inset-0 lg:w-64 grid grid-rows-[max-content 1fr max-content] pt-6 pb-6 gap-6 shadow-lg z-40`,
+
   isOpenMenu ? tw`grid` : tw`hidden lg:grid`,
 ])
-const LogoWrapper = tw.div`text-4xl h-12 rounded-md px-6`
+
+const LogoWrapper = tw.div`text-3xl h-12 rounded-md px-4  flex items-center`
+
 const LinksWrapper = tw.div`grid content-start gap-6 px-2`
+
 const LinksGroup = tw.div`grid gap-1 `
-const LinkStyled = tw(Link)`rounded-md px-4 py-2 hover:(bg-gray-100) transition-colors`
-const UserWrapper = tw.div`grid gap-2 `
-const User = tw.div`grid grid-flow-col justify-start gap-4 items-center px-6`
+
+const LinkStyled = tw(Link)`rounded-md px-2 py-2 hover:(bg-gray-100) transition-colors`
+
+const UserWrapper = tw.div`grid gap-2`
+
+const User = tw.div`grid grid-flow-col justify-start gap-4 items-center px-4`
+
+const MobileTopBar = tw.div`sticky top-0 w-full bg-white lg:hidden p-4 py-1 z-40 flex items-center`
+
 const NavLink = ({ to, ...props }: LinkProps) => {
   const resolved = useResolvedPath(to)
   const match = useMatch({ path: resolved.pathname, end: true })

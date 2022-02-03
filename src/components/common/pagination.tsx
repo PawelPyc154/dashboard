@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 import { useState } from 'react'
 import { Select } from '../form/select'
+import { ButtonsWrapper } from '../form/buttonsWrapper'
 
 const Pagination = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -12,7 +13,7 @@ const Pagination = () => {
     // const handlePageClick = (value: number) => {
     //   console.log(value)
     // }
-    <div tw="flex gap-4">
+    <ButtonsWrapper>
       {pageCount > 1 && (
         <ReactPaginateStyled
           breakClassName="hidden"
@@ -30,7 +31,7 @@ const Pagination = () => {
         />
       )}
       <Select tw="hidden lg:flex" />
-    </div>
+    </ButtonsWrapper>
   )
 }
 
@@ -39,7 +40,6 @@ const ReactPaginateStyled = styled(ReactPaginate)(() => [
   css`
     && .activePage {
       background: ${theme('colors.green.600')};
-      /* opacity: 0.3; */
       color: white;
       pointer-events: none;
     }
