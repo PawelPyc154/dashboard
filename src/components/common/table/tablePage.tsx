@@ -14,9 +14,9 @@ import { Button } from '../../form/button'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
 
 const justifyVariants = {
-  start: tw`justify-start`,
-  center: tw`justify-center`,
-  end: tw`justify-end`,
+  start: tw`justify-start text-left`,
+  center: tw`justify-center text-center`,
+  end: tw`justify-end text-right`,
 }
 type JustifyVariants = keyof typeof justifyVariants
 

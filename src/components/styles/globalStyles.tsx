@@ -36,6 +36,12 @@ const CustomStylesCss = createGlobalStyle`
 body {
   font-size: 13px;
   @media screen and (min-width: 1024px) {
+    font-size:14px;
+  } 
+  @media screen and (min-width:1280px) {
+    font-size:15px;
+  } 
+  @media screen and (min-width: 1636px) {
     font-size:16px;
   }
 }`

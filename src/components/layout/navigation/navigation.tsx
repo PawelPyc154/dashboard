@@ -52,7 +52,7 @@ interface ContainterProps {
   isOpenMenu: boolean
 }
 const Containter = styled.nav<ContainterProps>(({ isOpenMenu }) => [
-  tw`fixed lg:static bg-white inset-0 lg:w-64 grid grid-rows-[max-content 1fr max-content] pt-6 pb-6 gap-6 shadow-lg z-40`,
+  tw`fixed lg:static bg-white inset-0 lg:w-52 2xl:w-60 grid grid-rows-[max-content 1fr max-content] pt-6 pb-6 gap-6 shadow-lg z-40`,
 
   isOpenMenu ? tw`grid` : tw`hidden lg:grid`,
 ])

@@ -19,7 +19,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -28,7 +28,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -37,7 +37,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -46,7 +46,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -55,7 +55,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -64,7 +64,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -73,7 +73,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -82,7 +82,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -91,7 +91,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -100,7 +100,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -109,7 +109,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -118,7 +118,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -127,7 +127,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -136,7 +136,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -145,7 +145,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -154,7 +154,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -163,7 +163,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
   {
@@ -172,7 +172,7 @@ const data = [
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
-    expirationDate: '01.12.2021',
+    expirationAt: '01.12.2021',
     status: 'Published',
   },
 ]
@@ -184,32 +184,52 @@ const MyJobOfferts = () => {
     id: number
     status: string
     publishedAt: string
-    expirationDate: string
+    expirationAt: string
     title: string
     views: number
     applications: number
   }> = useMemo(
     () => [
       {
-        Header: 'Title',
         accessor: 'title',
+        Header: 'Title',
         justify: 'start',
         Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
       },
-      { Header: 'Applications', accessor: 'applications', width: 70 },
-      { Header: 'Views', accessor: 'views', width: 70 },
-      { Header: 'Status', accessor: 'status', width: 70 },
-      { Header: 'Published at', accessor: 'publishedAt', width: 70 },
-      { Header: 'Expiration date', accessor: 'expirationDate', width: 50 },
+      {
+        accessor: 'applications',
+        Header: 'Applications',
+        width: 75,
+      },
+      {
+        accessor: 'views',
+        Header: 'Views',
+        width: 75,
+      },
+      {
+        accessor: 'status',
+        Header: 'Status',
+        width: 75,
+      },
+      {
+        accessor: 'publishedAt',
+        Header: 'Published at',
+        width: 75,
+      },
+      {
+        accessor: 'expirationAt',
+        Header: 'Expiration at',
+        width: 80,
+      },
       {
         accessor: 'id',
         justify: 'end',
-        width: 50,
+        width: 60,
         isFixedWidth: true,
         Cell: () => (
           <ButtonsWrapper>
             <IconButton color="gray">
-              <BiDotsVerticalRounded size="25" />
+              <BiDotsVerticalRounded size="22" />
             </IconButton>
           </ButtonsWrapper>
         ),
@@ -241,14 +261,14 @@ const MyJobOfferts = () => {
           )}
         </>
       )}
-      mobileBody={({ title, status, publishedAt, expirationDate, applications, views, id }) => (
+      mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
         <div tw="grid grid-cols-2 gap-4 relative">
           <div tw="absolute right-0 top-0">{id.render('Cell')}</div>
           <MobileTableKeyValueRender cell={title} />
           <MobileTableKeyValueRender cell={status} />
           <MobileTableKeyValueRender cell={applications} />
           <MobileTableKeyValueRender cell={views} />
-          <MobileTableKeyValueRender cell={expirationDate} />
+          <MobileTableKeyValueRender cell={expirationAt} />
           <MobileTableKeyValueRender cell={publishedAt} />
         </div>
       )}
