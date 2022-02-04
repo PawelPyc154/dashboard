@@ -13,7 +13,7 @@ const Navigation = () => {
   return (
     <>
       <Containter isOpenMenu={isOpenMenu}>
-        <LogoWrapper tw="invisible lg:visible">Logo</LogoWrapper>
+        <LogoWrapper tw="hidden lg:flex">Logo</LogoWrapper>
         <LinksWrapper>
           {userType === 'employer' && (
             <LinksGroup onClick={() => setIsOpenMenu(false)}>
@@ -57,9 +57,9 @@ const Containter = styled.nav<ContainterProps>(({ isOpenMenu }) => [
   isOpenMenu ? tw`grid` : tw`hidden lg:grid`,
 ])
 
-const LogoWrapper = tw.div`text-3xl h-12 rounded-md px-4  flex items-center`
+const LogoWrapper = tw.div`text-3xl h-12 rounded-md px-4 flex items-center`
 
-const LinksWrapper = tw.div`grid content-start gap-6 px-2`
+const LinksWrapper = tw.div`grid content-start gap-6 px-2 row-span-2 mt-2 lg:(row-span-1 mt-4)`
 
 const LinksGroup = tw.div`grid gap-1 `
 
@@ -69,7 +69,7 @@ const UserWrapper = tw.div`grid gap-2`
 
 const User = tw.div`grid grid-flow-col justify-start gap-4 items-center px-4`
 
-const MobileTopBar = tw.div`sticky top-0 w-full bg-white lg:hidden p-4 py-1 z-40 flex items-center`
+const MobileTopBar = tw.div`sticky top-0 w-full bg-white lg:hidden p-4 py-1 z-40 flex items-center shadow-sm`
 
 const NavLink = ({ to, ...props }: LinkProps) => {
   const resolved = useResolvedPath(to)

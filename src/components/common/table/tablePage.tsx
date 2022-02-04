@@ -2,7 +2,7 @@ import tw, { styled, TwStyle } from 'twin.macro'
 import { MdSearch } from 'react-icons/md'
 import { FaSlidersH } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
-import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType } from 'react-table'
+import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell } from 'react-table'
 import { ReactNode } from 'react'
 import { Input } from '../../form/input'
 import { Heading } from '../heading'
@@ -34,9 +34,19 @@ interface TableProps<TData extends Data = Data> {
   columns: Columns<TData>
   data: TData[]
   // eslint-disable-next-line no-unused-vars
+  mobileBody: (
+    // eslint-disable-next-line no-unused-vars
+    original: Record<keyof TData, Cell<TData>>,
+  ) => ReactNode
+  // eslint-disable-next-line no-unused-vars
   actionsOnSelectedElements?: (selectedFlatRows: RowType<TData>[]) => ReactNode
 }
-const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelectedElements }: TableProps<TData>) => {
+const TablePage = <TData extends Data = Data>({
+  columns,
+  data,
+  actionsOnSelectedElements,
+  mobileBody,
+}: TableProps<TData>) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } = useTable(
     {
       columns,
@@ -91,14 +101,14 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
           {headerGroups.map((headerGroup) => (
             <Row {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <Cell
+                <CellStyled
                   {...column.getHeaderProps()}
                   isFixedWidth={!!column.isFixedWidth}
                   justify={column.justify}
                   css={[column.tw]}
                 >
                   {column.render('Header')}
-                </Cell>
+                </CellStyled>
               ))}
             </Row>
           ))}
@@ -109,18 +119,23 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
             prepareRow(row)
 
             return (
-              <ListItemRow {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <Cell
-                    {...cell.getCellProps()}
-                    isFixedWidth={!!cell.column.isFixedWidth}
-                    justify={cell.column.justify}
-                    css={[cell.column.tw]}
-                  >
-                    {cell.render('Cell')}
-                  </Cell>
-                ))}
-              </ListItemRow>
+              <ListItem tw="">
+                <ListItemRow {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <CellStyled
+                      {...cell.getCellProps()}
+                      isFixedWidth={!!cell.column.isFixedWidth}
+                      justify={cell.column.justify}
+                      css={[cell.column.tw]}
+                    >
+                      {cell.render('Cell')}
+                    </CellStyled>
+                  ))}
+                </ListItemRow>
+                <MobileListWrapper>
+                  {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
+                </MobileListWrapper>
+              </ListItem>
             )
           })}
         </ListWrapper>
@@ -137,18 +152,18 @@ const TablePage = <TData extends Data = Data>({ columns, data, actionsOnSelected
 
 const Container = tw.main`grid gap-4 grid-rows-[max-content 1fr max-content]`
 const Header = tw.div`flex justify-between relative items-center`
-const TableFooter = tw.div`h-11 flex justify-between relative`
-
+const TableFooter = tw.div`h-11 flex justify-end lg:justify-between`
 const TableWrapper = tw.div`grid gap-1 grid-rows-[max-content 1fr] lg:h-[calc(100vh - 172px)]`
 const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
   tw`hidden lg:flex h-8 text-sm`,
   hasScroll && tw`pr-1.5`,
 ])
 const ListWrapper = tw.div`rounded-md shadow-sm space-y-4 lg:(space-y-0 divide-y divide-gray-100 overflow-auto)`
-const Row = tw.div`flex items-center px-1`
-const ListItemRow = tw(Row)`py-2 bg-white rounded-md lg:rounded-none`
-
-const Cell = styled.div(
+const ListItem = tw.div`bg-white rounded-md lg:rounded-none`
+const Row = tw.div`items-center px-1 `
+const ListItemRow = tw(Row)`py-2 !hidden lg:!flex`
+const MobileListWrapper = tw.div`px-3 py-3 lg:hidden`
+const CellStyled = styled.div(
   ({ isFixedWidth, justify = 'center' }: { isFixedWidth: boolean; justify?: JustifyVariants }) => [
     tw`px-2 flex`,
     isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
