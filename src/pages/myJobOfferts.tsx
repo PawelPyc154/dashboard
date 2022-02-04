@@ -225,6 +225,7 @@ const MyJobOfferts = () => {
         accessor: 'id',
         justify: 'end',
         width: 60,
+        disableSortBy: true,
         isFixedWidth: true,
         Cell: () => (
           <ButtonsWrapper>
@@ -245,8 +246,10 @@ const MyJobOfferts = () => {
       actionsOnSelectedElements={(selectedElements) => (
         <>
           <ButtonsWrapper tw="hidden lg:flex gap-2">
+            <Button disabled={!selectedElements.length}>Publich</Button>
             <Button disabled={!selectedElements.length}>Promote</Button>
             <Button disabled={!selectedElements.length}>Duplicate</Button>
+            <Button disabled={!selectedElements.length}>Close</Button>
             <Button
               disabled={!selectedElements.length}
               onClick={() => openConfirmDialog(() => console.log(selectedElements))}

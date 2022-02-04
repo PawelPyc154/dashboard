@@ -3,7 +3,6 @@ import tw from 'twin.macro'
 import { Navigation } from './components/layout/navigation/navigation'
 import { Employers } from './pages/employers'
 import { MyJobOfferts } from './pages/myJobOfferts'
-import { TablePage } from './pages/tablePage'
 
 const App = () => (
   <Containter>
@@ -12,7 +11,6 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Employers />} />
         <Route path="/my-job-offerts" element={<MyJobOfferts />} />
-        <Route path="/table-page" element={<TablePage />} />
       </Routes>
     </Wrapper>
   </Containter>

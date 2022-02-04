@@ -1,10 +1,10 @@
 import tw, { styled, TwStyle } from 'twin.macro'
-import { MdSearch } from 'react-icons/md'
 import { FaSlidersH } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
-import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell } from 'react-table'
-import { ReactNode } from 'react'
-import { Input } from '../../form/input'
+import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell, IdType, useSortBy } from 'react-table'
+import { ReactNode, useEffect } from 'react'
+import { useQueryParams, StringParam } from 'use-query-params'
+import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md'
 import { Heading } from '../heading'
 import { Pagination } from '../pagination'
 import { IconButton } from '../../form/iconButton'
@@ -12,11 +12,12 @@ import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { Button } from '../../form/button'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
+import { InputSearch } from '../../form/inputSearch'
 
 const justifyVariants = {
-  start: tw`justify-start text-left`,
+  start: tw`justify-start`,
   center: tw`justify-center text-center`,
-  end: tw`justify-end text-right`,
+  end: tw`justify-end`,
 }
 type JustifyVariants = keyof typeof justifyVariants
 
@@ -47,15 +48,30 @@ const TablePage = <TData extends Data = Data>({
   actionsOnSelectedElements,
   mobileBody,
 }: TableProps<TData>) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } = useTable(
+  const [{ sortBy, sortDirection }, setQuery] = useQueryParams({
+    sortBy: StringParam,
+    sortDirection: StringParam,
+  })
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows, state } = useTable(
     {
       columns,
       data,
       autoResetSelectedRows: false,
       getRowId: (row) => String(row.id),
+      manualSortBy: true,
+      initialState: {
+        sortBy: [
+          {
+            id: sortBy as IdType<TData>,
+            desc: (sortDirection && sortDirection === 'descending') as boolean | undefined,
+          },
+        ],
+      },
     },
 
     useFlexLayout,
+    useSortBy,
     useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((cols) => [
@@ -63,7 +79,7 @@ const TablePage = <TData extends Data = Data>({
           id: 'selection',
           Header: ({ getToggleAllRowsSelectedProps }) => <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />,
           width: 40,
-          justify: 'start',
+          justify: 'center',
           isFixedWidth: true,
           tw: tw`hidden lg:block`,
           Cell: ({ row }: { row: RowType<{}> }) => <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />,
@@ -72,6 +88,24 @@ const TablePage = <TData extends Data = Data>({
       ])
     },
   )
+
+  useEffect(() => {
+    const sortId = state.sortBy[0]?.id
+    const isDesc = state.sortBy[0]?.desc
+    if (sortId !== sortBy || (isDesc && (isDesc ? 'descending' : 'ascending')) !== sortDirection) {
+      if (sortId) {
+        setQuery({
+          sortBy: sortId,
+          sortDirection: isDesc ? 'descending' : 'ascending',
+        })
+      } else {
+        setQuery({
+          sortBy: undefined,
+          sortDirection: undefined,
+        })
+      }
+    }
+  }, [state.sortBy, setQuery])
 
   const { ref, hasScroll } = useElementSize<HTMLDivElement>()
 
@@ -85,7 +119,7 @@ const TablePage = <TData extends Data = Data>({
         <ButtonsWrapper>
           <Button tw="hidden lg:block">Add</Button>
           <div tw="hidden lg:block">
-            <Input icon={<MdSearch />} placeholder="Search..." />
+            <InputSearch />
           </div>
           <IconButton tw="lg:hidden" color="green">
             <GoPlus size="20" />
@@ -100,16 +134,38 @@ const TablePage = <TData extends Data = Data>({
         <TableHeader hasScroll={hasScroll}>
           {headerGroups.map((headerGroup) => (
             <Row {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <CellStyled
-                  {...column.getHeaderProps()}
-                  isFixedWidth={!!column.isFixedWidth}
-                  justify={column.justify}
-                  css={[column.tw]}
-                >
-                  {column.render('Header')}
-                </CellStyled>
-              ))}
+              {headerGroup.headers.map((column) => {
+                const isSorted = sortBy === column.id
+                const isSortedDesc = sortDirection === 'descending'
+                return (
+                  <CellStyled
+                    {...column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))}
+                    isFixedWidth={!!column.isFixedWidth}
+                    justify={column.justify}
+                    css={[column.tw, tw`select-none`]}
+                  >
+                    {isSorted &&
+                      column.justify === 'end' &&
+                      (isSortedDesc ? <MdOutlineArrowDropUp tw="text-xl" /> : <MdOutlineArrowDropDown tw="text-xl" />)}
+                    <span
+                      tw="mx-5"
+                      css={[
+                        column.justify === 'start' && tw`ml-0`,
+                        column.justify === 'end' && tw`mr-0`,
+                        column.justify === 'end' && isSorted && tw`ml-0`,
+                        isSorted && tw`mr-0`,
+                        column.disableSortBy && tw`m-0`,
+                      ]}
+                    >
+                      {column.render('Header')}
+                    </span>
+
+                    {isSorted &&
+                      column.justify !== 'end' &&
+                      (isSortedDesc ? <MdOutlineArrowDropUp tw="text-xl" /> : <MdOutlineArrowDropDown tw="text-xl" />)}
+                  </CellStyled>
+                )
+              })}
             </Row>
           ))}
         </TableHeader>
