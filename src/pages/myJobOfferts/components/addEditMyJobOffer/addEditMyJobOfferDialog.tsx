@@ -9,7 +9,7 @@ import 'twin.macro'
 const AddEditMyJobOfferDialog = () => (
   <Dialog
     title="Add job offer"
-    trigger={
+    openButton={
       <>
         <Button color="green" tw="hidden lg:flex">
           Add

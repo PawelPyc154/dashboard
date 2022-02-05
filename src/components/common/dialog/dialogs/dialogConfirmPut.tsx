@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { QueryKey } from 'react-query'
 import { usePut } from '../../../../hook/api/usePut'
 import { Dialog } from '../dialog'
@@ -9,13 +8,14 @@ interface DialogConfirmPutProps {
   url: string
   ids: (number | string)[]
   invalidateQueriesList: QueryKey[]
-  trigger: ReactNode
+  // eslint-disable-next-line no-undef
+  openButton: JSX.Element
 }
-const DialogConfirmPut = ({ trigger, url, ids, title, invalidateQueriesList = [] }: DialogConfirmPutProps) => {
+const DialogConfirmPut = ({ openButton, url, ids, title, invalidateQueriesList = [] }: DialogConfirmPutProps) => {
   const { put, isLoadingPut } = usePut({ url, invalidateQueriesList })
 
   return (
-    <Dialog title={title} trigger={trigger} size="xl">
+    <Dialog title={title} openButton={openButton} size="xl">
       {({ setIsOpenDialog }) => (
         <DialogContentConfirm
           isLoading={isLoadingPut}

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
-import { ReactNode } from 'react'
+import { cloneElement, ReactNode } from 'react'
 import { MdClose } from 'react-icons/md'
 import tw from 'twin.macro'
 import { Heading } from '../heading'
@@ -16,18 +16,18 @@ const sizes = {
 }
 
 interface DialogProps {
-  trigger: ReactNode
+  // eslint-disable-next-line no-undef
+  openButton: JSX.Element
   children: (contextValue: DialogContextValue) => ReactNode
   title: string
   size?: keyof typeof sizes
 }
-const Dialog = ({ children, trigger, title, size = '3xl' }: DialogProps) => (
+
+const Dialog = ({ children, openButton, title, size = '3xl' }: DialogProps) => (
   <DialogProvider>
     {({ isOpenDialog, setIsOpenDialog }) => (
       <>
-        <button type="button" onClick={() => setIsOpenDialog(true)}>
-          {trigger}
-        </button>
+        {cloneElement(openButton, { onClick: () => setIsOpenDialog(true) })}
         {isOpenDialog && (
           <DialogOverlayStyled onClick={() => setIsOpenDialog(false)}>
             <DialogContentStyled css={sizes[size]}>

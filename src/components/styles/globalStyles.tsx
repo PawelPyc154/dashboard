@@ -23,6 +23,7 @@ const CustomStyles = createGlobalStyle({
 
 const CustomStylesCss = createGlobalStyle`
 body {
+  
   font-size: 13px;
   @media screen and (min-width: 1024px) {
     font-size:14px;
@@ -33,6 +34,8 @@ body {
   @media screen and (min-width: 1636px) {
     font-size:16px;
   }
+
+  
 }`
 
 const GlobalStyles = () => (

@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { QueryKey } from 'react-query'
 import { usePost } from '../../../../hook/api/usePost'
 import { Dialog } from '../dialog'
@@ -9,13 +8,14 @@ interface DialogConfirmPostProps {
   url: string
   ids: (number | string)[]
   invalidateQueriesList: QueryKey[]
-  trigger: ReactNode
+  // eslint-disable-next-line no-undef
+  openButton: JSX.Element
 }
-const DialogConfirmPost = ({ trigger, url, ids, title, invalidateQueriesList = [] }: DialogConfirmPostProps) => {
+const DialogConfirmPost = ({ openButton, url, ids, title, invalidateQueriesList = [] }: DialogConfirmPostProps) => {
   const { post, isLoadingPost } = usePost({ url, invalidateQueriesList })
 
   return (
-    <Dialog title={title} trigger={trigger} size="xl">
+    <Dialog title={title} openButton={openButton} size="xl">
       {({ setIsOpenDialog }) => (
         <DialogContentConfirm
           isLoading={isLoadingPost}

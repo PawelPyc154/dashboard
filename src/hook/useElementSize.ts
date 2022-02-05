@@ -19,7 +19,7 @@ const useElementSize = <T extends Element>() => {
     const boundingClientRect = element.getBoundingClientRect()
 
     return {
-      ...JSON.parse(JSON.stringify(boundingClientRect)),
+      ...(JSON.parse(JSON.stringify(boundingClientRect)) as DOMRect),
       hasScroll: boundingClientRect.height < element.scrollHeight,
     }
   }

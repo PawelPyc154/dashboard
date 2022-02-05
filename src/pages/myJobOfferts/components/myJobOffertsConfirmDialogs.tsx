@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { DialogConfirmPost } from '../../../components/common/dialog/dialogs/dialogConfirmPost'
 import { DialogConfirmPut } from '../../../components/common/dialog/dialogs/dialogConfirmPut'
 import { DialogConfirmRemove } from '../../../components/common/dialog/dialogs/dialogConfirmRemove'
@@ -7,51 +6,52 @@ const invalidateQueriesList: string[] = []
 
 interface MyJobOffertsConfirmPublishDialogsProps {
   ids: (string | number)[]
-  trigger: ReactNode
+  // eslint-disable-next-line no-undef
+  openButton: JSX.Element
 }
 
-const MyJobOffertsConfirmPublishDialogs = ({ ids, trigger }: MyJobOffertsConfirmPublishDialogsProps) => (
+const MyJobOffertsConfirmPublishDialogs = ({ ids, openButton }: MyJobOffertsConfirmPublishDialogsProps) => (
   <DialogConfirmPut
     title="Confirm publich"
     url=""
     ids={ids}
-    trigger={trigger}
+    openButton={openButton}
     invalidateQueriesList={invalidateQueriesList}
   />
 )
 
-const MyJobOffertsConfirmPromoteDialogs = ({ ids, trigger }: MyJobOffertsConfirmPublishDialogsProps) => (
+const MyJobOffertsConfirmPromoteDialogs = ({ ids, openButton }: MyJobOffertsConfirmPublishDialogsProps) => (
   <DialogConfirmPut
     title="Confirm promote"
     url=""
     ids={ids}
-    trigger={trigger}
+    openButton={openButton}
     invalidateQueriesList={invalidateQueriesList}
   />
 )
 
-const MyJobOffertsConfirmDuplicateDialogs = ({ ids, trigger }: MyJobOffertsConfirmPublishDialogsProps) => (
+const MyJobOffertsConfirmDuplicateDialogs = ({ ids, openButton }: MyJobOffertsConfirmPublishDialogsProps) => (
   <DialogConfirmPost
     title="Confirm duplicate"
     url=""
     ids={ids}
-    trigger={trigger}
+    openButton={openButton}
     invalidateQueriesList={invalidateQueriesList}
   />
 )
 
-const MyJobOffertsConfirmCloseDialogs = ({ ids, trigger }: MyJobOffertsConfirmPublishDialogsProps) => (
+const MyJobOffertsConfirmCloseDialogs = ({ ids, openButton }: MyJobOffertsConfirmPublishDialogsProps) => (
   <DialogConfirmPut
     title="Confirm close"
     url=""
     ids={ids}
-    trigger={trigger}
+    openButton={openButton}
     invalidateQueriesList={invalidateQueriesList}
   />
 )
 
-const MyJobOffertsConfirmRemoveDialogs = ({ ids, trigger }: MyJobOffertsConfirmPublishDialogsProps) => (
-  <DialogConfirmRemove url="" ids={ids} trigger={trigger} invalidateQueriesList={[]} />
+const MyJobOffertsConfirmRemoveDialogs = ({ ids, openButton }: MyJobOffertsConfirmPublishDialogsProps) => (
+  <DialogConfirmRemove url="" ids={ids} openButton={openButton} invalidateQueriesList={[]} />
 )
 
 export {
