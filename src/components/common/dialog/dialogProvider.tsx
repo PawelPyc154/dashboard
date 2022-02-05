@@ -32,6 +32,7 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
   const openDialog = (dialogItem: DialogItem) => {
     push(dialogItem)
   }
+
   return (
     <DialogContext.Provider value={{ closeDialogById, addDialog: openDialog }}>
       {array.map(({ id, title, dialogComponentContent, size }) => (
@@ -46,6 +47,7 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
 
 const useDialog = () => {
   const context = useContext(DialogContext)
+
   if (!context) {
     throw new Error('useDialog must be used within a DialogProvider')
   }

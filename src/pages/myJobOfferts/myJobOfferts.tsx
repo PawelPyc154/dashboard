@@ -1,16 +1,17 @@
 /* eslint-disable react/jsx-no-undef */
 import { useMemo } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
-
 import 'twin.macro'
 import 'styled-components/macro'
-
-import { useConfirmDialog } from '../components/common/dialog/dialogs/confirmDialog'
-import { Columns, TablePage } from '../components/common/table/tablePage'
-import { Button } from '../components/form/button'
-import { ButtonsWrapper } from '../components/form/buttonsWrapper'
-import { IconButton } from '../components/form/iconButton'
-import { MobileTableKeyValueRender } from '../components/common/table/mobileTableKeyValueRender'
+import { Columns, TablePage } from '../../components/common/table/tablePage'
+import { Button } from '../../components/form/button'
+import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
+import { IconButton } from '../../components/form/iconButton'
+import { MobileTableKeyValueRender } from '../../components/common/table/mobileTableKeyValueRender'
+import { MobilePropertyWrapper } from '../../components/common/table/mobilePropertyWrapper'
+import { useRemove } from '../../hook/api/useRemove'
+import { useDialog } from '../../components/common/dialog/dialogProvider'
+import { AddEditJobOfferForm } from './addEditJobOfferForm'
 
 const data = [
   {
@@ -178,8 +179,6 @@ const data = [
 ]
 
 const MyJobOfferts = () => {
-  const { openConfirmDialog } = useConfirmDialog()
-
   const columns: Columns<{
     id: number
     status: string
@@ -194,6 +193,7 @@ const MyJobOfferts = () => {
         accessor: 'title',
         Header: 'Title',
         justify: 'start',
+
         Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
       },
       {
@@ -228,52 +228,49 @@ const MyJobOfferts = () => {
         disableSortBy: true,
         isFixedWidth: true,
         Cell: () => (
-          <ButtonsWrapper>
-            <IconButton color="gray">
-              <BiDotsVerticalRounded size="22" />
-            </IconButton>
-          </ButtonsWrapper>
+          <IconButton color="gray">
+            <BiDotsVerticalRounded size="22" />
+          </IconButton>
         ),
       },
     ],
     [],
   )
 
+  const { handleRemove } = useRemove({ url: '/' })
+  const { addDialog } = useDialog()
   return (
     <TablePage
       columns={columns}
       data={data}
-      actionsOnSelectedElements={(selectedElements) => (
-        <>
-          <ButtonsWrapper tw="hidden lg:flex gap-2">
-            <Button disabled={!selectedElements.length}>Publich</Button>
-            <Button disabled={!selectedElements.length}>Promote</Button>
-            <Button disabled={!selectedElements.length}>Duplicate</Button>
-            <Button disabled={!selectedElements.length}>Close</Button>
-            <Button
-              disabled={!selectedElements.length}
-              onClick={() => openConfirmDialog(() => console.log(selectedElements))}
-            >
-              Delete
-            </Button>
-          </ButtonsWrapper>
-          {!!selectedElements.length && (
-            <IconButton tw="lg:hidden">
-              <BiDotsVerticalRounded size="25" />
-            </IconButton>
-          )}
-        </>
+      onClickAddButton={() => {
+        addDialog({
+          id: 'form',
+          title: 'Confirm delete',
+          size: 'xl',
+          dialogComponentContent: <AddEditJobOfferForm />,
+        })
+      }}
+      actionsOnSelectedElements={({ selectedElements, ids }) => (
+        <ButtonsWrapper tw="hidden lg:flex gap-2">
+          <Button disabled={!selectedElements.length}>Publich</Button>
+          <Button disabled={!selectedElements.length}>Promote</Button>
+          <Button disabled={!selectedElements.length}>Duplicate</Button>
+          <Button disabled={!selectedElements.length}>Close</Button>
+          <Button disabled={!selectedElements.length} onClick={() => handleRemove(ids)}>
+            Delete
+          </Button>
+        </ButtonsWrapper>
       )}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
-        <div tw="grid grid-cols-2 gap-4 relative">
-          <div tw="absolute right-0 top-0">{id.render('Cell')}</div>
+        <MobilePropertyWrapper actionsCell={id}>
           <MobileTableKeyValueRender cell={title} />
           <MobileTableKeyValueRender cell={status} />
           <MobileTableKeyValueRender cell={applications} />
           <MobileTableKeyValueRender cell={views} />
           <MobileTableKeyValueRender cell={expirationAt} />
           <MobileTableKeyValueRender cell={publishedAt} />
-        </div>
+        </MobilePropertyWrapper>
       )}
     />
   )

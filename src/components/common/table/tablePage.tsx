@@ -2,7 +2,7 @@ import tw, { styled, TwStyle } from 'twin.macro'
 import { FaSlidersH } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell, IdType, useSortBy } from 'react-table'
-import { ReactNode, useEffect } from 'react'
+import { MouseEventHandler, ReactNode, useEffect } from 'react'
 import { useQueryParams, StringParam } from 'use-query-params'
 import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md'
 import { Heading } from '../heading'
@@ -34,19 +34,21 @@ export type Columns<TData extends Data = Data> = Array<
 interface TableProps<TData extends Data = Data> {
   columns: Columns<TData>
   data: TData[]
+  onClickAddButton?: MouseEventHandler<HTMLButtonElement>
   // eslint-disable-next-line no-unused-vars
   mobileBody: (
     // eslint-disable-next-line no-unused-vars
     original: Record<keyof TData, Cell<TData>>,
   ) => ReactNode
   // eslint-disable-next-line no-unused-vars
-  actionsOnSelectedElements?: (selectedFlatRows: RowType<TData>[]) => ReactNode
+  actionsOnSelectedElements?: (options: { selectedElements: RowType<TData>[]; ids: (string | number)[] }) => ReactNode
 }
 const TablePage = <TData extends Data = Data>({
   columns,
   data,
   actionsOnSelectedElements,
   mobileBody,
+  onClickAddButton,
 }: TableProps<TData>) => {
   const [{ sortBy, sortDirection }, setQuery] = useQueryParams({
     sortBy: StringParam,
@@ -117,15 +119,19 @@ const TablePage = <TData extends Data = Data>({
           <span tw="text-sm ml-2">(323)</span>
         </Heading>
         <ButtonsWrapper>
-          <Button tw="hidden lg:block">Add</Button>
-          <div tw="hidden lg:block">
-            <InputSearch />
-          </div>
+          {onClickAddButton && (
+            <Button tw="hidden lg:block" onClick={onClickAddButton}>
+              Add
+            </Button>
+          )}
           <IconButton tw="lg:hidden" color="green">
             <GoPlus size="20" />
           </IconButton>
+          <div tw="hidden lg:block">
+            <InputSearch />
+          </div>
           <IconButton>
-            <FaSlidersH />
+            <FaSlidersH size="17" />
           </IconButton>
         </ButtonsWrapper>
       </Header>
@@ -198,7 +204,10 @@ const TablePage = <TData extends Data = Data>({
       </TableWrapper>
 
       <TableFooter>
-        {actionsOnSelectedElements?.(selectedFlatRows)}
+        {actionsOnSelectedElements?.({
+          selectedElements: selectedFlatRows,
+          ids: selectedFlatRows.map(({ original }) => original.id),
+        })}
 
         <Pagination />
       </TableFooter>

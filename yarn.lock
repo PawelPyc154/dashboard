@@ -713,6 +713,13 @@ axe-core@^4.3.5:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.3.5.tgz"
   integrity sha512-WKTW1+xAzhMS5dJsxWkliixlO/PqC4VhmO9T4juNYcaTg9jzWiJsou6m5pxWYGfigWbwzJWeFY6z47a+4neRXA==
 
+axios@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
+  integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
+  dependencies:
+    follow-redirects "^1.14.7"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
@@ -1612,6 +1619,11 @@ focus-lock@^0.10.1:
   integrity sha512-b9yUklCi4fTu2GXn7dnaVf4hiLVVBp7xTiZarAHMODV2To6Bitf6F/UI67RmKbdgJQeVwI1UO0d9HYNbXt3GkA==
   dependencies:
     tslib "^2.0.3"
+
+follow-redirects@^1.14.7:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 fraction.js@^4.1.1:
   version "4.1.2"
@@ -2544,6 +2556,11 @@ react-focus-lock@^2.5.2:
     react-clientside-effect "^1.2.5"
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
+
+react-hook-form@^7.26.0:
+  version "7.26.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.26.0.tgz#270ae0e7a27c01a57011efacd3d692c977eb1c5d"
+  integrity sha512-nSkCyJB5Ey5QUw3AGQp22JP7TNfPdyC4wqfmheH87NNsHhQwCZgGjexXdBfd7SRt4SHoVzbdPvu6kXG5sSs66Q==
 
 react-icons@^4.3.1:
   version "4.3.1"

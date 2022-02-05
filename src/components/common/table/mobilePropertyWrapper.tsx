@@ -4,9 +4,7 @@ import tw from 'twin.macro'
 
 interface MobilePropertyWrapperProps {
   children: ReactNode
-  actionsCell: Cell<{
-    id: number
-  }>
+  actionsCell: Cell<any>
 }
 const MobilePropertyWrapper = ({ children, actionsCell }: MobilePropertyWrapperProps) => (
   <Container>
@@ -15,7 +13,7 @@ const MobilePropertyWrapper = ({ children, actionsCell }: MobilePropertyWrapperP
   </Container>
 )
 
-const Container = tw.div`grid grid-cols-2 gap-4 relative`
+const Container = tw.div`grid grid-cols-2 gap-2 relative`
 const ActionsWrapper = tw.div`absolute right-0 top-0`
 
 export { MobilePropertyWrapper }

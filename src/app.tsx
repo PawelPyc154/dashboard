@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import tw from 'twin.macro'
 import { Navigation } from './components/layout/navigation/navigation'
 import { Employers } from './pages/employers'
-import { MyJobOfferts } from './pages/myJobOfferts'
+import { MyJobOfferts } from './pages/myJobOfferts/myJobOfferts'
 
 const App = () => (
   <Containter>

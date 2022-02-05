@@ -10,9 +10,10 @@ import { ButtonsWrapper } from '../../../form/buttonsWrapper'
 interface ConfirmDialogContentProps {
   dialogId?: string
   onClick: MouseEventHandler<HTMLButtonElement>
+  isLoading: boolean
 }
 
-const ConfirmDialogContent = ({ dialogId, onClick }: ConfirmDialogContentProps) => {
+const ConfirmDialogContent = ({ dialogId, onClick, isLoading }: ConfirmDialogContentProps) => {
   const { closeDialogById } = useDialog()
 
   return (
@@ -20,14 +21,16 @@ const ConfirmDialogContent = ({ dialogId, onClick }: ConfirmDialogContentProps) 
       <Button onClick={() => closeDialogById(dialogId || 'confirm')} color="gray">
         Cancel
       </Button>
-      <Button onClick={onClick}>Confirm</Button>
+      <Button onClick={onClick} isLoading={isLoading}>
+        Confirm
+      </Button>
     </Container>
   )
 }
 
 const Container = tw(ButtonsWrapper)`justify-center`
 
-const useConfirmDialog = () => {
+const useConfirmDialog = (options: { isLoading: boolean }) => {
   const { addDialog, closeDialogById } = useDialog()
 
   const openConfirmDialog = (onClickConfirm: MouseEventHandler<HTMLButtonElement>) =>
@@ -35,7 +38,7 @@ const useConfirmDialog = () => {
       id: 'confirm',
       title: 'Confirm delete',
       size: 'xl',
-      dialogComponentContent: <ConfirmDialogContent onClick={onClickConfirm} />,
+      dialogComponentContent: <ConfirmDialogContent onClick={onClickConfirm} isLoading={options.isLoading} />,
     })
   const closeConfirmDialog = () => closeDialogById('confirm')
 
