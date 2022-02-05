@@ -9,9 +9,14 @@ import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
 import { IconButton } from '../../components/form/iconButton'
 import { MobileTableKeyValueRender } from '../../components/common/table/mobileTableKeyValueRender'
 import { MobilePropertyWrapper } from '../../components/common/table/mobilePropertyWrapper'
-import { useRemove } from '../../hook/api/useRemove'
-import { useDialog } from '../../components/common/dialog/dialogProvider'
-import { AddEditJobOfferForm } from './addEditJobOfferForm'
+import { AddEditMyJobOfferDialog } from './components/addEditMyJobOffer/addEditMyJobOfferDialog'
+import {
+  MyJobOffertsConfirmPublishDialogs,
+  MyJobOffertsConfirmPromoteDialogs,
+  MyJobOffertsConfirmDuplicateDialogs,
+  MyJobOffertsConfirmCloseDialogs,
+  MyJobOffertsConfirmRemoveDialogs,
+} from './components/myJobOffertsConfirmDialogs'
 
 const data = [
   {
@@ -236,30 +241,33 @@ const MyJobOfferts = () => {
     ],
     [],
   )
-
-  const { handleRemove } = useRemove({ url: '/' })
-  const { addDialog } = useDialog()
   return (
     <TablePage
       columns={columns}
       data={data}
-      onClickAddButton={() => {
-        addDialog({
-          id: 'form',
-          title: 'Confirm delete',
-          size: 'xl',
-          dialogComponentContent: <AddEditJobOfferForm />,
-        })
-      }}
+      actionsTopBar={<AddEditMyJobOfferDialog />}
       actionsOnSelectedElements={({ selectedElements, ids }) => (
         <ButtonsWrapper tw="hidden lg:flex gap-2">
-          <Button disabled={!selectedElements.length}>Publich</Button>
-          <Button disabled={!selectedElements.length}>Promote</Button>
-          <Button disabled={!selectedElements.length}>Duplicate</Button>
-          <Button disabled={!selectedElements.length}>Close</Button>
-          <Button disabled={!selectedElements.length} onClick={() => handleRemove(ids)}>
-            Delete
-          </Button>
+          <MyJobOffertsConfirmPublishDialogs
+            ids={ids}
+            trigger={<Button disabled={!selectedElements.length}>Publish</Button>}
+          />
+          <MyJobOffertsConfirmPromoteDialogs
+            ids={ids}
+            trigger={<Button disabled={!selectedElements.length}>Promote</Button>}
+          />
+          <MyJobOffertsConfirmDuplicateDialogs
+            ids={ids}
+            trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>}
+          />
+          <MyJobOffertsConfirmCloseDialogs
+            ids={ids}
+            trigger={<Button disabled={!selectedElements.length}>Close</Button>}
+          />
+          <MyJobOffertsConfirmRemoveDialogs
+            ids={ids}
+            trigger={<Button disabled={!selectedElements.length}>Delete</Button>}
+          />
         </ButtonsWrapper>
       )}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (

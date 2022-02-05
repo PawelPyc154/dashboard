@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryParamProvider } from 'use-query-params'
 import { App } from './app'
-import { DialogProvider } from './components/common/dialog/dialogProvider'
 import { RouteAdapter } from './components/common/routeAdapter'
 import { GlobalStyles } from './components/styles/globalStyles'
 
@@ -15,11 +14,9 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter basename="/">
         <GlobalStyles />
-        <DialogProvider>
-          <QueryParamProvider ReactRouterRoute={RouteAdapter as React.FunctionComponent}>
-            <App />
-          </QueryParamProvider>
-        </DialogProvider>
+        <QueryParamProvider ReactRouterRoute={RouteAdapter as React.FunctionComponent}>
+          <App />
+        </QueryParamProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>,

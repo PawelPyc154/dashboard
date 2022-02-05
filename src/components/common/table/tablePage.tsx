@@ -1,8 +1,7 @@
 import tw, { styled, TwStyle } from 'twin.macro'
 import { FaSlidersH } from 'react-icons/fa'
-import { GoPlus } from 'react-icons/go'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell, IdType, useSortBy } from 'react-table'
-import { MouseEventHandler, ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useQueryParams, StringParam } from 'use-query-params'
 import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md'
 import { Heading } from '../heading'
@@ -10,7 +9,6 @@ import { Pagination } from '../pagination'
 import { IconButton } from '../../form/iconButton'
 import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
-import { Button } from '../../form/button'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { InputSearch } from '../../form/inputSearch'
 
@@ -34,7 +32,7 @@ export type Columns<TData extends Data = Data> = Array<
 interface TableProps<TData extends Data = Data> {
   columns: Columns<TData>
   data: TData[]
-  onClickAddButton?: MouseEventHandler<HTMLButtonElement>
+  actionsTopBar?: ReactNode
   // eslint-disable-next-line no-unused-vars
   mobileBody: (
     // eslint-disable-next-line no-unused-vars
@@ -48,7 +46,7 @@ const TablePage = <TData extends Data = Data>({
   data,
   actionsOnSelectedElements,
   mobileBody,
-  onClickAddButton,
+  actionsTopBar,
 }: TableProps<TData>) => {
   const [{ sortBy, sortDirection }, setQuery] = useQueryParams({
     sortBy: StringParam,
@@ -119,14 +117,8 @@ const TablePage = <TData extends Data = Data>({
           <span tw="text-sm ml-2">(323)</span>
         </Heading>
         <ButtonsWrapper>
-          {onClickAddButton && (
-            <Button tw="hidden lg:block" onClick={onClickAddButton}>
-              Add
-            </Button>
-          )}
-          <IconButton tw="lg:hidden" color="green">
-            <GoPlus size="20" />
-          </IconButton>
+          {actionsTopBar}
+
           <div tw="hidden lg:block">
             <InputSearch />
           </div>
