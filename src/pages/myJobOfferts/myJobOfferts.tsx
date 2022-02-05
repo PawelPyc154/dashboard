@@ -17,6 +17,7 @@ import {
   MyJobOffertsConfirmCloseDialogs,
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
+import { Menu, MenuItem } from '../../components/common/menu'
 
 const data = [
   {
@@ -233,9 +234,21 @@ const MyJobOfferts = () => {
         disableSortBy: true,
         isFixedWidth: true,
         Cell: () => (
-          <IconButton color="gray">
-            <BiDotsVerticalRounded size="22" />
-          </IconButton>
+          <Menu
+            trigger={
+              <IconButton color="gray">
+                <BiDotsVerticalRounded size="22" />
+              </IconButton>
+            }
+          >
+            {() => (
+              <>
+                <MenuItem>test</MenuItem>
+                <MenuItem>test</MenuItem>
+                <MenuItem>test</MenuItem>
+              </>
+            )}
+          </Menu>
         ),
       },
     ],
