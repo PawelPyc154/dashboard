@@ -1,10 +1,21 @@
-import { Menu2 } from '../components/common/menu2'
-
 const Employers = () => (
-  <div>
-    {' '}
-    test
-    <Menu2 />
+  <div tw="grid justify-end items-start h-80 bg-yellow-300 overflow-y-scroll">
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
+    <div tw="h-24">test</div>
   </div>
 )
 

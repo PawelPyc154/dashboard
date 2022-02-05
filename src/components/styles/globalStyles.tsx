@@ -34,7 +34,10 @@ body {
   @media screen and (min-width: 1636px) {
     font-size:16px;
   }
-
+  #popper[data-popper-reference-hidden] {
+  visibility: hidden;
+  pointer-events: none;
+}
   
 }`
 

@@ -4,8 +4,8 @@ import '@reach/dialog/styles.css'
 import { cloneElement, ReactNode } from 'react'
 import { MdClose } from 'react-icons/md'
 import tw from 'twin.macro'
-import { Heading } from '../heading'
 import 'styled-components/macro'
+import { Heading } from '../heading'
 import { DialogContextValue, DialogProvider } from './dialogProvider'
 
 const sizes = {
@@ -29,8 +29,18 @@ const Dialog = ({ children, openButton, title, size = '3xl' }: DialogProps) => (
       <>
         {cloneElement(openButton, { onClick: () => setIsOpenDialog(true) })}
         {isOpenDialog && (
-          <DialogOverlayStyled onClick={() => setIsOpenDialog(false)}>
-            <DialogContentStyled css={sizes[size]}>
+          <DialogOverlayStyled
+            onClick={() => {
+              setIsOpenDialog(false)
+            }}
+          >
+            <DialogContentStyled
+              id="dialogContent"
+              css={sizes[size]}
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
+            >
               <TitleWrapper size="lg" tag="h1">
                 {title}
                 <CloseButton color="gray" type="button" onClick={() => setIsOpenDialog(false)}>

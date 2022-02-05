@@ -10,8 +10,16 @@ interface DialogConfirmPostProps {
   invalidateQueriesList: QueryKey[]
   // eslint-disable-next-line no-undef
   openButton: JSX.Element
+  onSuccess?: () => void
 }
-const DialogConfirmPost = ({ openButton, url, ids, title, invalidateQueriesList = [] }: DialogConfirmPostProps) => {
+const DialogConfirmPost = ({
+  openButton,
+  url,
+  ids,
+  title,
+  onSuccess,
+  invalidateQueriesList = [],
+}: DialogConfirmPostProps) => {
   const { post, isLoadingPost } = usePost({ url, invalidateQueriesList })
 
   return (
@@ -21,7 +29,10 @@ const DialogConfirmPost = ({ openButton, url, ids, title, invalidateQueriesList 
           isLoading={isLoadingPost}
           onClick={() =>
             post(ids, {
-              onSuccess: () => setIsOpenDialog(false),
+              onSuccess: () => {
+                onSuccess?.()
+                setIsOpenDialog(false)
+              },
             })
           }
         />

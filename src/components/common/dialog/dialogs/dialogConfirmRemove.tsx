@@ -9,8 +9,15 @@ interface DialogConfirmRemoveProps {
   invalidateQueriesList: QueryKey[]
   // eslint-disable-next-line no-undef
   openButton: JSX.Element
+  onSuccess?: () => void
 }
-const DialogConfirmRemove = ({ openButton, url, ids, invalidateQueriesList = [] }: DialogConfirmRemoveProps) => {
+const DialogConfirmRemove = ({
+  openButton,
+  url,
+  ids,
+  onSuccess,
+  invalidateQueriesList = [],
+}: DialogConfirmRemoveProps) => {
   const { remove, isLoadingRemove } = useRemove({ url, invalidateQueriesList })
 
   return (
@@ -20,7 +27,10 @@ const DialogConfirmRemove = ({ openButton, url, ids, invalidateQueriesList = [] 
           isLoading={isLoadingRemove}
           onClick={() =>
             remove(ids, {
-              onSuccess: () => setIsOpenDialog(false),
+              onSuccess: () => {
+                onSuccess?.()
+                setIsOpenDialog(false)
+              },
             })
           }
         />

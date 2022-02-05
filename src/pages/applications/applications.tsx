@@ -2,9 +2,7 @@
 import { useMemo } from 'react'
 import 'twin.macro'
 import 'styled-components/macro'
-
-import { BiDotsVerticalRounded } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
+import { MdCheck, MdClose, MdOutlineDelete } from 'react-icons/md'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
@@ -14,11 +12,8 @@ import { AddEditMyJobOfferDialog } from './components/addEditMyJobOffer/addEditM
 import {
   MyJobOffertsConfirmPublishDialogs,
   MyJobOffertsConfirmPromoteDialogs,
-  MyJobOffertsConfirmDuplicateDialogs,
-  MyJobOffertsConfirmCloseDialogs,
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
-import { Menu, MenuItem } from '../../components/common/menu'
 import { IconButton } from '../../components/form/iconButton'
 
 const data = [
@@ -186,7 +181,7 @@ const data = [
   },
 ]
 
-const MyJobOfferts = () => {
+const Applications = () => {
   const columns: Columns<{
     id: number
     status: string
@@ -208,11 +203,6 @@ const MyJobOfferts = () => {
         accessor: 'applications',
         Header: 'Applications',
         width: 75,
-        Cell: ({ value, row }) => (
-          <Link to={`/applications/${row.original.id}`} tw="">
-            {value}
-          </Link>
-        ),
       },
       {
         accessor: 'views',
@@ -237,47 +227,21 @@ const MyJobOfferts = () => {
       {
         accessor: 'id',
         justify: 'end',
-        width: 60,
+        width: 148,
         disableSortBy: true,
         isFixedWidth: true,
-        Cell: ({ value }) => (
-          <Menu
-            openButton={
-              <IconButton color="gray">
-                <BiDotsVerticalRounded size="22" />
-              </IconButton>
-            }
-          >
-            {({ onCloseMenu }) => (
-              <>
-                <MyJobOffertsConfirmPublishDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Publish</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmPromoteDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Promote</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmDuplicateDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Duplicate</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmCloseDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Close</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmRemoveDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Delete</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-              </>
-            )}
-          </Menu>
+        Cell: () => (
+          <ButtonsWrapper>
+            <IconButton color="gray" size="md">
+              <MdCheck size="22" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <MdClose size="22" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <MdOutlineDelete size="22" />
+            </IconButton>
+          </ButtonsWrapper>
         ),
       },
     ],
@@ -293,19 +257,11 @@ const MyJobOfferts = () => {
         <ButtonsWrapper tw="hidden lg:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Publish</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Accept</Button>}
           />
           <MyJobOffertsConfirmPromoteDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Promote</Button>}
-          />
-          <MyJobOffertsConfirmDuplicateDialogs
-            ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Duplicate</Button>}
-          />
-          <MyJobOffertsConfirmCloseDialogs
-            ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Close</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Reject</Button>}
           />
           <MyJobOffertsConfirmRemoveDialogs
             ids={ids}
@@ -327,4 +283,4 @@ const MyJobOfferts = () => {
   )
 }
 
-export { MyJobOfferts }
+export { Applications }

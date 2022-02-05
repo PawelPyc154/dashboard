@@ -10,8 +10,16 @@ interface DialogConfirmPutProps {
   invalidateQueriesList: QueryKey[]
   // eslint-disable-next-line no-undef
   openButton: JSX.Element
+  onSuccess?: () => void
 }
-const DialogConfirmPut = ({ openButton, url, ids, title, invalidateQueriesList = [] }: DialogConfirmPutProps) => {
+const DialogConfirmPut = ({
+  openButton,
+  url,
+  ids,
+  title,
+  onSuccess,
+  invalidateQueriesList = [],
+}: DialogConfirmPutProps) => {
   const { put, isLoadingPut } = usePut({ url, invalidateQueriesList })
 
   return (
@@ -21,7 +29,10 @@ const DialogConfirmPut = ({ openButton, url, ids, title, invalidateQueriesList =
           isLoading={isLoadingPut}
           onClick={() =>
             put(ids, {
-              onSuccess: () => setIsOpenDialog(false),
+              onSuccess: () => {
+                onSuccess?.()
+                setIsOpenDialog(false)
+              },
             })
           }
         />

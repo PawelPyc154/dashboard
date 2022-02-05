@@ -6,13 +6,21 @@ const useOnClickOutside = <T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
   // eslint-disable-next-line no-unused-vars
   handler: (event: AnyEvent) => void,
+  exceptId: string,
 ) => {
   useEffect(() => {
     const listener = (event: AnyEvent) => {
       const el = ref?.current
 
       // Do nothing if clicking ref's element or descendent elements
-      if (!el || el.contains(event.target as Node)) {
+
+      console.log(document.getElementById('menu-e'))
+
+      if (
+        !el ||
+        el.contains(event.target as Node) ||
+        document.getElementById(exceptId)?.contains(event.target as Node)
+      ) {
         return
       }
 

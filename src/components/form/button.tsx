@@ -10,7 +10,7 @@ const colors = {
 const loadingColors: typeof colors = {
   white: tw`text-white`,
   gray: tw`text-gray-100`,
-  green: tw`text-green-700`,
+  green: tw`text-green-600`,
 }
 
 type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
