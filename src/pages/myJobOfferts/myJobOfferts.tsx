@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-no-undef */
 import { useMemo } from 'react'
-import { BiDotsVerticalRounded } from 'react-icons/bi'
 import 'twin.macro'
 import 'styled-components/macro'
+
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
-import { IconButton } from '../../components/form/iconButton'
 import { MobileTableKeyValueRender } from '../../components/common/table/mobileTableKeyValueRender'
 import { MobilePropertyWrapper } from '../../components/common/table/mobilePropertyWrapper'
 import { AddEditMyJobOfferDialog } from './components/addEditMyJobOffer/addEditMyJobOfferDialog'
@@ -17,7 +16,8 @@ import {
   MyJobOffertsConfirmCloseDialogs,
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
-import { Menu, MenuItem } from '../../components/common/menu'
+
+import Tooltip from '../../components/common/Tooltip'
 
 const data = [
   {
@@ -233,27 +233,39 @@ const MyJobOfferts = () => {
         width: 60,
         disableSortBy: true,
         isFixedWidth: true,
-        Cell: () => (
-          <Menu
-            trigger={
-              <IconButton color="gray">
-                <BiDotsVerticalRounded size="22" />
-              </IconButton>
-            }
-          >
-            {() => (
-              <>
-                <MenuItem>test</MenuItem>
-                <MenuItem>test</MenuItem>
-                <MenuItem>test</MenuItem>
-              </>
-            )}
-          </Menu>
+        Cell: ({ value }) => (
+          <>
+            <Tooltip trigger={<div>test</div>}>
+              <MyJobOffertsConfirmPublishDialogs ids={[value]} openButton={<div>Publish</div>} />
+              <MyJobOffertsConfirmPromoteDialogs ids={[value]} openButton={<div>Promote</div>} />
+              <MyJobOffertsConfirmDuplicateDialogs ids={[value]} openButton={<div>Duplicate</div>} />
+              <MyJobOffertsConfirmCloseDialogs ids={[value]} openButton={<div>Close</div>} />
+              <MyJobOffertsConfirmRemoveDialogs ids={[value]} openButton={<div>Delete</div>} />
+            </Tooltip>
+            {/* <Menu
+              openButton={
+                <IconButton color="gray">
+                  <BiDotsVerticalRounded size="22" />
+                </IconButton>
+              }
+            >
+              {() => (
+                <>
+                  <MyJobOffertsConfirmPublishDialogs ids={[value]} openButton={<MenuItem>Publish</MenuItem>} />
+                  <MyJobOffertsConfirmPromoteDialogs ids={[value]} openButton={<MenuItem>Promote</MenuItem>} />
+                  <MyJobOffertsConfirmDuplicateDialogs ids={[value]} openButton={<MenuItem>Duplicate</MenuItem>} />
+                  <MyJobOffertsConfirmCloseDialogs ids={[value]} openButton={<MenuItem>Close</MenuItem>} />
+                  <MyJobOffertsConfirmRemoveDialogs ids={[value]} openButton={<MenuItem>Delete</MenuItem>} />
+                </>
+              )}
+            </Menu> */}
+          </>
         ),
       },
     ],
     [],
   )
+
   return (
     <TablePage
       columns={columns}
@@ -263,23 +275,23 @@ const MyJobOfferts = () => {
         <ButtonsWrapper tw="hidden lg:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs
             ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Publish</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Publish</Button>}
           />
           <MyJobOffertsConfirmPromoteDialogs
             ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Promote</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Promote</Button>}
           />
           <MyJobOffertsConfirmDuplicateDialogs
             ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Duplicate</Button>}
           />
           <MyJobOffertsConfirmCloseDialogs
             ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Close</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Close</Button>}
           />
           <MyJobOffertsConfirmRemoveDialogs
             ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Delete</Button>}
+            openButton={<Button disabled={!selectedElements.length}>Delete</Button>}
           />
         </ButtonsWrapper>
       )}
