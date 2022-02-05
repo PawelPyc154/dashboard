@@ -17,7 +17,7 @@ import {
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
 
-import Tooltip from '../../components/common/Tooltip'
+import Tooltip from '../../components/common/ttooltip'
 
 const data = [
   {
