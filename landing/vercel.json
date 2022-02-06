@@ -7,7 +7,11 @@
   "rewrites": [
     {
       "source": "/app",
-      "destination": "https://try-cra-pied.vercel.app/*"
+      "destination": "https://try-cra-pied.vercel.app/"
+    },
+    {
+      "source": "/page-a(.*)",
+      "destination": "https://try-cra-pied.vercel.app$1"
     }
   ]
 }
