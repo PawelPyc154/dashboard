@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" },
-    { "source": "https://pawelpyc.pl/(.*)", "destination": "https://dashboard-opal-two.vercel.app/" }
-  ]
+  "rewrites": [{ "source": "https://pawelpyc.pl/(.*)", "destination": "https://dashboard-opal-two.vercel.app/" }]
 }
