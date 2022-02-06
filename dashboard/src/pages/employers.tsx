@@ -1,17 +1,22 @@
 import { DialogBase } from '../components/common/dialog/dialogBase'
+import { Menu, MenuItem } from '../components/common/menu'
 import { Button } from '../components/form/button'
 import { useDialog } from '../hook/useDialog'
+import 'twin.macro'
+import 'styled-components/macro'
 
 const Employers = () => {
   const { isOpenDialog, handleOpenDialog, handleCloseDialog } = useDialog()
   return (
-    <div tw="grid justify-end items-start h-80 bg-yellow-300 overflow-y-scroll">
+    <div tw="flex">
       <Button onClick={handleOpenDialog}>open Dialog </Button>
       {isOpenDialog && (
         <DialogBase title="Test dialog" onCloseDialog={handleCloseDialog}>
           test
         </DialogBase>
       )}
+
+      <Menu openButton={<Button>open Dialog </Button>}>{() => <MenuItem>test</MenuItem>}</Menu>
     </div>
   )
 }
