@@ -10,7 +10,7 @@ const App = () => (
     <Navigation />
     <Wrapper>
       <Routes>
-        <Route path="/" element={<Employers />} />
+        <Route path="" element={<Employers />} />
         <Route path="/applications/:jobOfferId" element={<Applications />} />
         <Route path="/my-job-offerts" element={<MyJobOfferts />} />
       </Routes>

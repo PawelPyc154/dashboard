@@ -17,7 +17,7 @@ const Navigation = () => {
         <LinksWrapper>
           {userType === 'employer' && (
             <LinksGroup onClick={() => setIsOpenMenu(false)}>
-              <NavLink to="/">Dashboard</NavLink>
+              <NavLink to="">Dashboard</NavLink>
               <NavLink to="/table-page">Employer profile</NavLink>
               <NavLink to="/my-job-offerts">My job offerts</NavLink>
             </LinksGroup>

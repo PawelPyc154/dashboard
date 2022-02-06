@@ -10,6 +10,10 @@
       "destination": "https://dashboard-opal-two.vercel.app/:match*"
     },
     {
+      "source": "/app/",
+      "destination": "https://dashboard-opal-two.vercel.app/"
+    },
+    {
       "source": "/app/:match*",
       "destination": "https://dashboard-opal-two.vercel.app/:match*"
     }
