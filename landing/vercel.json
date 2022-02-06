@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "https://pawelpyc.pl/:match*",
-      "destination": "https://dashboard-opal-two.vercel.app/:match*"
+      "destination": "https://try-cra-pied.vercel.app/:match*"
     }
   ]
 }
