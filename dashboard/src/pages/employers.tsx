@@ -17,6 +17,8 @@ const Employers = () => {
       )}
       <a href="/">test</a>
       <a href="https://pawelpyc.pl">test</a>
+
+      <div tw="font-bold">{localStorage.getItem('test')}</div>
       <Menu openButton={<Button>open Dialog </Button>}>{() => <MenuItem>test</MenuItem>}</Menu>
     </div>
   )
