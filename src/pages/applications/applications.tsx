@@ -26,159 +26,6 @@ const data = [
     expirationAt: '01.12.2021',
     status: 'Published',
   },
-  {
-    id: 2,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 3,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 4,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 5,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 6,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 7,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 8,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 9,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 10,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 11,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 12,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 13,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 14,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 15,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 16,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 17,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
-  {
-    id: 222,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'Published',
-  },
 ]
 
 const Applications = () => {
@@ -231,7 +78,7 @@ const Applications = () => {
         disableSortBy: true,
         isFixedWidth: true,
         Cell: () => (
-          <ButtonsWrapper>
+          <ButtonsWrapper tw="gap-3 xl:gap-2">
             <IconButton color="gray" size="md">
               <MdCheck size="22" />
             </IconButton>
@@ -254,7 +101,7 @@ const Applications = () => {
       data={data}
       actionsTopBar={<AddEditMyJobOfferDialog />}
       actionsOnSelectedElements={({ selectedElements, ids }) => (
-        <ButtonsWrapper tw="hidden lg:flex gap-2">
+        <ButtonsWrapper tw="hidden xl:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs
             ids={ids}
             openButton={<Button disabled={!selectedElements.length}>Accept</Button>}
@@ -270,8 +117,7 @@ const Applications = () => {
         </ButtonsWrapper>
       )}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
-        <MobilePropertyWrapper actionsCell={id}>
-          <MobileTableKeyValueRender cell={title} />
+        <MobilePropertyWrapper actionsCell={id} heading={title}>
           <MobileTableKeyValueRender cell={status} />
           <MobileTableKeyValueRender cell={applications} />
           <MobileTableKeyValueRender cell={views} />

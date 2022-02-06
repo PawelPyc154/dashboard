@@ -7,7 +7,6 @@ const Employers = () => (
     <div tw="h-24">test</div>
     <div tw="h-24">test</div>
     <div tw="h-24">test</div>
-
     <div tw="h-24">test</div>
     <div tw="h-24">test</div>
     <div tw="h-24">test</div>

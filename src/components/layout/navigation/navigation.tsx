@@ -13,7 +13,7 @@ const Navigation = () => {
   return (
     <>
       <Containter isOpenMenu={isOpenMenu}>
-        <LogoWrapper tw="hidden lg:flex">Logo</LogoWrapper>
+        <LogoWrapper tw="hidden xl:flex">Logo</LogoWrapper>
         <LinksWrapper>
           {userType === 'employer' && (
             <LinksGroup onClick={() => setIsOpenMenu(false)}>
@@ -42,7 +42,7 @@ const Navigation = () => {
         <IconButton tw="" color="green" onClick={() => setIsOpenMenu((prev) => !prev)}>
           <MdMenu size={23} />
         </IconButton>
-        <LogoWrapper>Logo</LogoWrapper>
+        <LogoWrapper tw="text-2xl">Logo</LogoWrapper>
       </MobileTopBar>
     </>
   )
@@ -52,14 +52,14 @@ interface ContainterProps {
   isOpenMenu: boolean
 }
 const Containter = styled.nav<ContainterProps>(({ isOpenMenu }) => [
-  tw`fixed lg:static bg-white inset-0 lg:w-52 2xl:w-60 grid grid-rows-[max-content 1fr max-content] pt-6 pb-6 gap-6 shadow-lg z-40`,
+  tw`fixed xl:static bg-white inset-0 xl:w-52 2xl:w-60 grid grid-rows-[max-content 1fr max-content] pt-6 pb-6 gap-6 shadow-lg z-40`,
 
-  isOpenMenu ? tw`grid` : tw`hidden lg:grid`,
+  isOpenMenu ? tw`grid` : tw`hidden xl:grid`,
 ])
 
 const LogoWrapper = tw.div`text-3xl h-12 rounded-md px-4 flex items-center`
 
-const LinksWrapper = tw.div`grid content-start gap-6 px-2 row-span-2 mt-2 lg:(row-span-1 mt-4)`
+const LinksWrapper = tw.div`grid content-start gap-6 px-2 row-span-2 mt-2 xl:(row-span-1 mt-4)`
 
 const LinksGroup = tw.div`grid gap-1 `
 
@@ -69,7 +69,7 @@ const UserWrapper = tw.div`grid gap-2`
 
 const User = tw.div`grid grid-flow-col justify-start gap-4 items-center px-4`
 
-const MobileTopBar = tw.div`sticky top-0 w-full bg-white lg:hidden p-4 py-1 z-40 flex items-center shadow-sm`
+const MobileTopBar = tw.div`sticky top-0 w-full bg-white xl:hidden p-4 py-1 z-40 flex items-center shadow-sm`
 
 const NavLink = ({ to, ...props }: LinkProps) => {
   const resolved = useResolvedPath(to)

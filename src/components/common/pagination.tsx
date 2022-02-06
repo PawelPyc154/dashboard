@@ -36,7 +36,7 @@ const Pagination = () => {
 }
 
 const ReactPaginateStyled = styled(ReactPaginate)(() => [
-  tw`flex divide-x rounded-md select-none overflow-hidden divide-gray-200  all-child:(bg-white hover:bg-gray-100 all-child:(w-10 sm:w-11 h-11 flex items-center justify-center))`,
+  tw`flex divide-x rounded-md select-none overflow-hidden divide-gray-200 h-10  all-child:(bg-white hover:bg-gray-100 all-child:(w-10 h-10 flex items-center justify-center))`,
   css`
     && .activePage {
       background: ${theme('colors.green.600')};

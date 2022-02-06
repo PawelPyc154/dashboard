@@ -8,7 +8,7 @@ const colors = {
   green: tw`bg-green-600 hover:bg-green-700 text-white`,
 }
 const sizes = {
-  base: tw`h-11 w-11`,
+  base: tw`h-10 w-10`,
   md: tw`h-9 w-9`,
 }
 

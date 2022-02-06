@@ -20,7 +20,7 @@ const Menu = ({ openButton, children, color = 'white' }: MenuProps) => {
   const [referenceElement, setReferenceElement] = React.useState<HTMLButtonElement | null>(null)
   const [popperElement, setPopperElement] = React.useState<HTMLButtonElement | null>(null)
   const { styles, attributes, state } = usePopper(referenceElement, popperElement, {
-    placement: 'bottom',
+    placement: 'bottom-end',
     strategy: 'fixed',
     modifiers: [
       {

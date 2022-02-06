@@ -24,7 +24,7 @@ const IndeterminateCheckbox = forwardRef<HTMLInputElement, TableToggleAllRowsSel
   },
 )
 
-const Container = tw.label`relative text-2xl text-green-600 hover:text-green-700 select-none cursor-pointer`
+const Container = tw.label`relative text-[22px] 2xl:text-2xl text-green-600 hover:text-green-700 select-none cursor-pointer`
 const Input = tw.input`absolute inset-0 invisible`
 
 export { IndeterminateCheckbox }

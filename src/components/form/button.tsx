@@ -32,6 +32,6 @@ const Button = ({ children, color = 'green', isLoading, ...props }: ButtonProps)
   </Containter>
 )
 
-const Containter = tw.button`bg-green-600 hover:bg-green-700 disabled:(opacity-30 pointer-events-none) text-white font-medium rounded-md  px-4 h-11 flex items-center relative select-none`
+const Containter = tw.button`bg-green-600 hover:bg-green-700 disabled:(opacity-30 pointer-events-none) text-white font-medium rounded-md px-4 h-10 flex items-center relative select-none`
 
 export { Button }

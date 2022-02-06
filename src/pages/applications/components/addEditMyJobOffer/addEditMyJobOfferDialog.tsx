@@ -11,10 +11,10 @@ const AddEditMyJobOfferDialog = () => (
     title="Add job offer"
     openButton={
       <>
-        <Button color="green" tw="hidden lg:flex">
+        <Button color="green" tw="hidden xl:flex">
           Add
         </Button>
-        <IconButton tw="lg:hidden" color="green">
+        <IconButton tw="xl:hidden" color="green">
           <GoPlus size="20" />
         </IconButton>
       </>

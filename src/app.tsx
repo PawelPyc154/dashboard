@@ -18,7 +18,7 @@ const App = () => (
   </Containter>
 )
 
-const Containter = tw.div`lg:h-screen grid lg:grid-cols-[max-content 1fr]`
-const Wrapper = tw.div`p-4 lg:p-6 grid`
+const Containter = tw.div`xl:h-screen grid xl:grid-cols-[max-content 1fr]`
+const Wrapper = tw.div`p-2 sm:p-3 xl:p-4 grid`
 
 export { App }

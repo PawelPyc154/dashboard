@@ -3,8 +3,10 @@ import { useMemo } from 'react'
 import 'twin.macro'
 import 'styled-components/macro'
 
-import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+import { MdEdit, MdOutlineDelete, MdOutlineVerified, MdPublishedWithChanges } from 'react-icons/md'
+import { HiOutlineDuplicate } from 'react-icons/hi'
+import { CgCloseO } from 'react-icons/cg'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
@@ -18,7 +20,6 @@ import {
   MyJobOffertsConfirmCloseDialogs,
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
-import { Menu, MenuItem } from '../../components/common/menu'
 import { IconButton } from '../../components/form/iconButton'
 
 const data = [
@@ -237,47 +238,67 @@ const MyJobOfferts = () => {
       {
         accessor: 'id',
         justify: 'end',
-        width: 60,
+        width: 274,
         disableSortBy: true,
         isFixedWidth: true,
-        Cell: ({ value }) => (
-          <Menu
-            openButton={
-              <IconButton color="gray">
-                <BiDotsVerticalRounded size="22" />
-              </IconButton>
-            }
-          >
-            {({ onCloseMenu }) => (
-              <>
-                <MyJobOffertsConfirmPublishDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Publish</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmPromoteDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Promote</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmDuplicateDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Duplicate</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmCloseDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Close</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-                <MyJobOffertsConfirmRemoveDialogs
-                  ids={[value]}
-                  openButton={<MenuItem>Delete</MenuItem>}
-                  onSuccess={onCloseMenu}
-                />
-              </>
-            )}
-          </Menu>
+        Cell: () => (
+          <ButtonsWrapper>
+            <IconButton color="gray" size="md">
+              <MdPublishedWithChanges size="22" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <MdOutlineVerified size="22" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <HiOutlineDuplicate size="22" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <MdEdit size="22" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <CgCloseO size="21" />
+            </IconButton>
+            <IconButton color="gray" size="md">
+              <MdOutlineDelete size="22" />
+            </IconButton>
+          </ButtonsWrapper>
+          // <Menu
+          //   openButton={
+          //     <IconButton color="gray" size="md">
+          //       <BiDotsVerticalRounded size="22" />
+          //     </IconButton>
+          //   }
+          // >
+          //   {({ onCloseMenu }) => (
+          //     <>
+          //       <MyJobOffertsConfirmPublishDialogs
+          //         ids={[value]}
+          //         openButton={<MenuItem>Publish</MenuItem>}
+          //         onSuccess={onCloseMenu}
+          //       />
+          //       <MyJobOffertsConfirmPromoteDialogs
+          //         ids={[value]}
+          //         openButton={<MenuItem>Promote</MenuItem>}
+          //         onSuccess={onCloseMenu}
+          //       />
+          //       <MyJobOffertsConfirmDuplicateDialogs
+          //         ids={[value]}
+          //         openButton={<MenuItem>Duplicate</MenuItem>}
+          //         onSuccess={onCloseMenu}
+          //       />
+          //       <MyJobOffertsConfirmCloseDialogs
+          //         ids={[value]}
+          //         openButton={<MenuItem>Close</MenuItem>}
+          //         onSuccess={onCloseMenu}
+          //       />
+          //       <MyJobOffertsConfirmRemoveDialogs
+          //         ids={[value]}
+          //         openButton={<MenuItem>Delete</MenuItem>}
+          //         onSuccess={onCloseMenu}
+          //       />
+          //     </>
+          //   )}
+          // </Menu>
         ),
       },
     ],
@@ -290,7 +311,7 @@ const MyJobOfferts = () => {
       data={data}
       actionsTopBar={<AddEditMyJobOfferDialog />}
       actionsOnSelectedElements={({ selectedElements, ids }) => (
-        <ButtonsWrapper tw="hidden lg:flex gap-2">
+        <ButtonsWrapper tw="hidden xl:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs
             ids={ids}
             openButton={<Button disabled={!selectedElements.length}>Publish</Button>}
@@ -314,8 +335,7 @@ const MyJobOfferts = () => {
         </ButtonsWrapper>
       )}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
-        <MobilePropertyWrapper actionsCell={id}>
-          <MobileTableKeyValueRender cell={title} />
+        <MobilePropertyWrapper actionsCell={id} heading={title}>
           <MobileTableKeyValueRender cell={status} />
           <MobileTableKeyValueRender cell={applications} />
           <MobileTableKeyValueRender cell={views} />

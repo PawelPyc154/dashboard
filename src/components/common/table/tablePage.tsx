@@ -3,14 +3,14 @@ import { FaSlidersH } from 'react-icons/fa'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell, IdType, useSortBy } from 'react-table'
 import { ReactNode, useEffect } from 'react'
 import { useQueryParams, StringParam } from 'use-query-params'
-import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md'
-import { Heading } from '../heading'
+import { MdOutlineArrowDropUp, MdOutlineArrowDropDown, MdHelpOutline } from 'react-icons/md'
 import { Pagination } from '../pagination'
 import { IconButton } from '../../form/iconButton'
 import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { InputSearch } from '../../form/inputSearch'
+import { Heading } from '../heading'
 
 const justifyVariants = {
   start: tw`justify-start`,
@@ -81,7 +81,7 @@ const TablePage = <TData extends Data = Data>({
           width: 40,
           justify: 'center',
           isFixedWidth: true,
-          tw: tw`hidden lg:block`,
+          tw: tw`hidden xl:block`,
           Cell: ({ row }: { row: RowType<{}> }) => <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />,
         },
         ...cols,
@@ -114,16 +114,19 @@ const TablePage = <TData extends Data = Data>({
       <Header>
         <Heading tag="h1" size="2xl">
           My job offerts
-          <span tw="text-sm ml-2">(323)</span>
+          <span tw="text-xs ml-1 2xl:(text-sm ml-2)">(323)</span>
         </Heading>
         <ButtonsWrapper>
           {actionsTopBar}
 
-          <div tw="hidden lg:block">
+          <div tw="hidden xl:block">
             <InputSearch />
           </div>
           <IconButton>
-            <FaSlidersH size="17" />
+            <FaSlidersH size="16" />
+          </IconButton>
+          <IconButton>
+            <MdHelpOutline size="22" />
           </IconButton>
         </ButtonsWrapper>
       </Header>
@@ -144,9 +147,13 @@ const TablePage = <TData extends Data = Data>({
                   >
                     {isSorted &&
                       column.justify === 'end' &&
-                      (isSortedDesc ? <MdOutlineArrowDropUp tw="text-xl" /> : <MdOutlineArrowDropDown tw="text-xl" />)}
+                      (isSortedDesc ? (
+                        <MdOutlineArrowDropUp tw="text-xl flex-shrink-0" />
+                      ) : (
+                        <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
+                      ))}
                     <span
-                      tw="mx-5"
+                      tw="mx-5 whitespace-nowrap"
                       css={[
                         column.justify === 'start' && tw`ml-0`,
                         column.justify === 'end' && tw`mr-0`,
@@ -160,39 +167,44 @@ const TablePage = <TData extends Data = Data>({
 
                     {isSorted &&
                       column.justify !== 'end' &&
-                      (isSortedDesc ? <MdOutlineArrowDropUp tw="text-xl" /> : <MdOutlineArrowDropDown tw="text-xl" />)}
+                      (isSortedDesc ? (
+                        <MdOutlineArrowDropUp tw="text-xl flex-shrink-0" />
+                      ) : (
+                        <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
+                      ))}
                   </CellStyled>
                 )
               })}
             </Row>
           ))}
         </TableHeader>
+        <div tw="xl:(h-[calc(100vh - 168px)] overflow-auto rounded-sm)" ref={ref}>
+          <ListWrapper {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row)
 
-        <ListWrapper {...getTableBodyProps()} ref={ref}>
-          {rows.map((row) => {
-            prepareRow(row)
-
-            return (
-              <ListItem tw="">
-                <ListItemRow {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <CellStyled
-                      {...cell.getCellProps()}
-                      isFixedWidth={!!cell.column.isFixedWidth}
-                      justify={cell.column.justify}
-                      css={[cell.column.tw]}
-                    >
-                      {cell.render('Cell')}
-                    </CellStyled>
-                  ))}
-                </ListItemRow>
-                <MobileListWrapper>
-                  {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
-                </MobileListWrapper>
-              </ListItem>
-            )
-          })}
-        </ListWrapper>
+              return (
+                <ListItem>
+                  <ListItemRow {...row.getRowProps()}>
+                    {row.cells.map((cell) => (
+                      <CellStyled
+                        {...cell.getCellProps()}
+                        isFixedWidth={!!cell.column.isFixedWidth}
+                        justify={cell.column.justify}
+                        css={[cell.column.tw]}
+                      >
+                        {cell.render('Cell')}
+                      </CellStyled>
+                    ))}
+                  </ListItemRow>
+                  <MobileListWrapper>
+                    {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
+                  </MobileListWrapper>
+                </ListItem>
+              )
+            })}
+          </ListWrapper>
+        </div>
       </TableWrapper>
 
       <TableFooter>
@@ -207,19 +219,19 @@ const TablePage = <TData extends Data = Data>({
   )
 }
 
-const Container = tw.main`grid gap-4 grid-rows-[max-content 1fr max-content]`
+const Container = tw.main`grid gap-2 content-start grid-rows-[max-content minmax(calc(100vh - 168px), 1fr) max-content] sm:grid-rows-[max-content minmax(calc(100vh - 176px), 1fr) max-content] xl:grid-rows-[max-content calc(100vh - 128px) max-content]`
 const Header = tw.div`flex justify-between relative items-center`
-const TableFooter = tw.div`h-11 flex justify-end lg:justify-between`
-const TableWrapper = tw.div`grid gap-1 grid-rows-[max-content 1fr] lg:h-[calc(100vh - 172px)]`
+const TableFooter = tw.div`h-10 flex justify-end xl:justify-between`
+const TableWrapper = tw.div`grid content-start`
 const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
-  tw`hidden lg:flex h-8 text-sm`,
+  tw`hidden xl:flex h-8  text-xs 2xl:text-sm`,
   hasScroll && tw`pr-1.5`,
 ])
-const ListWrapper = tw.div`rounded-md shadow-sm space-y-4 lg:(space-y-0 divide-y divide-gray-100 overflow-auto)`
-const ListItem = tw.div`bg-white rounded-md lg:rounded-none`
+const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100 )`
+const ListItem = tw.div`bg-white rounded-md xl:rounded-none`
 const Row = tw.div`items-center px-1 `
-const ListItemRow = tw(Row)`py-2 !hidden lg:!flex`
-const MobileListWrapper = tw.div`px-3 py-3 lg:hidden`
+const ListItemRow = tw(Row)`py-2 !hidden xl:!flex`
+const MobileListWrapper = tw.div`xl:hidden`
 const CellStyled = styled.div(
   ({ isFixedWidth, justify = 'center' }: { isFixedWidth: boolean; justify?: JustifyVariants }) => [
     tw`px-2 flex`,
@@ -229,3 +241,4 @@ const CellStyled = styled.div(
 )
 
 export { TablePage }
+// grid-rows-[max-content minmax(calc(100vh - 0px),1fr)] xl:h-[calc(100vh - 136px)]

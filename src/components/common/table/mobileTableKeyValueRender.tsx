@@ -14,6 +14,6 @@ const MobileTableKeyValueRender = ({ cell, ...props }: MobileTableKeyValueRender
   </div>
 )
 
-const PropertyNameWrapper = tw.div`opacity-50`
+const PropertyNameWrapper = tw.div`opacity-50 text-xs`
 
 export { MobileTableKeyValueRender }
