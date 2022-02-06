@@ -10,8 +10,8 @@
       "destination": "https://try-cra-pied.vercel.app/"
     },
     {
-      "source": "/page-a(.*)",
-      "destination": "https://try-cra-pied.vercel.app$1"
+      "source": "/",
+      "destination": "https://try-cra-pied.vercel.app/"
     }
   ]
 }
