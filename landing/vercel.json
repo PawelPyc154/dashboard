@@ -11,7 +11,7 @@
     },
     {
       "source": "/app/",
-      "destination": "https://dashboard-opal-two.vercel.app/"
+      "destination": "https://dashboard-opal-two.vercel.app"
     },
     {
       "source": "/app/:match*",
