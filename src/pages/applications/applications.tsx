@@ -150,5 +150,4 @@ const Applications = () => {
     />
   )
 }
-
 export { Applications }
