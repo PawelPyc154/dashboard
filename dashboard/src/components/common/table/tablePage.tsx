@@ -34,6 +34,7 @@ interface TableProps<TData extends Data = Data> {
   columns: Columns<TData>
   pageTitle: string
   data: TData[]
+  isLoading: boolean
   actionsTopBar?: ReactNode
   // eslint-disable-next-line no-unused-vars
   mobileBody: (
@@ -46,6 +47,7 @@ interface TableProps<TData extends Data = Data> {
 const TablePage = <TData extends Data = Data>({
   pageTitle,
   columns,
+  isLoading,
   data,
   actionsOnSelectedElements,
   mobileBody,
@@ -55,7 +57,7 @@ const TablePage = <TData extends Data = Data>({
     sortBy: StringParam,
     sortDirection: StringParam,
   })
-
+  console.log(isLoading)
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows, state } = useTable(
     {
       columns,

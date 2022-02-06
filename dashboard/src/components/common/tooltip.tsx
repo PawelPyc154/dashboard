@@ -3,6 +3,10 @@ import 'tippy.js/dist/tippy.css'
 
 type TooltipProps = {} & TippyProps
 
-const Tooltip = (props: TooltipProps) => <Tippy {...props} />
+const Tooltip = (props: TooltipProps) => (
+  <div>
+    <Tippy {...props} />
+  </div>
+)
 
 export { Tooltip }

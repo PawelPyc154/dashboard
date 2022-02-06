@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import 'twin.macro'
 import 'styled-components/macro'
 
@@ -253,50 +253,87 @@ const MyJobOfferts = () => {
         width: 274,
         disableSortBy: true,
         isFixedWidth: true,
-        Cell: () => (
+        Cell: ({ ids }) => (
           <ButtonsWrapper>
-            <Tooltip content="Publish">
-              <IconButton color="gray" size="md">
-                <MdPublishedWithChanges size="22" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip content="Promote">
-              <IconButton color="gray" size="md">
-                <MdOutlineVerified size="22" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip content="Duplicate">
-              <IconButton color="gray" size="md">
-                <HiOutlineDuplicate size="22" />
-              </IconButton>
-            </Tooltip>
+            <MyJobOffertsConfirmPublishDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Publish">
+                  <IconButton color="gray" size="md">
+                    <MdPublishedWithChanges size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+
+            {/* <IconButton color="gray" size="md">
+                    <MdPublishedWithChanges size="22" />
+                  </IconButton> */}
+            <MyJobOffertsConfirmPromoteDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Promote">
+                  <IconButton color="gray" size="md">
+                    <MdOutlineVerified size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <MyJobOffertsConfirmDuplicateDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Duplicate">
+                  <IconButton color="gray" size="md">
+                    <HiOutlineDuplicate size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+
             <Tooltip content="Edit">
               <IconButton color="gray" size="md">
                 <MdEdit size="22" />
               </IconButton>
             </Tooltip>
-            <Tooltip content="Close">
-              <IconButton color="gray" size="md">
-                <CgCloseO size="21" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip content="Remove">
-              <IconButton color="gray" size="md">
-                <MdOutlineDelete size="22" />
-              </IconButton>
-            </Tooltip>
+
+            <MyJobOffertsConfirmCloseDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Close">
+                  <IconButton color="gray" size="md">
+                    <CgCloseO size="21" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <MyJobOffertsConfirmRemoveDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Remove">
+                  <IconButton color="gray" size="md">
+                    <MdOutlineDelete size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
           </ButtonsWrapper>
         ),
       },
     ],
     [],
   )
-
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, [])
   return (
     <TablePage
+      isLoading={isLoading}
       pageTitle="My job offers"
       columns={columns}
-      data={data}
+      data={isLoading ? [] : data}
       actionsTopBar={<AddEditMyJobOfferDialog />}
       actionsOnSelectedElements={({ selectedElements, ids }) => (
         <ButtonsWrapper tw="hidden xl:flex gap-2">
