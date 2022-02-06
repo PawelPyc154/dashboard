@@ -126,15 +126,15 @@ const Applications = () => {
         <ButtonsWrapper tw="hidden xl:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Accept</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Accept</Button>}
           />
           <MyJobOffertsConfirmPromoteDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Reject</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Reject</Button>}
           />
           <MyJobOffertsConfirmRemoveDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Delete</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Delete</Button>}
           />
         </ButtonsWrapper>
       )}

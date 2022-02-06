@@ -302,23 +302,23 @@ const MyJobOfferts = () => {
         <ButtonsWrapper tw="hidden xl:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Publish</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Publish</Button>}
           />
           <MyJobOffertsConfirmPromoteDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Promote</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Promote</Button>}
           />
           <MyJobOffertsConfirmDuplicateDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Duplicate</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>}
           />
           <MyJobOffertsConfirmCloseDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Close</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Close</Button>}
           />
           <MyJobOffertsConfirmRemoveDialogs
             ids={ids}
-            openButton={<Button disabled={!selectedElements.length}>Delete</Button>}
+            trigger={<Button disabled={!selectedElements.length}>Delete</Button>}
           />
         </ButtonsWrapper>
       )}

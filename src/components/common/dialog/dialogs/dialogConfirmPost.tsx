@@ -1,6 +1,6 @@
 import { QueryKey } from 'react-query'
 import { usePost } from '../../../../hook/api/usePost'
-import { Dialog } from '../dialog'
+import { DialogTrigger } from '../dialogTrigger'
 import { DialogContentConfirm } from '../dialogContent/dialogContentConfirm'
 
 interface DialogConfirmPostProps {
@@ -9,11 +9,11 @@ interface DialogConfirmPostProps {
   ids: (number | string)[]
   invalidateQueriesList: QueryKey[]
   // eslint-disable-next-line no-undef
-  openButton: JSX.Element
+  trigger: JSX.Element
   onSuccess?: () => void
 }
 const DialogConfirmPost = ({
-  openButton,
+  trigger,
   url,
   ids,
   title,
@@ -23,21 +23,21 @@ const DialogConfirmPost = ({
   const { post, isLoadingPost } = usePost({ url, invalidateQueriesList })
 
   return (
-    <Dialog title={title} openButton={openButton} size="xl">
-      {({ setIsOpenDialog }) => (
+    <DialogTrigger title={title} trigger={trigger} size="xl">
+      {({ onCloseDialog }) => (
         <DialogContentConfirm
           isLoading={isLoadingPost}
           onClick={() =>
             post(ids, {
               onSuccess: () => {
                 onSuccess?.()
-                setIsOpenDialog(false)
+                onCloseDialog()
               },
             })
           }
         />
       )}
-    </Dialog>
+    </DialogTrigger>
   )
 }
 

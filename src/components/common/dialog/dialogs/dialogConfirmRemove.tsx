@@ -1,6 +1,6 @@
 import { QueryKey } from 'react-query'
 import { useRemove } from '../../../../hook/api/useRemove'
-import { Dialog } from '../dialog'
+import { DialogTrigger } from '../dialogTrigger'
 import { DialogContentConfirm } from '../dialogContent/dialogContentConfirm'
 
 interface DialogConfirmRemoveProps {
@@ -8,11 +8,11 @@ interface DialogConfirmRemoveProps {
   ids: (number | string)[]
   invalidateQueriesList: QueryKey[]
   // eslint-disable-next-line no-undef
-  openButton: JSX.Element
+  trigger: JSX.Element
   onSuccess?: () => void
 }
 const DialogConfirmRemove = ({
-  openButton,
+  trigger,
   url,
   ids,
   onSuccess,
@@ -21,21 +21,21 @@ const DialogConfirmRemove = ({
   const { remove, isLoadingRemove } = useRemove({ url, invalidateQueriesList })
 
   return (
-    <Dialog title="Confirm delete" openButton={openButton} size="xl">
-      {({ setIsOpenDialog }) => (
+    <DialogTrigger title="Confirm delete" trigger={trigger} size="xl">
+      {({ onCloseDialog }) => (
         <DialogContentConfirm
           isLoading={isLoadingRemove}
           onClick={() =>
             remove(ids, {
               onSuccess: () => {
                 onSuccess?.()
-                setIsOpenDialog(false)
+                onCloseDialog()
               },
             })
           }
         />
       )}
-    </Dialog>
+    </DialogTrigger>
   )
 }
 

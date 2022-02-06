@@ -1,27 +1,19 @@
-import Tippy from '@tippyjs/react'
-import 'tippy.js/dist/tippy.css'
+import { DialogBase } from '../components/common/dialog/dialogBase'
+import { Button } from '../components/form/button'
+import { useDialog } from '../hook/useDialog'
 
-const Employers = () => (
-  <div tw="grid justify-end items-start h-80 bg-yellow-300 overflow-y-scroll">
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <Tippy content="Hello" tw="bg-gray-400">
-      <button type="button">My button</button>
-    </Tippy>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-    <div tw="h-24">test</div>
-  </div>
-)
+const Employers = () => {
+  const { isOpenDialog, handleOpenDialog, handleCloseDialog } = useDialog()
+  return (
+    <div tw="grid justify-end items-start h-80 bg-yellow-300 overflow-y-scroll">
+      <Button onClick={handleOpenDialog}>open Dialog </Button>
+      {isOpenDialog && (
+        <DialogBase title="Test dialog" onCloseDialog={handleCloseDialog}>
+          test
+        </DialogBase>
+      )}
+    </div>
+  )
+}
 
 export { Employers }
