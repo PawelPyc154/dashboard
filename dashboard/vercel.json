@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/",
-      "destination": "https://try-cra-pied.vercel.app"
+      "source": "https://pawelpyc.pl/:match*",
+      "destination": "https://try-cra-pied.vercel.app/:match*"
     }
   ]
 }
