@@ -1,3 +1,6 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" },
+    { "source": "https://pawelpyc.pl/(.*)", "destination": "https://dashboard-opal-two.vercel.app/" }
+  ]
 }
