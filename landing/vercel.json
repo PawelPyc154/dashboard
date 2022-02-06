@@ -6,16 +6,8 @@
   },
   "rewrites": [
     {
-      "source": "/app",
-      "destination": "https://try-cra-pied.vercel.app/"
-    },
-    {
-      "source": "/",
-      "destination": "https://try-cra-pied.vercel.app/"
-    },
-    {
-      "source": "https://pawelpyc.pl/static/js/main.2b690653.js",
-      "destination": "https://try-cra-pied.vercel.app/static/js/main.2b690653.js"
+      "source": "/:match*",
+      "destination": "https://try-cra-pied.vercel.app/:match*"
     }
   ]
 }
