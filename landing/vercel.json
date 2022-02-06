@@ -6,8 +6,8 @@
   },
   "rewrites": [
     {
-      "source": "/app/(.*)",
-      "destination": "https://dashboard-opal-two.vercel.app/app"
+      "source": "/app/:match*",
+      "destination": "https://dashboard-opal-two.vercel.app/:match*"
     }
   ]
 }
