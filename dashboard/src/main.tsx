@@ -12,7 +12,7 @@ const queryClient = new QueryClient()
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="/">
+      <BrowserRouter basename="/app">
         <GlobalStyles />
         <QueryParamProvider ReactRouterRoute={RouteAdapter as React.FunctionComponent}>
           <App />
