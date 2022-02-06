@@ -6,8 +6,8 @@
   },
   "rewrites": [
     {
-      "source": "https://pawelpyc.pl/(.*)",
-      "destination": "https://dashboard-opal-two.vercel.app/"
+      "source": "/app",
+      "destination": "https://dashboard-opal-two.vercel.app/app"
     }
   ]
 }
