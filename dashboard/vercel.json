@@ -1,1 +1,8 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "https://try-cra-pied.vercel.app"
+    }
+  ]
+}
