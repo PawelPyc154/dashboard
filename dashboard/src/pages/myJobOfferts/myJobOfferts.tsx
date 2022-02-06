@@ -335,4 +335,4 @@ const MyJobOfferts = () => {
   )
 }
 
-export { MyJobOfferts }
+export default MyJobOfferts

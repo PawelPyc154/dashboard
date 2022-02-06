@@ -1,19 +1,23 @@
 import { Routes, Route } from 'react-router-dom'
 import tw from 'twin.macro'
+import { lazy, Suspense } from 'react'
 import { Navigation } from './components/layout/navigation/navigation'
-import { Employers } from './pages/employers'
-import { MyJobOfferts } from './pages/myJobOfferts/myJobOfferts'
-import { Applications } from './pages/applications/applications'
+
+const Employers = lazy(() => import('./pages/employers'))
+const Applications = lazy(() => import('./pages/applications/applications'))
+const MyJobOfferts = lazy(() => import('./pages/myJobOfferts/myJobOfferts'))
 
 const App = () => (
   <Containter>
     <Navigation />
     <Wrapper>
-      <Routes>
-        <Route path="" element={<Employers />} />
-        <Route path="/applications/:jobOfferId" element={<Applications />} />
-        <Route path="/my-job-offerts" element={<MyJobOfferts />} />
-      </Routes>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route path="" element={<Employers />} />
+          <Route path="/applications/:jobOfferId" element={<Applications />} />
+          <Route path="/my-job-offerts" element={<MyJobOfferts />} />
+        </Routes>
+      </Suspense>
     </Wrapper>
   </Containter>
 )

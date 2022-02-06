@@ -150,4 +150,4 @@ const Applications = () => {
     />
   )
 }
-export { Applications }
+export default Applications

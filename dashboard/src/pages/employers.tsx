@@ -5,6 +5,7 @@ import { Button } from '../components/form/button'
 import { useDialog } from '../hook/useDialog'
 import 'twin.macro'
 import 'styled-components/macro'
+import { Input } from '../components/form/input'
 
 const Employers = () => {
   const { isOpenDialog, handleOpenDialog, handleCloseDialog } = useDialog()
@@ -18,8 +19,9 @@ const Employers = () => {
         </DialogBase>
       )}
       <a href="/">test</a>
-      <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-      <a href="https://pawelpyc.pl">test</a>
+
+      <Input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+
       {inputValue}
       <div tw="font-bold">{localStorage.getItem('test')}</div>
       <Menu openButton={<Button>open Dialog </Button>}>{() => <MenuItem>test</MenuItem>}</Menu>
@@ -27,4 +29,4 @@ const Employers = () => {
   )
 }
 
-export { Employers }
+export default Employers
