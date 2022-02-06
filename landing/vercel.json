@@ -6,6 +6,10 @@
   },
   "rewrites": [
     {
+      "source": "/:match*",
+      "destination": "https://try-cra-pied.vercel.app/:match*"
+    },
+    {
       "source": "/app/:match*",
       "destination": "https://try-cra-pied.vercel.app/:match*"
     }
