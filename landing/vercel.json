@@ -7,11 +7,11 @@
   "rewrites": [
     {
       "source": "/:match*",
-      "destination": "https://try-cra-pied.vercel.app/:match*"
+      "destination": "https://dashboard-opal-two.vercel.app/:match*"
     },
     {
       "source": "/app/:match*",
-      "destination": "https://try-cra-pied.vercel.app/:match*"
+      "destination": "https://dashboard-opal-two.vercel.app/:match*"
     }
   ]
 }
