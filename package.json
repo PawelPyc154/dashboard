@@ -13,6 +13,7 @@
   "dependencies": {
     "@reach/dialog": "^0.16.2",
     "@reach/portal": "^0.16.2",
+    "@tippyjs/react": "^4.2.6",
     "axios": "^0.25.0",
     "query-string": "^7.1.0",
     "react": "^17.0.2",

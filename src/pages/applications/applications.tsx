@@ -2,7 +2,7 @@
 import { useMemo } from 'react'
 import 'twin.macro'
 import 'styled-components/macro'
-import { MdCheck, MdClose, MdOutlineDelete } from 'react-icons/md'
+import { MdCheck, MdClose, MdOutlineDelete, MdOutlineStar, MdOutlineStarBorder } from 'react-icons/md'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
@@ -15,11 +15,12 @@ import {
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
 import { IconButton } from '../../components/form/iconButton'
+import { Tooltip } from '../../components/common/tooltip'
 
 const data = [
   {
     id: 1,
-    title: 'Lorem ipsum',
+    fullName: 'Paweł Pyc',
     views: 123321,
     applications: 55,
     publishedAt: '01.12.2021',
@@ -34,14 +35,14 @@ const Applications = () => {
     status: string
     publishedAt: string
     expirationAt: string
-    title: string
+    fullName: string
     views: number
     applications: number
   }> = useMemo(
     () => [
       {
-        accessor: 'title',
-        Header: 'Title',
+        accessor: 'fullName',
+        Header: 'Full name',
         justify: 'start',
 
         Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
@@ -79,15 +80,35 @@ const Applications = () => {
         isFixedWidth: true,
         Cell: () => (
           <ButtonsWrapper tw="gap-3 xl:gap-2">
-            <IconButton color="gray" size="md">
-              <MdCheck size="22" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <MdClose size="22" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <MdOutlineDelete size="22" />
-            </IconButton>
+            <Tooltip content="Accept">
+              <IconButton color="gray" size="md">
+                <MdCheck size="22" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="Reject">
+              <IconButton color="gray" size="md">
+                <MdClose size="22" />
+              </IconButton>
+            </Tooltip>
+
+            {true ? (
+              <Tooltip content="Not marked">
+                <IconButton color="gray" size="md">
+                  <MdOutlineStarBorder size="22" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip content="Mark">
+                <IconButton color="gray" size="md">
+                  <MdOutlineStar />
+                </IconButton>
+              </Tooltip>
+            )}
+            <Tooltip content="Remove">
+              <IconButton color="gray" size="md">
+                <MdOutlineDelete size="22" />
+              </IconButton>
+            </Tooltip>
           </ButtonsWrapper>
         ),
       },
@@ -97,6 +118,7 @@ const Applications = () => {
 
   return (
     <TablePage
+      pageTitle="Applicatios - Programista React"
       columns={columns}
       data={data}
       actionsTopBar={<AddEditMyJobOfferDialog />}
@@ -116,8 +138,8 @@ const Applications = () => {
           />
         </ButtonsWrapper>
       )}
-      mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
-        <MobilePropertyWrapper actionsCell={id} heading={title}>
+      mobileBody={({ fullName, status, publishedAt, expirationAt, applications, views, id }) => (
+        <MobilePropertyWrapper actionsCell={id} heading={fullName}>
           <MobileTableKeyValueRender cell={status} />
           <MobileTableKeyValueRender cell={applications} />
           <MobileTableKeyValueRender cell={views} />

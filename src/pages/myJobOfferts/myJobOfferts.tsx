@@ -21,8 +21,19 @@ import {
   MyJobOffertsConfirmRemoveDialogs,
 } from './components/myJobOffertsConfirmDialogs'
 import { IconButton } from '../../components/form/iconButton'
+import { OfferStatus, OfferStatuses } from './components/offerStatus'
+import { Tooltip } from '../../components/common/tooltip'
 
-const data = [
+interface Data {
+  id: number
+  status: OfferStatuses
+  publishedAt: string
+  expirationAt: string
+  title: string
+  views: number
+  applications: number
+}
+const data: Data[] = [
   {
     id: 1,
     title: 'Lorem ipsum',
@@ -30,7 +41,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 2,
@@ -39,7 +50,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'draft',
   },
   {
     id: 3,
@@ -48,7 +59,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'closed',
   },
   {
     id: 4,
@@ -57,7 +68,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'banned',
   },
   {
     id: 5,
@@ -66,7 +77,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 6,
@@ -75,7 +86,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 7,
@@ -84,7 +95,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 8,
@@ -93,7 +104,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 9,
@@ -102,7 +113,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 10,
@@ -111,7 +122,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 11,
@@ -120,7 +131,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 12,
@@ -129,7 +140,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 13,
@@ -138,7 +149,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 14,
@@ -147,7 +158,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 15,
@@ -156,7 +167,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 16,
@@ -165,7 +176,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 17,
@@ -174,7 +185,7 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
   {
     id: 222,
@@ -183,14 +194,14 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'active',
   },
 ]
 
 const MyJobOfferts = () => {
   const columns: Columns<{
     id: number
-    status: string
+    status: OfferStatuses
     publishedAt: string
     expirationAt: string
     title: string
@@ -210,7 +221,7 @@ const MyJobOfferts = () => {
         Header: 'Applications',
         width: 75,
         Cell: ({ value, row }) => (
-          <Link to={`/applications/${row.original.id}`} tw="">
+          <Link to={`/applications/${row.original.id}`} tw="underline">
             {value}
           </Link>
         ),
@@ -224,6 +235,7 @@ const MyJobOfferts = () => {
         accessor: 'status',
         Header: 'Status',
         width: 75,
+        Cell: ({ value }) => <OfferStatus status={value} />,
       },
       {
         accessor: 'publishedAt',
@@ -243,62 +255,37 @@ const MyJobOfferts = () => {
         isFixedWidth: true,
         Cell: () => (
           <ButtonsWrapper>
-            <IconButton color="gray" size="md">
-              <MdPublishedWithChanges size="22" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <MdOutlineVerified size="22" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <HiOutlineDuplicate size="22" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <MdEdit size="22" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <CgCloseO size="21" />
-            </IconButton>
-            <IconButton color="gray" size="md">
-              <MdOutlineDelete size="22" />
-            </IconButton>
+            <Tooltip content="Publish">
+              <IconButton color="gray" size="md">
+                <MdPublishedWithChanges size="22" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="Promote">
+              <IconButton color="gray" size="md">
+                <MdOutlineVerified size="22" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="Duplicate">
+              <IconButton color="gray" size="md">
+                <HiOutlineDuplicate size="22" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="Edit">
+              <IconButton color="gray" size="md">
+                <MdEdit size="22" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="Close">
+              <IconButton color="gray" size="md">
+                <CgCloseO size="21" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="Remove">
+              <IconButton color="gray" size="md">
+                <MdOutlineDelete size="22" />
+              </IconButton>
+            </Tooltip>
           </ButtonsWrapper>
-          // <Menu
-          //   openButton={
-          //     <IconButton color="gray" size="md">
-          //       <BiDotsVerticalRounded size="22" />
-          //     </IconButton>
-          //   }
-          // >
-          //   {({ onCloseMenu }) => (
-          //     <>
-          //       <MyJobOffertsConfirmPublishDialogs
-          //         ids={[value]}
-          //         openButton={<MenuItem>Publish</MenuItem>}
-          //         onSuccess={onCloseMenu}
-          //       />
-          //       <MyJobOffertsConfirmPromoteDialogs
-          //         ids={[value]}
-          //         openButton={<MenuItem>Promote</MenuItem>}
-          //         onSuccess={onCloseMenu}
-          //       />
-          //       <MyJobOffertsConfirmDuplicateDialogs
-          //         ids={[value]}
-          //         openButton={<MenuItem>Duplicate</MenuItem>}
-          //         onSuccess={onCloseMenu}
-          //       />
-          //       <MyJobOffertsConfirmCloseDialogs
-          //         ids={[value]}
-          //         openButton={<MenuItem>Close</MenuItem>}
-          //         onSuccess={onCloseMenu}
-          //       />
-          //       <MyJobOffertsConfirmRemoveDialogs
-          //         ids={[value]}
-          //         openButton={<MenuItem>Delete</MenuItem>}
-          //         onSuccess={onCloseMenu}
-          //       />
-          //     </>
-          //   )}
-          // </Menu>
         ),
       },
     ],
@@ -307,6 +294,7 @@ const MyJobOfferts = () => {
 
   return (
     <TablePage
+      pageTitle="My job offers"
       columns={columns}
       data={data}
       actionsTopBar={<AddEditMyJobOfferDialog />}

@@ -11,6 +11,7 @@ import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { InputSearch } from '../../form/inputSearch'
 import { Heading } from '../heading'
+import { Tooltip } from '../tooltip'
 
 const justifyVariants = {
   start: tw`justify-start`,
@@ -31,6 +32,7 @@ export type Columns<TData extends Data = Data> = Array<
 
 interface TableProps<TData extends Data = Data> {
   columns: Columns<TData>
+  pageTitle: string
   data: TData[]
   actionsTopBar?: ReactNode
   // eslint-disable-next-line no-unused-vars
@@ -42,6 +44,7 @@ interface TableProps<TData extends Data = Data> {
   actionsOnSelectedElements?: (options: { selectedElements: RowType<TData>[]; ids: (string | number)[] }) => ReactNode
 }
 const TablePage = <TData extends Data = Data>({
+  pageTitle,
   columns,
   data,
   actionsOnSelectedElements,
@@ -113,7 +116,7 @@ const TablePage = <TData extends Data = Data>({
     <Container>
       <Header>
         <Heading tag="h1" size="2xl">
-          My job offerts
+          {pageTitle}
           <span tw="text-xs ml-1 2xl:(text-sm ml-2)">(323)</span>
         </Heading>
         <ButtonsWrapper>
@@ -122,12 +125,17 @@ const TablePage = <TData extends Data = Data>({
           <div tw="hidden xl:block">
             <InputSearch />
           </div>
-          <IconButton>
-            <FaSlidersH size="16" />
-          </IconButton>
-          <IconButton>
-            <MdHelpOutline size="22" />
-          </IconButton>
+
+          <Tooltip content="Filters">
+            <IconButton>
+              <FaSlidersH size="16" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip content="Help">
+            <IconButton>
+              <MdHelpOutline size="22" />
+            </IconButton>
+          </Tooltip>
         </ButtonsWrapper>
       </Header>
 
@@ -178,7 +186,7 @@ const TablePage = <TData extends Data = Data>({
             </Row>
           ))}
         </TableHeader>
-        <div tw="xl:(h-[calc(100vh - 168px)] overflow-auto rounded-sm)" ref={ref}>
+        <ListContainer ref={ref}>
           <ListWrapper {...getTableBodyProps()}>
             {rows.map((row) => {
               prepareRow(row)
@@ -204,7 +212,7 @@ const TablePage = <TData extends Data = Data>({
               )
             })}
           </ListWrapper>
-        </div>
+        </ListContainer>
       </TableWrapper>
 
       <TableFooter>
@@ -227,7 +235,8 @@ const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
   tw`hidden xl:flex h-8  text-xs 2xl:text-sm`,
   hasScroll && tw`pr-1.5`,
 ])
-const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100 )`
+const ListContainer = tw.div`xl:(h-[calc(100vh - 168px)] overflow-auto rounded-sm)`
+const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100)`
 const ListItem = tw.div`bg-white rounded-md xl:rounded-none`
 const Row = tw.div`items-center px-1 `
 const ListItemRow = tw(Row)`py-2 !hidden xl:!flex`
@@ -241,4 +250,3 @@ const CellStyled = styled.div(
 )
 
 export { TablePage }
-// grid-rows-[max-content minmax(calc(100vh - 0px),1fr)] xl:h-[calc(100vh - 136px)]
