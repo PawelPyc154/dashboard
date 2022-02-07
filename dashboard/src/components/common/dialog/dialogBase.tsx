@@ -20,7 +20,7 @@ interface DialogBaseProps {
   // eslint-disable-next-line no-unused-vars
   children: ReactNode
 }
-const DialogBase = ({ children, size = '3xl', title, onCloseDialog }: DialogBaseProps) => (
+const DialogBase = ({ children, size = '2xl', title, onCloseDialog }: DialogBaseProps) => (
   <DialogOverlayStyled onClick={onCloseDialog}>
     <DialogContentStyled
       id="dialogContent"

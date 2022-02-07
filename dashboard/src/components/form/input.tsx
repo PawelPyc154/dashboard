@@ -7,14 +7,15 @@ type InputBaseProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, H
 type InputProps = InputBaseProps & {
   label?: string
   icon?: ReactNode
+  className?: string
 }
-const Input = forwardRef<HTMLInputElement, InputProps>(({ label, icon, ...props }, ref) => (
-  <Container>
+const Input = forwardRef<HTMLInputElement, InputProps>(({ label, className, icon, ...props }, ref) => (
+  <Container className={className}>
     {label && <Label>{label}</Label>}
     <Wrapper>
       <input
         css={[
-          tw`bg-white rounded-md border-gray-200 border px-4 h-10 flex items-center w-full pb-px`,
+          tw`bg-white rounded-md border-green-600 border-2 px-3 h-10 flex items-center w-full pb-px`,
           !!icon && tw`pl-10`,
         ]}
         ref={ref}

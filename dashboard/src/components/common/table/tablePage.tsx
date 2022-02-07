@@ -12,6 +12,7 @@ import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { InputSearch } from '../../form/inputSearch'
 import { Heading } from '../heading'
 import { Tooltip } from '../tooltip'
+import { Spinner } from '../spinner'
 
 const justifyVariants = {
   start: tw`justify-start`,
@@ -57,7 +58,7 @@ const TablePage = <TData extends Data = Data>({
     sortBy: StringParam,
     sortDirection: StringParam,
   })
-  console.log(isLoading)
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows, state } = useTable(
     {
       columns,
@@ -142,7 +143,7 @@ const TablePage = <TData extends Data = Data>({
       </Header>
 
       <TableWrapper {...getTableProps()}>
-        <TableHeader hasScroll={hasScroll}>
+        <TableHeader hasScroll={hasScroll} css={[isLoading && tw`opacity-30 pointer-events-none`]}>
           {headerGroups.map((headerGroup) => (
             <Row {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => {
@@ -188,36 +189,39 @@ const TablePage = <TData extends Data = Data>({
             </Row>
           ))}
         </TableHeader>
-        <ListContainer ref={ref}>
-          <ListWrapper {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row)
+        <div tw="relative">
+          {isLoading && <Spinner size="base" color="green" overlay="white" />}
+          <ListContainer ref={ref}>
+            <ListWrapper {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row)
 
-              return (
-                <ListItem>
-                  <ListItemRow {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      <CellStyled
-                        {...cell.getCellProps()}
-                        isFixedWidth={!!cell.column.isFixedWidth}
-                        justify={cell.column.justify}
-                        css={[cell.column.tw]}
-                      >
-                        {cell.render('Cell')}
-                      </CellStyled>
-                    ))}
-                  </ListItemRow>
-                  <MobileListWrapper>
-                    {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
-                  </MobileListWrapper>
-                </ListItem>
-              )
-            })}
-          </ListWrapper>
-        </ListContainer>
+                return (
+                  <ListItem>
+                    <ListItemRow {...row.getRowProps()}>
+                      {row.cells.map((cell) => (
+                        <CellStyled
+                          {...cell.getCellProps()}
+                          isFixedWidth={!!cell.column.isFixedWidth}
+                          justify={cell.column.justify}
+                          css={[cell.column.tw]}
+                        >
+                          {cell.render('Cell')}
+                        </CellStyled>
+                      ))}
+                    </ListItemRow>
+                    <MobileListWrapper>
+                      {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
+                    </MobileListWrapper>
+                  </ListItem>
+                )
+              })}
+            </ListWrapper>
+          </ListContainer>
+        </div>
       </TableWrapper>
 
-      <TableFooter>
+      <TableFooter css={[isLoading && tw`opacity-30 pointer-events-none`]}>
         {actionsOnSelectedElements?.({
           selectedElements: selectedFlatRows,
           ids: selectedFlatRows.map(({ original }) => original.id),
@@ -232,7 +236,7 @@ const TablePage = <TData extends Data = Data>({
 const Container = tw.main`grid gap-2 content-start grid-rows-[max-content minmax(calc(100vh - 168px), 1fr) max-content] sm:grid-rows-[max-content minmax(calc(100vh - 176px), 1fr) max-content] xl:grid-rows-[max-content calc(100vh - 128px) max-content]`
 const Header = tw.div`flex justify-between relative items-center`
 const TableFooter = tw.div`h-10 flex justify-end xl:justify-between`
-const TableWrapper = tw.div`grid content-start`
+const TableWrapper = tw.div`grid content-start relative`
 const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
   tw`hidden xl:flex h-8  text-xs 2xl:text-sm`,
   hasScroll && tw`pr-1.5`,

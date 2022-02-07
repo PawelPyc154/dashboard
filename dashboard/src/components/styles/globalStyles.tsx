@@ -3,6 +3,9 @@ import { createGlobalStyle } from 'styled-components'
 import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
 
 const CustomStyles = createGlobalStyle({
+  html: {
+    ...tw`3xl:text-base`,
+  },
   body: {
     ...tw`antialiased text-sm`,
     background: theme`colors.gray.200`,

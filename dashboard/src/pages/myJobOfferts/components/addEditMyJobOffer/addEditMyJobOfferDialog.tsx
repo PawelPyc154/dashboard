@@ -20,7 +20,7 @@ const AddEditMyJobOfferDialog = () => (
       </>
     }
   >
-    {() => <AddEditMyJobOfferForm mode="edit" id={undefined} />}
+    {() => <AddEditMyJobOfferForm />}
   </DialogTrigger>
 )
 

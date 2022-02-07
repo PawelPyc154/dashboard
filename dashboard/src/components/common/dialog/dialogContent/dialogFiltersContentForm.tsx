@@ -5,31 +5,34 @@ import { Button } from '../../../form/button'
 import { useDialogContext } from '../dialogProvider'
 import { ButtonsWrapper } from '../../../form/buttonsWrapper'
 
-interface DialogContentFormProps {
+interface DialogFiltersContentFormProps {
   className?: string
   isLoading: boolean
   children: ReactNode
-  onSubmit: FormEventHandler<HTMLFormElement> | undefined
+  onSubmit: FormEventHandler<HTMLFormElement>
+  onReset: FormEventHandler<HTMLFormElement>
 }
 
-const DialogContentForm = ({ children, onSubmit, isLoading, className }: DialogContentFormProps) => {
+const DialogFiltersContentForm = ({ children, onSubmit, isLoading, className, onReset }: DialogFiltersContentFormProps) => {
   const { setIsOpenDialog } = useDialogContext()
-
   return (
-    <form onSubmit={onSubmit} tw="grid gap-4">
+    <form onSubmit={onSubmit} tw="grid gap-4" onReset={onReset}>
       <FieldsWrapper className={className}>{children}</FieldsWrapper>
       <ButtonsWrapper tw="justify-center">
         <Button color="gray" onClick={() => setIsOpenDialog(false)}>
           Close
         </Button>
+        <Button type="reset" color="gray">
+          reset
+        </Button>
         <Button type="submit" isLoading={isLoading}>
-          Save
+          Filter
         </Button>
       </ButtonsWrapper>
     </form>
   )
 }
 
-export { DialogContentForm }
+export { DialogFiltersContentForm }
 
 const FieldsWrapper = tw.div`grid gap-4`

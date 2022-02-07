@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-unused-vars */
 
-import { cloneElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { DialogProvider } from './dialogProvider'
 import { DialogBase, DialogBaseSizes } from './dialogBase'

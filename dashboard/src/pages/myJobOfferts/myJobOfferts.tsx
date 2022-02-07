@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import 'twin.macro'
 import 'styled-components/macro'
 
@@ -266,9 +266,6 @@ const MyJobOfferts = () => {
               }
             />
 
-            {/* <IconButton color="gray" size="md">
-                    <MdPublishedWithChanges size="22" />
-                  </IconButton> */}
             <MyJobOffertsConfirmPromoteDialogs
               ids={ids}
               trigger={
@@ -322,18 +319,13 @@ const MyJobOfferts = () => {
     ],
     [],
   )
-  const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
-  }, [])
+
   return (
     <TablePage
-      isLoading={isLoading}
+      isLoading={false}
       pageTitle="My job offers"
       columns={columns}
-      data={isLoading ? [] : data}
+      data={data}
       actionsTopBar={<AddEditMyJobOfferDialog />}
       actionsOnSelectedElements={({ selectedElements, ids }) => (
         <ButtonsWrapper tw="hidden xl:flex gap-2">

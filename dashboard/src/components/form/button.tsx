@@ -19,16 +19,9 @@ type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HT
 }
 
 const Button = ({ children, color = 'green', isLoading, ...props }: ButtonProps) => (
-  <Containter
-    css={[colors[color], isLoading && [isLoading && tw`pointer-events-none`, loadingColors[color]]]}
-    {...props}
-  >
+  <Containter css={[colors[color], isLoading && [isLoading && tw`pointer-events-none`, loadingColors[color]]]} {...props}>
     {children}
-    {isLoading && (
-      <div tw="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <Spinner />
-      </div>
-    )}
+    {isLoading && <Spinner size="sm" />}
   </Containter>
 )
 

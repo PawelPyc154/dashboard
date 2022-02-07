@@ -118,6 +118,7 @@ const Applications = () => {
 
   return (
     <TablePage
+      isLoading={false}
       pageTitle="Applicatios - Programista React"
       columns={columns}
       data={data}
