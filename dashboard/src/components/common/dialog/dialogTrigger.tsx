@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-unused-vars */
 
 import { cloneElement, ReactNode } from 'react'
@@ -17,7 +19,7 @@ const DialogTrigger = ({ trigger, title, size, children }: DialogProps) => (
   <DialogProvider>
     {({ isOpenDialog, setIsOpenDialog }) => (
       <>
-        {cloneElement(trigger, { onClick: () => setIsOpenDialog(true) })}
+        <div onClick={() => setIsOpenDialog(true)}>{trigger}</div>
         {isOpenDialog && (
           <DialogBase title={title} size={size} onCloseDialog={() => setIsOpenDialog(false)}>
             {children({ onCloseDialog: () => setIsOpenDialog(false) })}
