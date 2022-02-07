@@ -1,40 +1,20 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { DefaultValues, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import 'twin.macro'
-
-import queryString from 'query-string'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { FormEvent } from 'react'
 import { InputControl } from '../../../../components/form/controls/inputControl'
 import { DialogFiltersContentForm } from '../../../../components/common/dialog/dialogContent/dialogFiltersContentForm'
+import { useQueryParamsAll } from '../../../../hook/useQueryParamsAll'
 
 interface FormValues {
-  searchPhrase: string
+  title: string
   test: string
 }
 
 const AddEditMyJobOfferForm = () => {
-  const { queryParams, setQueryParams } = useQueryParamsAll()
-  const { handleSubmit, control, reset, watch } = useForm<FormValues>({ defaultValues: queryParams, shouldUnregister: true }) //  TODO - add nestedDefaultValues
-  const onSubmit: SubmitHandler<FormValues> = (value) => {
-    setQueryParams({ ...queryParams, pageNumber: '', ...value })
-  }
-  const onReset: SubmitHandler<FormValues> = (value) => {
-    setQueryParams({ ...queryParams, pageNumber: '', ...value })
-  }
-
+  const { formProps, control } = useFormQueryParams()
   return (
-    <DialogFiltersContentForm
-      onSubmit={handleSubmit(onSubmit)}
-      onReset={(e) => {
-        const objectEmptyString = Object.fromEntries(Object.entries(watch()).map(([key]) => [key, '']))
-        reset(objectEmptyString)
-        setTimeout(() => {
-          handleSubmit(onReset)(e)
-        }, 0)
-      }}
-      isLoading={false}
-      tw="grid-cols-2"
-    >
-      <InputControl control={control} name="searchPhrase" label="Title" tw="col-span-2" />
+    <DialogFiltersContentForm {...formProps} tw="grid-cols-2">
+      <InputControl control={control} name="title" label="Title" tw="col-span-2" />
       <InputControl control={control} name="test" label="Title" tw="" />
     </DialogFiltersContentForm>
   )
@@ -42,22 +22,34 @@ const AddEditMyJobOfferForm = () => {
 
 export { AddEditMyJobOfferForm }
 
-const useQueryParamsAll = () => {
-  const { search, pathname } = useLocation()
-  const navigate = useNavigate()
-  const queryParams = queryString.parse(search, {
-    parseBooleans: true,
-    parseNumbers: true,
-    arrayFormat: 'index',
+const useFormQueryParams = <TFieldValues extends FieldValues = FieldValues>(defaultValues?: DefaultValues<TFieldValues>) => {
+  const { queryParams, setQueryParams } = useQueryParamsAll()
+  const { handleSubmit, control, reset, watch, ...restForm } = useForm<FormValues>({
+    defaultValues: defaultValues || queryParams,
+    shouldUnregister: true,
   })
-
-  const setQueryParams = (value: object) => {
-    navigate({
-      pathname,
-      search: queryString.stringify(value, { skipNull: true, skipEmptyString: true, arrayFormat: 'index' }),
-    })
+  const onSubmit: SubmitHandler<FormValues> = (value) => {
+    setQueryParams({ ...queryParams, pageNumber: '', ...value })
   }
-  return { queryParams, setQueryParams }
+  const onReset: SubmitHandler<FormValues> = (value) => {
+    setQueryParams({ ...queryParams, pageNumber: '', ...value })
+  }
+
+  return {
+    control,
+    watch,
+    ...restForm,
+    formProps: {
+      onSubmit: handleSubmit(onSubmit),
+      onReset: (e: FormEvent<HTMLFormElement>) => {
+        const objectEmptyString = Object.fromEntries(Object.entries(watch()).map(([key]) => [key, '']))
+        reset(defaultValues || objectEmptyString)
+        setTimeout(() => {
+          handleSubmit(onReset)(e)
+        }, 0)
+      },
+    },
+  }
 }
 
-export default useQueryParamsAll
+export { useFormQueryParams }

@@ -7,7 +7,7 @@ import { ButtonsWrapper } from '../../../form/buttonsWrapper'
 
 interface DialogFiltersContentFormProps {
   className?: string
-  isLoading: boolean
+  isLoading?: boolean
   children: ReactNode
   onSubmit: FormEventHandler<HTMLFormElement>
   onReset: FormEventHandler<HTMLFormElement>
