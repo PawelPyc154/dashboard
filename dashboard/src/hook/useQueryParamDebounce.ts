@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { useQueryParam } from 'use-query-params'
 
-const useQueryParamDebounce = <T>(name: string, time = 400, defaultValue = '') => {
+const useQueryParamDebounce = <T>(name: string, defaultValue: T, time = 400) => {
   const [query, setQuery] = useQueryParam<T>(name)
-  const [state, setState] = useState(() => query || defaultValue)
+  const [state, setState] = useState(() => query)
 
   const debounced = useDebouncedCallback((value) => {
     setQuery(value)
@@ -22,7 +22,7 @@ const useQueryParamDebounce = <T>(name: string, time = 400, defaultValue = '') =
     }
   }, [query])
 
-  return [state, setState]
+  return [state, setState] as const
 }
 
 export { useQueryParamDebounce }

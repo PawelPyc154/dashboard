@@ -6,7 +6,7 @@ interface InputSearchProps {
   className?: string
 }
 const InputSearch = ({ className }: InputSearchProps) => {
-  const [searchPhrase, setSearchPhrase] = useQueryParamDebounce('searchPhrase')
+  const [searchPhrase, setSearchPhrase] = useQueryParamDebounce('searchPhrase', '')
 
   return (
     <Input
