@@ -4,7 +4,9 @@ import 'twin.macro'
 import 'styled-components/macro'
 
 import { Link } from 'react-router-dom'
-import { MdHelpOutline } from 'react-icons/md'
+import { MdEdit, MdHelpOutline, MdOutlineDelete, MdOutlineVerified, MdPublishedWithChanges } from 'react-icons/md'
+import { HiOutlineDuplicate } from 'react-icons/hi'
+import { CgCloseO } from 'react-icons/cg'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
@@ -260,8 +262,7 @@ const MyJobOfferts = () => {
               trigger={
                 <Tooltip content="Publish">
                   <IconButton color="gray" size="md">
-                    <span>1</span>
-                    {/* <MdPublishedWithChanges size="22" /> */}
+                    <MdPublishedWithChanges size="22" />
                   </IconButton>
                 </Tooltip>
               }
@@ -272,8 +273,7 @@ const MyJobOfferts = () => {
               trigger={
                 <Tooltip content="Promote">
                   <IconButton color="gray" size="md">
-                    {/* <MdOutlineVerified size="22" /> */}
-                    <span>1</span>
+                    <MdOutlineVerified size="22" />
                   </IconButton>
                 </Tooltip>
               }
@@ -283,8 +283,7 @@ const MyJobOfferts = () => {
               trigger={
                 <Tooltip content="Duplicate">
                   <IconButton color="gray" size="md">
-                    {/* <HiOutlineDuplicate size="22" /> */}
-                    <span>1</span>
+                    <HiOutlineDuplicate size="22" />
                   </IconButton>
                 </Tooltip>
               }
@@ -292,8 +291,7 @@ const MyJobOfferts = () => {
 
             <Tooltip content="Edit">
               <IconButton color="gray" size="md">
-                {/* <MdEdit size="22" /> */}
-                <span>1</span>
+                <MdEdit size="22" />
               </IconButton>
             </Tooltip>
 
@@ -302,8 +300,7 @@ const MyJobOfferts = () => {
               trigger={
                 <Tooltip content="Close">
                   <IconButton color="gray" size="md">
-                    {/* <CgCloseO size="21" /> */}
-                    <span>1</span>
+                    <CgCloseO size="21" />
                   </IconButton>
                 </Tooltip>
               }
@@ -313,8 +310,7 @@ const MyJobOfferts = () => {
               trigger={
                 <Tooltip content="Remove">
                   <IconButton color="gray" size="md">
-                    {/* <MdOutlineDelete size="22" /> */}
-                    <span>1</span>
+                    <MdOutlineDelete size="22" />
                   </IconButton>
                 </Tooltip>
               }
