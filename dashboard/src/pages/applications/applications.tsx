@@ -118,25 +118,17 @@ const Applications = () => {
 
   return (
     <TablePage
-      isLoading={false}
       pageTitle="Applicatios - Programista React"
-      columns={columns}
       data={data}
+      columns={columns}
+      totalItems={data.length}
+      isLoading={false}
       actionsTopBar={<AddEditMyJobOfferDialog />}
       actionsOnSelectedElements={({ selectedElements, ids }) => (
         <ButtonsWrapper tw="hidden xl:flex gap-2">
-          <MyJobOffertsConfirmPublishDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Accept</Button>}
-          />
-          <MyJobOffertsConfirmPromoteDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Reject</Button>}
-          />
-          <MyJobOffertsConfirmRemoveDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Delete</Button>}
-          />
+          <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Accept</Button>} />
+          <MyJobOffertsConfirmPromoteDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Reject</Button>} />
+          <MyJobOffertsConfirmRemoveDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Delete</Button>} />
         </ButtonsWrapper>
       )}
       mobileBody={({ fullName, status, publishedAt, expirationAt, applications, views, id }) => (
