@@ -1,17 +1,14 @@
 import tw, { styled, TwStyle } from 'twin.macro'
-import { FaSlidersH } from 'react-icons/fa'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell, IdType, useSortBy } from 'react-table'
 import { ReactNode, useEffect } from 'react'
 import { useQueryParams, StringParam } from 'use-query-params'
-import { MdOutlineArrowDropUp, MdOutlineArrowDropDown, MdHelpOutline } from 'react-icons/md'
+import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md'
 import { Pagination } from '../pagination'
-import { IconButton } from '../../form/iconButton'
 import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
-import { InputSearch } from '../../form/inputSearch'
 import { Heading } from '../heading'
-import { Tooltip } from '../tooltip'
+
 import { Spinner } from '../spinner'
 
 const justifyVariants = {
@@ -32,11 +29,13 @@ export type Columns<TData extends Data = Data> = Array<
 >
 
 interface TableProps<TData extends Data = Data> {
+  data: TData[]
   columns: Columns<TData>
   pageTitle: string
-  data: TData[]
+  totalItems: number | undefined
   isLoading: boolean
   actionsTopBar?: ReactNode
+
   // eslint-disable-next-line no-unused-vars
   mobileBody: (
     // eslint-disable-next-line no-unused-vars
@@ -46,10 +45,11 @@ interface TableProps<TData extends Data = Data> {
   actionsOnSelectedElements?: (options: { selectedElements: RowType<TData>[]; ids: (string | number)[] }) => ReactNode
 }
 const TablePage = <TData extends Data = Data>({
-  pageTitle,
-  columns,
-  isLoading,
   data,
+  columns,
+  pageTitle,
+  totalItems,
+  isLoading,
   actionsOnSelectedElements,
   mobileBody,
   actionsTopBar,
@@ -114,32 +114,14 @@ const TablePage = <TData extends Data = Data>({
   }, [state.sortBy, setQuery])
 
   const { ref, hasScroll } = useElementSize<HTMLDivElement>()
-
   return (
     <Container>
       <Header>
         <Heading tag="h1" size="2xl">
           {pageTitle}
-          <span tw="text-xs ml-1 2xl:(text-sm ml-2)">(323)</span>
+          <span tw="text-xs ml-1 2xl:(text-sm ml-2)">{`(${totalItems})`}</span>
         </Heading>
-        <ButtonsWrapper>
-          {actionsTopBar}
-
-          <div tw="hidden xl:block">
-            <InputSearch />
-          </div>
-
-          <Tooltip content="Filters">
-            <IconButton>
-              <FaSlidersH size="16" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip content="Help">
-            <IconButton>
-              <MdHelpOutline size="22" />
-            </IconButton>
-          </Tooltip>
-        </ButtonsWrapper>
+        <ButtonsWrapper>{actionsTopBar}</ButtonsWrapper>
       </Header>
 
       <TableWrapper {...getTableProps()}>
@@ -243,16 +225,14 @@ const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
 ])
 const ListContainer = tw.div`xl:(h-[calc(100vh - 168px)] overflow-auto rounded-sm)`
 const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100)`
-const ListItem = tw.div`bg-white rounded-md xl:rounded-none`
+const ListItem = tw.div`bg-white rounded-md xl:rounded-none hover:bg-gray-300`
 const Row = tw.div`items-center px-1 `
 const ListItemRow = tw(Row)`py-2 !hidden xl:!flex`
 const MobileListWrapper = tw.div`xl:hidden`
-const CellStyled = styled.div(
-  ({ isFixedWidth, justify = 'center' }: { isFixedWidth: boolean; justify?: JustifyVariants }) => [
-    tw`px-2 flex`,
-    isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
-    justifyVariants[justify],
-  ],
-)
+const CellStyled = styled.div(({ isFixedWidth, justify = 'center' }: { isFixedWidth: boolean; justify?: JustifyVariants }) => [
+  tw`px-2 flex`,
+  isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
+  justifyVariants[justify],
+])
 
 export { TablePage }

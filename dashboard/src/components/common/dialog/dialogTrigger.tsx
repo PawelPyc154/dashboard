@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 
 import { ReactNode } from 'react'
-
 import { DialogProvider } from './dialogProvider'
 import { DialogBase, DialogBaseSizes } from './dialogBase'
 

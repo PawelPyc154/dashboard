@@ -4,7 +4,7 @@ import 'twin.macro'
 import 'styled-components/macro'
 
 import { Link } from 'react-router-dom'
-import { MdEdit, MdOutlineDelete, MdOutlineVerified, MdPublishedWithChanges } from 'react-icons/md'
+import { MdEdit, MdHelpOutline, MdOutlineDelete, MdOutlineVerified, MdPublishedWithChanges } from 'react-icons/md'
 import { HiOutlineDuplicate } from 'react-icons/hi'
 import { CgCloseO } from 'react-icons/cg'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
@@ -23,6 +23,8 @@ import {
 import { IconButton } from '../../components/form/iconButton'
 import { OfferStatus, OfferStatuses } from './components/offerStatus'
 import { Tooltip } from '../../components/common/tooltip'
+import { InputSearch } from '../../components/form/inputSearch'
+import { MyJobOffertsFilters } from './components/myJobOffertsFilters'
 
 interface Data {
   id: number
@@ -322,33 +324,30 @@ const MyJobOfferts = () => {
 
   return (
     <TablePage
-      isLoading={false}
       pageTitle="My job offers"
       columns={columns}
       data={data}
-      actionsTopBar={<AddEditMyJobOfferDialog />}
+      totalItems={data.length}
+      isLoading={false}
+      actionsTopBar={
+        <>
+          <AddEditMyJobOfferDialog />
+          <InputSearch tw="hidden xl:block" />
+          <MyJobOffertsFilters />
+          <Tooltip content="Help">
+            <IconButton>
+              <MdHelpOutline size="22" />
+            </IconButton>
+          </Tooltip>
+        </>
+      }
       actionsOnSelectedElements={({ selectedElements, ids }) => (
         <ButtonsWrapper tw="hidden xl:flex gap-2">
-          <MyJobOffertsConfirmPublishDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Publish</Button>}
-          />
-          <MyJobOffertsConfirmPromoteDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Promote</Button>}
-          />
-          <MyJobOffertsConfirmDuplicateDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>}
-          />
-          <MyJobOffertsConfirmCloseDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Close</Button>}
-          />
-          <MyJobOffertsConfirmRemoveDialogs
-            ids={ids}
-            trigger={<Button disabled={!selectedElements.length}>Delete</Button>}
-          />
+          <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Publish</Button>} />
+          <MyJobOffertsConfirmPromoteDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Promote</Button>} />
+          <MyJobOffertsConfirmDuplicateDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>} />
+          <MyJobOffertsConfirmCloseDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Close</Button>} />
+          <MyJobOffertsConfirmRemoveDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Delete</Button>} />
         </ButtonsWrapper>
       )}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (

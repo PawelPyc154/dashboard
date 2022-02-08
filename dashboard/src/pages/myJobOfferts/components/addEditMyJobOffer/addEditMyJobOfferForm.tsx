@@ -1,9 +1,7 @@
-import { DefaultValues, FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import 'twin.macro'
-import { FormEvent } from 'react'
+import { useForm } from 'react-hook-form'
 import { InputControl } from '../../../../components/form/controls/inputControl'
-import { DialogFiltersContentForm } from '../../../../components/common/dialog/dialogContent/dialogFiltersContentForm'
-import { useQueryParamsAll } from '../../../../hook/useQueryParamsAll'
+import { DialogContentForm } from '../../../../components/common/dialog/dialogContent/dialogContentForm'
 
 interface FormValues {
   title: string
@@ -11,45 +9,14 @@ interface FormValues {
 }
 
 const AddEditMyJobOfferForm = () => {
-  const { formProps, control } = useFormQueryParams()
+  const { control, handleSubmit } = useForm<FormValues>()
+  const onSubmit = () => {}
   return (
-    <DialogFiltersContentForm {...formProps} tw="grid-cols-2">
+    <DialogContentForm onSubmit={handleSubmit(onSubmit)} tw="grid-cols-2">
       <InputControl control={control} name="title" label="Title" tw="col-span-2" />
-      <InputControl control={control} name="test" label="Title" tw="" />
-    </DialogFiltersContentForm>
+      <InputControl control={control} name="test" label="Title" />
+    </DialogContentForm>
   )
 }
 
 export { AddEditMyJobOfferForm }
-
-const useFormQueryParams = <TFieldValues extends FieldValues = FieldValues>(defaultValues?: DefaultValues<TFieldValues>) => {
-  const { queryParams, setQueryParams } = useQueryParamsAll()
-  const { handleSubmit, control, reset, watch, ...restForm } = useForm<FormValues>({
-    defaultValues: defaultValues || queryParams,
-    shouldUnregister: true,
-  })
-  const onSubmit: SubmitHandler<FormValues> = (value) => {
-    setQueryParams({ ...queryParams, pageNumber: '', ...value })
-  }
-  const onReset: SubmitHandler<FormValues> = (value) => {
-    setQueryParams({ ...queryParams, pageNumber: '', ...value })
-  }
-
-  return {
-    control,
-    watch,
-    ...restForm,
-    formProps: {
-      onSubmit: handleSubmit(onSubmit),
-      onReset: (e: FormEvent<HTMLFormElement>) => {
-        const objectEmptyString = Object.fromEntries(Object.entries(watch()).map(([key]) => [key, '']))
-        reset(defaultValues || objectEmptyString)
-        setTimeout(() => {
-          handleSubmit(onReset)(e)
-        }, 0)
-      },
-    },
-  }
-}
-
-export { useFormQueryParams }

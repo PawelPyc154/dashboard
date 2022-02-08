@@ -6,6 +6,7 @@ const colors = {
   white: tw`bg-white hover:bg-gray-100`,
   gray: tw`bg-gray-100 hover:bg-gray-200`,
   green: tw`bg-green-600 hover:bg-green-700 text-white`,
+  red: tw`bg-red-600 hover:bg-red-700 text-white`,
 }
 const sizes = {
   base: tw`h-10 w-10`,
@@ -22,11 +23,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     <button
       ref={ref}
       type={type}
-      css={[
-        tw`rounded-md transition-colors flex items-center justify-center flex-shrink-0`,
-        colors[color],
-        sizes[size],
-      ]}
+      css={[tw`rounded-md transition-colors flex items-center justify-center flex-shrink-0`, colors[color], sizes[size]]}
       {...props}
     >
       {children}
