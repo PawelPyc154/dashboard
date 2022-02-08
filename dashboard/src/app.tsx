@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import tw from 'twin.macro'
 import { lazy, Suspense } from 'react'
 import { Navigation } from './components/layout/navigation/navigation'
+import { Spinner } from './components/common/spinner'
 
 const Employers = lazy(() => import('./pages/employers'))
 const Applications = lazy(() => import('./pages/applications/applications'))
@@ -11,7 +12,7 @@ const App = () => (
   <Containter>
     <Navigation />
     <Wrapper>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Spinner color="green" />}>
         <Routes>
           <Route path="" element={<Employers />} />
           <Route path="/applications/:jobOfferId" element={<Applications />} />
