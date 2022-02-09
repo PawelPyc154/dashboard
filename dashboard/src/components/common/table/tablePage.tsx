@@ -8,7 +8,7 @@ import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { Heading } from '../heading'
-
+import 'styled-components/macro'
 import { Spinner } from '../spinner'
 import { useMediaQuery } from '../../../hook/useMediaQuery'
 
@@ -125,57 +125,58 @@ const TablePage = <TData extends Data = Data>({
         </Heading>
         <ButtonsWrapper>{actionsTopBar}</ButtonsWrapper>
       </Header>
-
       <TableWrapper {...getTableProps()}>
-        <TableHeader hasScroll={hasScroll} css={[isLoading && tw`opacity-30 pointer-events-none`]}>
-          {headerGroups.map((headerGroup) => (
-            <Row {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => {
-                const isSorted = sortBy === column.id
-                const isSortedDesc = sortDirection === 'descending'
-                return (
-                  <CellStyled
-                    {...column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))}
-                    css={[
-                      column.tw,
-                      tw`select-none`,
-                      !!column.isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
-                      justifyVariants[column.justify || 'center'],
-                    ]}
-                  >
-                    {isSorted &&
-                      column.justify === 'end' &&
-                      (isSortedDesc ? (
-                        <MdOutlineArrowDropUp tw="text-xl flex-shrink-0" />
-                      ) : (
-                        <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
-                      ))}
-                    <span
-                      tw="mx-5 whitespace-nowrap"
+        {isScreenXl && (
+          <TableHeader hasScroll={hasScroll} css={[isLoading && tw`opacity-30 pointer-events-none`]}>
+            {headerGroups.map((headerGroup) => (
+              <Row {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => {
+                  const isSorted = sortBy === column.id
+                  const isSortedDesc = sortDirection === 'descending'
+                  return (
+                    <CellStyled
+                      {...column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))}
                       css={[
-                        column.justify === 'start' && tw`ml-0`,
-                        column.justify === 'end' && tw`mr-0`,
-                        column.justify === 'end' && isSorted && tw`ml-0`,
-                        isSorted && tw`mr-0`,
-                        column.disableSortBy && tw`m-0`,
+                        column.tw,
+                        tw`select-none`,
+                        !!column.isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
+                        justifyVariants[column.justify || 'center'],
                       ]}
                     >
-                      {column.render('Header')}
-                    </span>
+                      {isSorted &&
+                        column.justify === 'end' &&
+                        (isSortedDesc ? (
+                          <MdOutlineArrowDropUp tw="text-xl flex-shrink-0" />
+                        ) : (
+                          <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
+                        ))}
+                      <span
+                        tw="mx-5 whitespace-nowrap"
+                        css={[
+                          column.justify === 'start' && tw`ml-0`,
+                          column.justify === 'end' && tw`mr-0`,
+                          column.justify === 'end' && isSorted && tw`ml-0`,
+                          isSorted && tw`mr-0`,
+                          column.disableSortBy && tw`m-0`,
+                        ]}
+                      >
+                        {column.render('Header')}
+                      </span>
 
-                    {isSorted &&
-                      column.justify !== 'end' &&
-                      (isSortedDesc ? (
-                        <MdOutlineArrowDropUp tw="text-xl flex-shrink-0" />
-                      ) : (
-                        <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
-                      ))}
-                  </CellStyled>
-                )
-              })}
-            </Row>
-          ))}
-        </TableHeader>
+                      {isSorted &&
+                        column.justify !== 'end' &&
+                        (isSortedDesc ? (
+                          <MdOutlineArrowDropUp tw="text-xl flex-shrink-0" />
+                        ) : (
+                          <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
+                        ))}
+                    </CellStyled>
+                  )
+                })}
+              </Row>
+            ))}
+          </TableHeader>
+        )}
         <div tw="relative">
           {isLoading && <Spinner size="base" color="green" overlay="white" />}
           <ListContainer ref={ref}>

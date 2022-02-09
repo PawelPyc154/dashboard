@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Cell } from 'react-table'
 import tw from 'twin.macro'
 import { Heading } from '../heading'
+import 'styled-components/macro'
 
 interface MobilePropertyWrapperProps {
   children: ReactNode

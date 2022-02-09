@@ -25,6 +25,7 @@ const Navigation = () => {
           <LinksGroup onClick={() => setIsOpenMenu(false)}>
             <NavLink to="/employers">Employers</NavLink>
             <NavLink to="/">Job offerts</NavLink>
+            <NavLink to="/secondTable">SecondTable</NavLink>
           </LinksGroup>
           <NavLink tw="self-end" to="/" onClick={() => setIsOpenMenu(false)}>
             Settings

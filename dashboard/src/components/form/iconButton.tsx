@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 import tw from 'twin.macro'
+import 'styled-components/macro'
 
 const colors = {
   white: tw`bg-white hover:bg-gray-100`,

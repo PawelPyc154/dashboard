@@ -7,6 +7,7 @@ import { Spinner } from './components/common/spinner'
 const Employers = lazy(() => import('./pages/employers'))
 const Applications = lazy(() => import('./pages/applications/applications'))
 const MyJobOfferts = lazy(() => import('./pages/myJobOfferts/myJobOfferts'))
+const SecondTable = lazy(() => import('./pages/secondTable/secondTable'))
 
 const App = () => (
   <Containter>
@@ -17,6 +18,7 @@ const App = () => (
           <Route path="" element={<Employers />} />
           <Route path="/applications/:jobOfferId" element={<Applications />} />
           <Route path="/my-job-offerts" element={<MyJobOfferts />} />
+          <Route path="/secondTable" element={<SecondTable />} />
         </Routes>
       </Suspense>
     </Wrapper>

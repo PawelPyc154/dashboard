@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 import tw from 'twin.macro'
 import { Spinner } from '../common/spinner'
+import 'styled-components/macro'
 
 const colors = {
   white: tw`bg-white hover:bg-gray-100 text-black`,

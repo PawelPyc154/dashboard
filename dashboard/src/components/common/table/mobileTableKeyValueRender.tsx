@@ -1,5 +1,6 @@
 import { Cell } from 'react-table'
 import tw from 'twin.macro'
+import 'styled-components/macro'
 
 interface MobileTableKeyValueRenderProps {
   cell: Cell<any>

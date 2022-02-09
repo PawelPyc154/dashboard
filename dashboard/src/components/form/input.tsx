@@ -1,6 +1,7 @@
 import tw from 'twin.macro'
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes, ReactNode } from 'react'
 import { Label } from './label'
+import 'styled-components/macro'
 
 type InputBaseProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
