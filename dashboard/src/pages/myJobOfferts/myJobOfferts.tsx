@@ -211,13 +211,13 @@ const MyJobOfferts = () => {
     applications: number
   }> = useMemo(
     () => [
-      {
-        accessor: 'title',
-        Header: 'Title',
-        justify: 'start',
+      // {
+      //   accessor: 'title',
+      //   Header: 'Title',
+      //   justify: 'start',
 
-        Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
-      },
+      //   Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
+      // },
       {
         accessor: 'applications',
         Header: 'Applications',
@@ -228,27 +228,27 @@ const MyJobOfferts = () => {
           </Link>
         ),
       },
-      {
-        accessor: 'views',
-        Header: 'Views',
-        width: 75,
-      },
+      // {
+      //   accessor: 'views',
+      //   Header: 'Views',
+      //   width: 75,
+      // },
       {
         accessor: 'status',
         Header: 'Status',
         width: 75,
         Cell: ({ value }) => <OfferStatus status={value} />,
       },
-      {
-        accessor: 'publishedAt',
-        Header: 'Published at',
-        width: 75,
-      },
-      {
-        accessor: 'expirationAt',
-        Header: 'Expiration at',
-        width: 80,
-      },
+      // {
+      //   accessor: 'publishedAt',
+      //   Header: 'Published at',
+      //   width: 75,
+      // },
+      // {
+      //   accessor: 'expirationAt',
+      //   Header: 'Expiration at',
+      //   width: 80,
+      // },
       {
         accessor: 'id',
         justify: 'end',
