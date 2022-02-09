@@ -256,7 +256,7 @@ const MyJobOfferts = () => {
         disableSortBy: true,
         isFixedWidth: true,
         Cell: ({ ids }) => (
-          <ButtonsWrapper>
+          <ButtonsWrapper tw="hidden">
             <MyJobOffertsConfirmPublishDialogs
               ids={ids}
               trigger={
@@ -341,15 +341,18 @@ const MyJobOfferts = () => {
           </Tooltip>
         </>
       }
-      actionsOnSelectedElements={({ selectedElements, ids }) => (
-        <ButtonsWrapper tw="hidden xl:flex gap-2">
-          <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Publish</Button>} />
-          <MyJobOffertsConfirmPromoteDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Promote</Button>} />
-          <MyJobOffertsConfirmDuplicateDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>} />
-          <MyJobOffertsConfirmCloseDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Close</Button>} />
-          <MyJobOffertsConfirmRemoveDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Delete</Button>} />
-        </ButtonsWrapper>
-      )}
+      actionsOnSelectedElements={({ selectedElements, ids }) => {
+        console.log(ids)
+        return (
+          <ButtonsWrapper tw="hidden xl:flex gap-2">
+            <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Publish</Button>} />
+            <MyJobOffertsConfirmPromoteDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Promote</Button>} />
+            <MyJobOffertsConfirmDuplicateDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>} />
+            <MyJobOffertsConfirmCloseDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Close</Button>} />
+            <MyJobOffertsConfirmRemoveDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Delete</Button>} />
+          </ButtonsWrapper>
+        )
+      }}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
         <MobilePropertyWrapper actionsCell={id} heading={title}>
           <MobileTableKeyValueRender cell={status} />
