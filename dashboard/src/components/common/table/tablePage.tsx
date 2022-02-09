@@ -10,6 +10,7 @@ import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { Heading } from '../heading'
 
 import { Spinner } from '../spinner'
+import { useMediaQuery } from '../../../hook/useMediaQuery'
 
 const justifyVariants = {
   start: tw`justify-start`,
@@ -114,6 +115,7 @@ const TablePage = <TData extends Data = Data>({
   }, [state.sortBy, setQuery])
 
   const { ref, hasScroll } = useElementSize<HTMLDivElement>()
+  const { isScreenXl } = useMediaQuery()
   return (
     <Container>
       <Header>
@@ -134,9 +136,12 @@ const TablePage = <TData extends Data = Data>({
                 return (
                   <CellStyled
                     {...column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))}
-                    isFixedWidth={!!column.isFixedWidth}
-                    justify={column.justify}
-                    css={[column.tw, tw`select-none`]}
+                    css={[
+                      column.tw,
+                      tw`select-none`,
+                      !!column.isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
+                      justifyVariants[column.justify || 'center'],
+                    ]}
                   >
                     {isSorted &&
                       column.justify === 'end' &&
@@ -180,21 +185,27 @@ const TablePage = <TData extends Data = Data>({
 
                 return (
                   <ListItem>
-                    <ListItemRow {...row.getRowProps()}>
-                      {row.cells.map((cell) => (
-                        <CellStyled
-                          {...cell.getCellProps()}
-                          isFixedWidth={!!cell.column.isFixedWidth}
-                          justify={cell.column.justify}
-                          css={[cell.column.tw]}
-                        >
-                          {cell.render('Cell')}
-                        </CellStyled>
-                      ))}
-                    </ListItemRow>
-                    <MobileListWrapper>
-                      {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
-                    </MobileListWrapper>
+                    {isScreenXl && (
+                      <ListItemRow {...row.getRowProps()}>
+                        {row.cells.map((cell) => (
+                          <CellStyled
+                            {...cell.getCellProps()}
+                            css={[
+                              cell.column.tw,
+                              !!cell.column.isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
+                              justifyVariants[cell.column.justify || 'center'],
+                            ]}
+                          >
+                            {cell.render('Cell')}
+                          </CellStyled>
+                        ))}
+                      </ListItemRow>
+                    )}
+                    {!isScreenXl && (
+                      <MobileListWrapper>
+                        {mobileBody(Object.fromEntries(row.cells.map((item) => [[item.column.id], item])))}
+                      </MobileListWrapper>
+                    )}
                   </ListItem>
                 )
               })}
@@ -226,13 +237,8 @@ const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
 const ListContainer = tw.div`xl:(h-[calc(100vh - 168px)] overflow-auto rounded-sm)`
 const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100)`
 const ListItem = tw.div`bg-white rounded-md xl:rounded-none hover:bg-gray-300`
-const Row = tw.div`items-center px-1 `
+const Row = tw.div`items-center px-1`
 const ListItemRow = tw(Row)`py-2 !hidden xl:!flex`
 const MobileListWrapper = tw.div`xl:hidden`
-const CellStyled = styled.div(({ isFixedWidth, justify = 'center' }: { isFixedWidth: boolean; justify?: JustifyVariants }) => [
-  tw`px-2 flex`,
-  isFixedWidth && tw`!flex-grow-0 !flex-shrink-0`,
-  justifyVariants[justify],
-])
-
+const CellStyled = tw.div`px-2 flex`
 export { TablePage }

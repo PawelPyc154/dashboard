@@ -4,8 +4,9 @@ import 'twin.macro'
 import 'styled-components/macro'
 
 import { Link } from 'react-router-dom'
-import { MdHelpOutline } from 'react-icons/md'
-
+import { MdEdit, MdHelpOutline, MdOutlineDelete, MdOutlineVerified, MdPublishedWithChanges } from 'react-icons/md'
+import { HiOutlineDuplicate } from 'react-icons/hi'
+import { CgCloseO } from 'react-icons/cg'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
@@ -254,7 +255,65 @@ const MyJobOfferts = () => {
         width: 274,
         disableSortBy: true,
         isFixedWidth: true,
-        Cell: () => <ButtonsWrapper>test</ButtonsWrapper>,
+        Cell: ({ ids }) => (
+          <ButtonsWrapper>
+            <MyJobOffertsConfirmPublishDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Publish">
+                  <IconButton color="gray" size="md">
+                    <MdPublishedWithChanges size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <MyJobOffertsConfirmPromoteDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Promote">
+                  <IconButton color="gray" size="md">
+                    <MdOutlineVerified size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <MyJobOffertsConfirmDuplicateDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Duplicate">
+                  <IconButton color="gray" size="md">
+                    <HiOutlineDuplicate size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <Tooltip content="Edit">
+              <IconButton color="gray" size="md">
+                <MdEdit size="22" />
+              </IconButton>
+            </Tooltip>
+            <MyJobOffertsConfirmCloseDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Close">
+                  <IconButton color="gray" size="md">
+                    <CgCloseO size="21" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <MyJobOffertsConfirmRemoveDialogs
+              ids={ids}
+              trigger={
+                <Tooltip content="Remove">
+                  <IconButton color="gray" size="md">
+                    <MdOutlineDelete size="22" />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+          </ButtonsWrapper>
+        ),
       },
     ],
     [],
@@ -279,18 +338,15 @@ const MyJobOfferts = () => {
           </Tooltip>
         </>
       }
-      actionsOnSelectedElements={({ selectedElements, ids }) => {
-        console.log(ids)
-        return (
-          <ButtonsWrapper tw="hidden xl:flex gap-2">
-            <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Publish</Button>} />
-            <MyJobOffertsConfirmPromoteDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Promote</Button>} />
-            <MyJobOffertsConfirmDuplicateDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>} />
-            <MyJobOffertsConfirmCloseDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Close</Button>} />
-            <MyJobOffertsConfirmRemoveDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Delete</Button>} />
-          </ButtonsWrapper>
-        )
-      }}
+      actionsOnSelectedElements={({ selectedElements, ids }) => (
+        <ButtonsWrapper tw="hidden xl:flex gap-2">
+          <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Publish</Button>} />
+          <MyJobOffertsConfirmPromoteDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Promote</Button>} />
+          <MyJobOffertsConfirmDuplicateDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Duplicate</Button>} />
+          <MyJobOffertsConfirmCloseDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Close</Button>} />
+          <MyJobOffertsConfirmRemoveDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Delete</Button>} />
+        </ButtonsWrapper>
+      )}
       mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
         <MobilePropertyWrapper actionsCell={id} heading={title}>
           <MobileTableKeyValueRender cell={status} />
