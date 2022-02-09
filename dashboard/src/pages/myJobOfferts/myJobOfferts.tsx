@@ -211,13 +211,12 @@ const MyJobOfferts = () => {
     applications: number
   }> = useMemo(
     () => [
-      // {
-      //   accessor: 'title',
-      //   Header: 'Title',
-      //   justify: 'start',
-
-      //   Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
-      // },
+      {
+        accessor: 'title',
+        Header: 'Title',
+        justify: 'start',
+        Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
+      },
       {
         accessor: 'applications',
         Header: 'Applications',
@@ -353,13 +352,13 @@ const MyJobOfferts = () => {
           </ButtonsWrapper>
         )
       }}
-      mobileBody={({ title, status, publishedAt, expirationAt, applications, views, id }) => (
+      mobileBody={({ title, status, applications, id }) => (
         <MobilePropertyWrapper actionsCell={id} heading={title}>
           <MobileTableKeyValueRender cell={status} />
           <MobileTableKeyValueRender cell={applications} />
-          <MobileTableKeyValueRender cell={views} />
-          <MobileTableKeyValueRender cell={expirationAt} />
-          <MobileTableKeyValueRender cell={publishedAt} />
+          {/* <MobileTableKeyValueRender cell={views} /> */}
+          {/* <MobileTableKeyValueRender cell={expirationAt} /> */}
+          {/* <MobileTableKeyValueRender cell={publishedAt} /> */}
         </MobilePropertyWrapper>
       )}
     />
