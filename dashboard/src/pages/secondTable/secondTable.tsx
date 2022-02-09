@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
-import { MdHelpOutline } from 'react-icons/md'
+import { MdEdit, MdHelpOutline, MdOutlineDelete, MdOutlineVerified, MdPublishedWithChanges } from 'react-icons/md'
 import tw from 'twin.macro'
+import { CgCloseO } from 'react-icons/cg'
+import { HiOutlineDuplicate } from 'react-icons/hi'
 import { Heading } from '../../components/common/heading'
 import { Tooltip } from '../../components/common/tooltip'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
@@ -289,51 +291,56 @@ const Actions = ({ id }: ActionsProps) => (
     <MyJobOffertsConfirmPublishDialogs
       ids={[id]}
       trigger={
-        // <Tooltip content="Publish">
-        <IconButton color="gray" size="md">
-          1
-        </IconButton>
+        <Tooltip content="Publish">
+          <IconButton color="gray" size="md">
+            <MdPublishedWithChanges size="22" />
+          </IconButton>
+        </Tooltip>
       }
     />
     <MyJobOffertsConfirmPromoteDialogs
       ids={[id]}
       trigger={
-        // <Tooltip content="Promote">
-        <IconButton color="gray" size="md">
-          2
-        </IconButton>
+        <Tooltip content="Promote">
+          <IconButton color="gray" size="md">
+            <MdOutlineVerified size="22" />
+          </IconButton>
+        </Tooltip>
       }
     />
     <MyJobOffertsConfirmDuplicateDialogs
       ids={[id]}
       trigger={
-        // <Tooltip content="Duplicate">
-        <IconButton color="gray" size="md">
-          3
-        </IconButton>
+        <Tooltip content="Duplicate">
+          <IconButton color="gray" size="md">
+            <HiOutlineDuplicate size="22" />
+          </IconButton>
+        </Tooltip>
       }
     />
-    {/* <Tooltip content="Edit"> */}
-    <IconButton color="gray" size="md">
-      4
-    </IconButton>
-
+    <Tooltip content="Edit">
+      <IconButton color="gray" size="md">
+        <MdEdit size="22" />
+      </IconButton>
+    </Tooltip>
     <MyJobOffertsConfirmCloseDialogs
       ids={[id]}
       trigger={
-        // <Tooltip content="Close">
-        <IconButton color="gray" size="md">
-          5
-        </IconButton>
+        <Tooltip content="Close">
+          <IconButton color="gray" size="md">
+            <CgCloseO size="21" />
+          </IconButton>
+        </Tooltip>
       }
     />
     <MyJobOffertsConfirmRemoveDialogs
       ids={[id]}
       trigger={
-        // <Tooltip content="Remove">
-        <IconButton color="gray" size="md">
-          6
-        </IconButton>
+        <Tooltip content="Remove">
+          <IconButton color="gray" size="md">
+            <MdOutlineDelete size="22" />
+          </IconButton>
+        </Tooltip>
       }
     />
   </ButtonsWrapper>
