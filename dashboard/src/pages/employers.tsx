@@ -1,18 +1,13 @@
-import { useState } from 'react'
-import { DialogBase } from '../components/common/dialog/dialogBase'
-import { Menu, MenuItem } from '../components/common/menu'
-import { Button } from '../components/form/button'
-import { useDialog } from '../hook/useDialog'
 import 'twin.macro'
 import 'styled-components/macro'
-import { Input } from '../components/form/input'
 
-const Employers = () => {
-  const { isOpenDialog, handleOpenDialog, handleCloseDialog } = useDialog()
-  const [inputValue, setInputValue] = useState('')
-  return (
-    <div tw="flex">
-      <Button onClick={handleOpenDialog}>open Dialog </Button>
+const Employers = () => (
+  // const { isOpenDialog, handleOpenDialog, handleCloseDialog } = useDialog()
+  // const [inputValue, setInputValue] = useState('')
+
+  <div tw="flex">
+    fds
+    {/* <Button onClick={handleOpenDialog}>open Dialog </Button>
       {isOpenDialog && (
         <DialogBase title="Test dialog" onCloseDialog={handleCloseDialog}>
           test
@@ -24,9 +19,8 @@ const Employers = () => {
 
       {inputValue}
       <div tw="font-bold">{localStorage.getItem('test')}</div>
-      <Menu openButton={<Button>open Dialog </Button>}>{() => <MenuItem>test</MenuItem>}</Menu>
-    </div>
-  )
-}
+      <Menu openButton={<Button>open Dialog </Button>}>{() => <MenuItem>test</MenuItem>}</Menu> */}
+  </div>
+)
 
 export default Employers

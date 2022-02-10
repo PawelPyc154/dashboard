@@ -1,10 +1,9 @@
-import tw, { styled, TwStyle } from 'twin.macro'
+import tw, { css, styled, theme, TwStyle } from 'twin.macro'
 import { useTable, useFlexLayout, useRowSelect, Column, Row as RowType, Cell, IdType, useSortBy } from 'react-table'
 import { ReactNode, useEffect } from 'react'
 import { useQueryParams, StringParam } from 'use-query-params'
 import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md'
 import { Pagination } from '../pagination'
-import { useElementSize } from '../../../hook/useElementSize'
 import { IndeterminateCheckbox } from './indeterminateCheckbox'
 import { ButtonsWrapper } from '../../form/buttonsWrapper'
 import { Heading } from '../heading'
@@ -97,6 +96,9 @@ const TablePage = <TData extends Data = Data>({
   )
 
   useEffect(() => {
+    console.log('render')
+  })
+  useEffect(() => {
     const sortId = state.sortBy[0]?.id
     const isDesc = state.sortBy[0]?.desc
     if (sortId !== sortBy || (isDesc && (isDesc ? 'descending' : 'ascending')) !== sortDirection) {
@@ -113,8 +115,8 @@ const TablePage = <TData extends Data = Data>({
       }
     }
   }, [state.sortBy, setQuery])
+  // const { hasScroll, ref } = useHasScroll<HTMLDivElement>()
 
-  const { ref, hasScroll } = useElementSize<HTMLDivElement>()
   const { isScreenXl } = useMediaQuery()
   return (
     <Container>
@@ -127,7 +129,7 @@ const TablePage = <TData extends Data = Data>({
       </Header>
       <TableWrapper {...getTableProps()}>
         {isScreenXl && (
-          <TableHeader hasScroll={hasScroll} css={[isLoading && tw`opacity-30 pointer-events-none`]}>
+          <TableHeader css={[isLoading && tw`opacity-30 pointer-events-none`]}>
             {headerGroups.map((headerGroup) => (
               <Row {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => {
@@ -179,7 +181,7 @@ const TablePage = <TData extends Data = Data>({
         )}
         <div tw="relative">
           {isLoading && <Spinner size="base" color="green" overlay="white" />}
-          <ListContainer ref={ref}>
+          <ListContainer>
             <ListWrapper {...getTableBodyProps()}>
               {rows.map((row) => {
                 prepareRow(row)
@@ -230,12 +232,17 @@ const TablePage = <TData extends Data = Data>({
 const Container = tw.main`grid gap-2 content-start grid-rows-[max-content minmax(calc(100vh - 168px), 1fr) max-content] sm:grid-rows-[max-content minmax(calc(100vh - 176px), 1fr) max-content] xl:grid-rows-[max-content calc(100vh - 128px) max-content]`
 const Header = tw.div`flex justify-between relative items-center`
 const TableFooter = tw.div`h-10 flex justify-end xl:justify-between`
-const TableWrapper = tw.div`grid content-start relative`
-const TableHeader = styled.div(({ hasScroll }: { hasScroll: boolean }) => [
-  tw`hidden xl:flex h-8  text-xs 2xl:text-sm`,
-  hasScroll && tw`pr-1.5`,
+const TableWrapper = styled.div(() => [
+  tw`grid content-start relative overflow-y-scroll`,
+  css`
+   &::-webkit-scrollbar-thumb {
+      border-top: solid 32px ${theme('colors.gray.200')};
+  },
+   
+  `,
 ])
-const ListContainer = tw.div`xl:(h-[calc(100vh - 168px)] overflow-auto rounded-sm)`
+const TableHeader = tw.div`hidden xl:flex h-8 text-xs 2xl:text-sm sticky top-0 z-20 bg-gray-200`
+const ListContainer = tw.div`xl:(h-[calc(100vh - 168px)]  rounded-sm)`
 const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100)`
 const ListItem = tw.div`bg-white rounded-md xl:rounded-none hover:bg-gray-300`
 const Row = tw.div`items-center px-1`
