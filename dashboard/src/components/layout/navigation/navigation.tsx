@@ -17,16 +17,11 @@ const Navigation = () => {
         <LinksWrapper>
           {userType === 'employer' && (
             <LinksGroup onClick={() => setIsOpenMenu(false)}>
-              <NavLink to="">Dashboard</NavLink>
-              <NavLink to="/table-page">Employer profile</NavLink>
-              <NavLink to="/my-job-offerts">My job offerts</NavLink>
+              <NavLink to="/employer">Dashboard</NavLink>
+              <NavLink to="/employer/my-job-offerts">My job offerts</NavLink>
             </LinksGroup>
           )}
-          <LinksGroup onClick={() => setIsOpenMenu(false)}>
-            <NavLink to="/employers">Employers</NavLink>
-            <NavLink to="/">Job offerts</NavLink>
-            <NavLink to="/secondTable">SecondTable</NavLink>
-          </LinksGroup>
+          <LinksGroup onClick={() => setIsOpenMenu(false)} />
           <NavLink tw="self-end" to="/" onClick={() => setIsOpenMenu(false)}>
             Settings
           </NavLink>

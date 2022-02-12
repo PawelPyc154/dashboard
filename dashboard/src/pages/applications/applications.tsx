@@ -2,13 +2,12 @@
 import { useMemo } from 'react'
 import 'twin.macro'
 import 'styled-components/macro'
-import { MdCheck, MdClose, MdOutlineDelete, MdOutlineStar, MdOutlineStarBorder } from 'react-icons/md'
+import { MdCheck, MdClose, MdHelpOutline, MdOutlineDelete, MdOutlineStar, MdOutlineStarBorder } from 'react-icons/md'
 import { Columns, TablePage } from '../../components/common/table/tablePage'
 import { Button } from '../../components/form/button'
 import { ButtonsWrapper } from '../../components/form/buttonsWrapper'
 import { MobileTableKeyValueRender } from '../../components/common/table/mobileTableKeyValueRender'
 import { MobilePropertyWrapper } from '../../components/common/table/mobilePropertyWrapper'
-import { AddEditMyJobOfferDialog } from './components/addEditMyJobOffer/addEditMyJobOfferDialog'
 import {
   MyJobOffertsConfirmPublishDialogs,
   MyJobOffertsConfirmPromoteDialogs,
@@ -16,8 +15,19 @@ import {
 } from './components/myJobOffertsConfirmDialogs'
 import { IconButton } from '../../components/form/iconButton'
 import { Tooltip } from '../../components/common/tooltip'
+import { InputSearch } from '../../components/form/inputSearch'
+import { MyJobOffertsFilters } from '../myJobOfferts/components/myJobOffertsFilters'
 
-const data = [
+interface Data {
+  id: number
+  status: 'new' | 'rejected' | 'accepted' | 'open'
+  publishedAt: string
+  expirationAt: string
+  fullName: string
+  views: number
+  applications: number
+}
+const data: Data[] = [
   {
     id: 1,
     fullName: 'Paweł Pyc',
@@ -25,26 +35,17 @@ const data = [
     applications: 55,
     publishedAt: '01.12.2021',
     expirationAt: '01.12.2021',
-    status: 'Published',
+    status: 'new',
   },
 ]
 
 const Applications = () => {
-  const columns: Columns<{
-    id: number
-    status: string
-    publishedAt: string
-    expirationAt: string
-    fullName: string
-    views: number
-    applications: number
-  }> = useMemo(
+  const columns: Columns<Data> = useMemo(
     () => [
       {
         accessor: 'fullName',
         Header: 'Full name',
         justify: 'start',
-
         Cell: ({ value }) => <div tw="font-semibold">{value}</div>,
       },
       {
@@ -123,7 +124,17 @@ const Applications = () => {
       columns={columns}
       totalItems={data.length}
       isLoading={false}
-      actionsTopBar={<AddEditMyJobOfferDialog />}
+      actionsTopBar={
+        <>
+          <InputSearch tw="hidden xl:block" />
+          <MyJobOffertsFilters />
+          <Tooltip content="Help">
+            <IconButton>
+              <MdHelpOutline size="22" />
+            </IconButton>
+          </Tooltip>
+        </>
+      }
       actionsOnSelectedElements={({ selectedElements, ids }) => (
         <ButtonsWrapper tw="hidden xl:flex gap-2">
           <MyJobOffertsConfirmPublishDialogs ids={ids} trigger={<Button disabled={!selectedElements.length}>Accept</Button>} />

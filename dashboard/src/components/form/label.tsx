@@ -6,6 +6,6 @@ interface LabelProps {
 }
 const Label = ({ children }: LabelProps) => <Container htmlFor="todo">{children}</Container>
 
-const Container = tw.label`text-sm`
+const Container = tw.label`text-sm font-medium`
 
 export { Label }

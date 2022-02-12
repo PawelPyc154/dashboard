@@ -41,7 +41,7 @@ const DialogBase = ({ children, size = '2xl', title, onCloseDialog }: DialogBase
 )
 
 const DialogOverlayStyled = tw(DialogOverlay)`z-50 p-4`
-const DialogContentStyled = tw(DialogContent)`rounded-md !p-0 relative bg-white overflow-hidden w-full mt-12 xl:mt-20`
+const DialogContentStyled = tw(DialogContent)`rounded-md !p-0 relative overflow-hidden w-full mt-12 xl:mt-20`
 const TitleWrapper = tw(Heading)`border-b border-gray-200 py-2 pl-4 pr-4 relative bg-green-600 text-white`
 const ContentWrapper = tw.div`p-4`
 const CloseButton = tw.button`p-2 absolute right-1 top-1/2 -translate-y-1/2`

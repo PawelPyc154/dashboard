@@ -10,6 +10,7 @@ const InputSearch = ({ className }: InputSearchProps) => {
 
   return (
     <Input
+      color="white"
       className={className}
       icon={<MdSearch />}
       placeholder="Search..."

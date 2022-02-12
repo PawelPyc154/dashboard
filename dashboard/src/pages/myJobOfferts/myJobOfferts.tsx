@@ -171,33 +171,6 @@ const data: Data[] = [
     expirationAt: '01.12.2021',
     status: 'active',
   },
-  {
-    id: 16,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'active',
-  },
-  {
-    id: 17,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'active',
-  },
-  {
-    id: 222,
-    title: 'Lorem ipsum',
-    views: 123321,
-    applications: 55,
-    publishedAt: '01.12.2021',
-    expirationAt: '01.12.2021',
-    status: 'active',
-  },
 ]
 
 const MyJobOfferts = () => {
@@ -223,7 +196,7 @@ const MyJobOfferts = () => {
         Header: 'Applications',
         width: 75,
         Cell: ({ value, row }) => (
-          <Link to={`/applications/${row.original.id}`} tw="underline">
+          <Link to={`/employer/applications/${row.original.id}`} tw="underline">
             {value}
           </Link>
         ),

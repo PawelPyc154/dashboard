@@ -85,9 +85,9 @@ const TablePage = <TData extends Data = Data>({
           id: 'selection',
           Header: ({ getToggleAllRowsSelectedProps }) => <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />,
           width: 40,
-          justify: 'center',
+          justify: 'start',
           isFixedWidth: true,
-          tw: tw`hidden xl:block`,
+          tw: tw`hidden xl:flex`,
           Cell: ({ row }: { row: RowType<{}> }) => <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />,
         },
         ...cols,
@@ -95,9 +95,6 @@ const TablePage = <TData extends Data = Data>({
     },
   )
 
-  useEffect(() => {
-    console.log('render')
-  })
   useEffect(() => {
     const sortId = state.sortBy[0]?.id
     const isDesc = state.sortBy[0]?.desc
@@ -115,7 +112,6 @@ const TablePage = <TData extends Data = Data>({
       }
     }
   }, [state.sortBy, setQuery])
-  // const { hasScroll, ref } = useHasScroll<HTMLDivElement>()
 
   const { isScreenXl } = useMediaQuery()
   return (
@@ -153,7 +149,7 @@ const TablePage = <TData extends Data = Data>({
                           <MdOutlineArrowDropDown tw="text-xl flex-shrink-0" />
                         ))}
                       <span
-                        tw="mx-5 whitespace-nowrap"
+                        tw="mx-5 whitespace-nowrap "
                         css={[
                           column.justify === 'start' && tw`ml-0`,
                           column.justify === 'end' && tw`mr-0`,
@@ -229,11 +225,11 @@ const TablePage = <TData extends Data = Data>({
   )
 }
 
-const Container = tw.main`grid gap-2 content-start grid-rows-[max-content minmax(calc(100vh - 168px), 1fr) max-content] sm:grid-rows-[max-content minmax(calc(100vh - 176px), 1fr) max-content] xl:grid-rows-[max-content calc(100vh - 128px) max-content]`
-const Header = tw.div`flex justify-between relative items-center`
-const TableFooter = tw.div`h-10 flex justify-end xl:justify-between`
+const Container = tw.main`grid content-start grid-rows-[max-content minmax(calc(100vh - 168px), 1fr) max-content] sm:grid-rows-[max-content minmax(calc(100vh - 176px), 1fr) max-content] xl:grid-rows-[max-content 1fr max-content]`
+const Header = tw.div`flex justify-between relative items-center mb-2 sm:mb-3 xl:mb-4`
+const TableFooter = tw.div`h-10 flex justify-end xl:(justify-between) mt-4`
 const TableWrapper = styled.div(() => [
-  tw`grid content-start relative overflow-y-scroll`,
+  tw`grid content-start relative xl:overflow-y-auto`,
   css`
    &::-webkit-scrollbar-thumb {
       border-top: solid 32px ${theme('colors.gray.200')};
@@ -242,9 +238,9 @@ const TableWrapper = styled.div(() => [
   `,
 ])
 const TableHeader = tw.div`hidden xl:flex h-8 text-xs 2xl:text-sm sticky top-0 z-20 bg-gray-200`
-const ListContainer = tw.div`xl:(h-[calc(100vh - 168px)]  rounded-sm)`
+const ListContainer = tw.div`rounded-sm`
 const ListWrapper = tw.div`shadow-sm content-start grid gap-3 lg:gap-4 xl:(gap-0 divide-y divide-gray-100)`
-const ListItem = tw.div`bg-white rounded-md xl:rounded-none hover:bg-gray-300`
+const ListItem = tw.div`bg-white rounded-md xl:rounded-none xl:hover:bg-gray-50`
 const Row = tw.div`items-center px-1`
 const ListItemRow = tw(Row)`py-2 !hidden xl:!flex`
 const MobileListWrapper = tw.div`xl:hidden`
