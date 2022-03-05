@@ -1,4 +1,4 @@
-[demo](https://dashboard-zeta-five.vercel.app/)
+[demo](pawelpyc.pl)
 
 ## TODO:
 
