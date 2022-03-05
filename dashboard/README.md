@@ -1,4 +1,4 @@
-[demo](pawelpyc.pl)
+[demo](https://pawelpyc.pl/app)
 
 ## TODO:
 
